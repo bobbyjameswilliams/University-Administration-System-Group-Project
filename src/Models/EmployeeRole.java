@@ -1,4 +1,4 @@
-package users;
+package Models;
 
 public enum EmployeeRole{
 
@@ -8,7 +8,7 @@ public enum EmployeeRole{
 
 	private String employeeRole;
 
-	EmployeeRole(String employeeRole) {
+	EmployeeRole (String employeeRole) {
 			this.employeeRole = employeeRole;
 		}
 		
@@ -18,7 +18,7 @@ public enum EmployeeRole{
 
 		/**
 		 * Get a EmployeeRole from the specified name.
-		 * @param EmployeeName the name of the EmployeeRole to get. These are the values in the brackets next to the enum value declared above.  
+		 * @param employeeRole the name of the EmployeeRole to get. These are the values in the brackets next to the enum value declared above.
 		 * @return The corresponding EmployeeRole
 		 */
 		public static EmployeeRole fromRoleName(String employeeRole) {
