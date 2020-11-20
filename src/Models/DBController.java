@@ -17,5 +17,16 @@ public class DBController {
         }
         return null;
     }
+    public static Statement createStatement(){
+    	
+        try(Connection con = getConnection()){
+        	Statement stm = con.createStatement();
+            return stm;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
 
 }
