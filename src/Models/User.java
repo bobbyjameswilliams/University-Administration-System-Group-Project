@@ -6,12 +6,11 @@ public class User {
 	private String surname;
 	private String emailAddress;
 	
-	public User(String username,String forename,String surname,String emailadress) {
+	public User(String username,String forename,String surname,String emailAddress) {
 		this.username = username;
 		this.forename = forename;
 		this.surname = surname;
-		this.emailAddress = emailadress;
-				
+		this.emailAddress = emailAddress;
 	}
 	
 	public String getUsername() {
@@ -41,5 +40,12 @@ public class User {
 	public void setEmailAddress(String emailAddress) {
 	    this.emailAddress = emailAddress;
 	}
-	
+
+	public String getUserDetails() {
+		return getUsername() + "','" + getForename() + "','" + getSurname() + "','" + getEmailAddress();
+	}
+
+	protected int boolToInt(boolean x){
+		return x ? 1 : 0 ;
+	}
 }

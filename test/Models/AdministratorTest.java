@@ -25,4 +25,24 @@ class AdministratorTest {
         administrator.removeUniversityDepartment("Engineering");
     }
 
+    @Test
+    public void addEmployeeTest(){
+        // Obviously can't add your irl, but youre not gonna be able to login if you dont exist
+        administrator.addEmployee(administrator,EmployeeRole.ADMIN);
+        administrator.removeEmployee(administrator.getEmployeeNumber());
+    }
+
+    @Test
+    public void addModuleTest(){
+        administrator.addModule("COM2004",35,2);
+        administrator.removeModule("COM2004");
+    }
+
+    @Test
+    public void degreeTest(){
+        administrator.addDegree("Computer Science",3,false);
+        // This will ned to be changed
+        administrator.removeDegree("COM060");
+    }
+
 }
