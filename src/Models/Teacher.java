@@ -23,11 +23,8 @@ public class Teacher extends Employee {
     	    			   "WHERE employeeNumber='"+super.employeeNumber+"';";
     	    Statement stmt = null;
     	    try {
-    	    	stmt = DBController.getConnection().createStatement();
+    	      stmt = DBController.getConnection().createStatement();
     	      ResultSet rs = stmt.executeQuery(query);
-    	      while(rs.next()) {
-    	  		System.out.println(rs.getInt("regNumber"));
-    	  		}
     	      return rs;
     	      }
     	     catch (SQLException e) {
@@ -51,11 +48,8 @@ public class Teacher extends Employee {
 	    			   "WHERE employeeNumber='"+employeeNumber+"';";
 	    Statement stmt = null;
 	    try {
-	    	stmt = DBController.getConnection().createStatement();
+	      stmt = DBController.getConnection().createStatement();
 	      ResultSet rs = stmt.executeQuery(query);
-	      while(rs.next()) {
-	  		System.out.println(rs.getInt("regNumber"));
-	  		}
 	      return rs;
 	      }
 	     catch (SQLException e) {
@@ -195,18 +189,6 @@ public class Teacher extends Employee {
 
     }
     
-public static void main(String[] args) throws SQLException {
-        
-	Teacher teacher = new Teacher("username", "forename","surname", "emailAddress",1);
-	ResultSet t = teacher.getTutees();
-	
-	
-
-
-
-	
-	System.out.print("finnnished");
-    }
 }
 
 
