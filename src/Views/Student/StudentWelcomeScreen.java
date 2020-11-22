@@ -16,6 +16,7 @@ public class StudentWelcomeScreen extends WelcomeScreen {
     private JTable modulesTable;
     private JLabel welcomeLabel;
     private JLabel personalTutorLabel;
+    private JButton logOutButt;
 
     /**
      *
