@@ -23,10 +23,10 @@ public class StudentWelcomeScreen extends JFrame {
         this.pack();
 
         //instantiating table on model tab
-        DefaultTableModel moduleModel = new DefaultTableModel(moduleColumns, 90);
+        DefaultTableModel moduleModel = new DefaultTableModel(moduleColumns, 0);
         modulesTable.setModel(moduleModel);
         //instantiating table on grades tab
-        DefaultTableModel gradeModel = new DefaultTableModel(gradeColumns, 90);
+        DefaultTableModel gradeModel = new DefaultTableModel(gradeColumns, 0);
         gradesTable.setModel(gradeModel);
 
         //runs methods that update the welcome labels
@@ -37,7 +37,7 @@ public class StudentWelcomeScreen extends JFrame {
 
     public static void main(String[] args) {
         //is here to allow the form to be displayed without external call
-        JFrame frame = new Views.Student.StudentWelcomeScreen("University Admin System", new Object[]{"hello"}, new Object[]{"hey"});
+        JFrame frame = new Views.Student.StudentWelcomeScreen("University Admin System", new Object[]{"Placeholder","for","modules"}, new Object[]{"Placeholder","for","grades"});
         frame.setVisible(true);
     }
 
@@ -48,6 +48,6 @@ public class StudentWelcomeScreen extends JFrame {
 
     private void displayTutorLabel() {
         // TODO: add functionality that displays the users personal tutor
-        welcomeLabel.setText("Your personal tutor is: email:");
+        personalTutorLabel.setText("Your personal tutor is: email:");
     }
 }
