@@ -1,4 +1,4 @@
-package Models;
+package Models.DatabaseBehaviours;
 
 import com.mysql.cj.xdevapi.PreparableStatement;
 

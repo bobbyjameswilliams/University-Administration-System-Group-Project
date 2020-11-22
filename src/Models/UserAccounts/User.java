@@ -1,11 +1,16 @@
-package Models;
+package Models.UserAccounts;
 public class User {
 	
 	private String username;
 	private String forename;
 	private String surname;
 	private String emailAddress;
-	
+
+
+	protected final String url = "jdbc:mysql://stusql.dcs.shef.ac.uk/team045";
+	protected final String user = "team045" ;
+	protected final String password = "5e15b333";
+
 	public User(String username,String forename,String surname,String emailAddress) {
 		this.username = username;
 		this.forename = forename;
@@ -45,7 +50,4 @@ public class User {
 		return getUsername() + "','" + getForename() + "','" + getSurname() + "','" + getEmailAddress();
 	}
 
-	protected int boolToInt(boolean x){
-		return x ? 1 : 0 ;
-	}
 }

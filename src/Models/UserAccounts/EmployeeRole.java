@@ -1,4 +1,4 @@
-package Models;
+package Models.UserAccounts;
 
 public enum EmployeeRole{
 

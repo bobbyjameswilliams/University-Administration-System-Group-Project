@@ -1,14 +1,9 @@
-package Models;
+package Models.UserAccounts;
 
-import org.junit.jupiter.api.BeforeAll;
+import Models.UserAccounts.Administrator;
+import Models.UserAccounts.EmployeeRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class AdministratorTest {
 
@@ -28,7 +23,7 @@ class AdministratorTest {
     @Test
     public void addEmployeeTest(){
         // Obviously can't add your irl, but youre not gonna be able to login if you dont exist
-        administrator.addEmployee(administrator,EmployeeRole.ADMIN);
+        administrator.addEmployee(administrator, EmployeeRole.ADMIN);
         administrator.removeEmployee(administrator.getEmployeeNumber());
     }
 
@@ -40,7 +35,7 @@ class AdministratorTest {
 
     @Test
     public void degreeTest(){
-        administrator.addDegree("Computer Science",3,false);
+        administrator.addDegree("COM060","Computer Science",3,false);
         // This will ned to be changed
         administrator.removeDegree("COM060");
     }

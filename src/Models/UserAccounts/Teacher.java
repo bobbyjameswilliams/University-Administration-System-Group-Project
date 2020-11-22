@@ -1,17 +1,16 @@
-package Models;
+package Models.UserAccounts;
 
-import javax.xml.xpath.XPathEvaluationResult;
+import Models.DatabaseBehaviours.DBController;
+
 import java.sql.*;
 import java.util.*;
 
 public class Teacher extends Employee {
-	
-	
-	
+
     public Teacher (String username,String forename,String surname,String emailAddress,int employeeNumber){
         super(username, forename, surname, emailAddress, employeeNumber);
-        
     }
+
     /** 
      * Get the regNumbers for the tutees of a especific Teacher
      * @return a Result set with all regNumbers from the teacher's tutees
@@ -20,7 +19,7 @@ public class Teacher extends Employee {
     public ResultSet getTutees() throws SQLException {
     	    String query = "SELECT regNumber \n"+
     	    			   "FROM PersonalTutor \n" + 
-    	    			   "WHERE employeeNumber='"+super.employeeNumber+"';";
+    	    			   "WHERE employeeNumber='"+this.getEmployeeNumber()+"';";
     	    Statement stmt = null;
     	    try {
     	      stmt = DBController.getConnection().createStatement();
@@ -71,7 +70,7 @@ public class Teacher extends Employee {
     public ResultSet getModulesTaught() throws SQLException{
     	 String query = "SELECT moduleCode \n"+
   			   			"FROM TeachesModule \n" + 
-  			   			"WHERE employeeNumber='"+super.employeeNumber+"';";
+  			   			"WHERE employeeNumber='"+this.getEmployeeNumber()+"';";
     	 Statement stmt = null;
     	 try {
     		 stmt = DBController.getConnection().createStatement();
