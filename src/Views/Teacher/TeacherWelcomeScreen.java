@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.geom.Dimension2D;
-
+//TODO: Replace the tabbed pane with a jpane so that the tabs can have a scroll pane and also pane at buttom for butts
 public class TeacherWelcomeScreen extends WelcomeScreen {
     private JPanel mainPanel;
     private JTabbedPane tabbedPane1;
