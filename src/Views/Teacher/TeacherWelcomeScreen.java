@@ -10,12 +10,19 @@ import java.awt.geom.Dimension2D;
 public class TeacherWelcomeScreen extends WelcomeScreen {
     private JPanel mainPanel;
     private JTabbedPane tabbedPane1;
-    private JScrollPane assModulesPane;
-    private JScrollPane assStudentsPane;
     private JTable assModulesTable;
     private JTable assStudentsTable;
     private JButton logOutButton;
     private JLabel welcomeLabel;
+    private JPanel assStudentsPane;
+    private JScrollPane assStudentsTableScroll;
+    private JPanel assStudentsActButtPane;
+    private JButton stdtApplyButt;
+    private JPanel assModulesPane;
+    private JScrollPane assModulesTableScroll;
+    private JPanel assignedModulesActButtPane;
+    private JButton viewCohortButt;
+    private JButton studentBreakdownButt;
 
     /**
      *
@@ -30,7 +37,7 @@ public class TeacherWelcomeScreen extends WelcomeScreen {
 
         //TODO: interface the moduleColumns and studentColumns. Need to discuss with callum and salva
         //instantiating table on modules
-        DefaultTableModel moduleModel = new DefaultTableModel(moduleColumns, 5);
+        DefaultTableModel moduleModel = new DefaultTableModel(moduleColumns, 60);
         assModulesTable.setModel(moduleModel);
         //instantiating table on students tab
         DefaultTableModel studentModel = new DefaultTableModel(studentColumns, 5);
@@ -42,7 +49,7 @@ public class TeacherWelcomeScreen extends WelcomeScreen {
 
     public static void main(String args[]){
         JFrame frame = new Views.Teacher.TeacherWelcomeScreen
-                ( new Object[]{""}, new Object[]{""});
+                ( new Object[]{"Module","Columns"}, new Object[]{"Student","Columns"});
         frame.setVisible(true);
     }
 
