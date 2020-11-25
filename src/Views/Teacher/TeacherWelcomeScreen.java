@@ -2,6 +2,7 @@ package Views.Teacher;
 
 import Models.Tables.TeachesModuleTableModel;
 import Models.UserAccounts.Student;
+import Models.UserAccounts.Teacher;
 import Views.WelcomeScreen;
 
 import javax.swing.*;
@@ -46,7 +47,9 @@ public class TeacherWelcomeScreen extends WelcomeScreen {
         assModulesTable.setModel(moduleModel);
         //instantiating table on students tab
         //DefaultTableModel studentModel = new DefaultTableModel(studentColumns, 5);
-        TeachesModuleTableModel studentModel = new TeachesModuleTableModel();
+        // Manually recreating a teacher as if they had logged on
+        Teacher teacher = new Teacher("Eu","Estou","escrevendo","not got the patience",1);
+        TeachesModuleTableModel studentModel = new TeachesModuleTableModel(teacher);
         assStudentsTable.setModel(studentModel);
 
         //runs method that updates the labels.
