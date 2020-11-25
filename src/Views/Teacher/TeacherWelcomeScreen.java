@@ -1,11 +1,17 @@
 package Views.Teacher;
 
+import Models.Tables.TeachesModuleTableModel;
+import Models.UserAccounts.Student;
+import Models.UserAccounts.Teacher;
 import Views.WelcomeScreen;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.geom.Dimension2D;
+import java.util.ArrayList;
+import java.util.List;
+
 //TODO: Replace the tabbed pane with a jpane so that the tabs can have a scroll pane and also pane at buttom for butts
 public class TeacherWelcomeScreen extends WelcomeScreen {
     private JPanel mainPanel;
@@ -40,7 +46,10 @@ public class TeacherWelcomeScreen extends WelcomeScreen {
         DefaultTableModel moduleModel = new DefaultTableModel(moduleColumns, 60);
         assModulesTable.setModel(moduleModel);
         //instantiating table on students tab
-        DefaultTableModel studentModel = new DefaultTableModel(studentColumns, 5);
+        //DefaultTableModel studentModel = new DefaultTableModel(studentColumns, 5);
+        // Manually recreating a teacher as if they had logged on
+        Teacher teacher = new Teacher("Eu","Estou","escrevendo","not got the patience",1);
+        TeachesModuleTableModel studentModel = new TeachesModuleTableModel(teacher);
         assStudentsTable.setModel(studentModel);
 
         //runs method that updates the labels.
