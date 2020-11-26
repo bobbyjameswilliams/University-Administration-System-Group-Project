@@ -23,6 +23,11 @@ public class StudentGrade {
         this.grade = grade;
         this.resit = resit;
     }
+    public StudentGrade(int grade, int resit) {
+        this.grade = grade;
+        this.resit = resit;
+    }
+
 
     public int getRegNumber() { return  regNumber;}
 

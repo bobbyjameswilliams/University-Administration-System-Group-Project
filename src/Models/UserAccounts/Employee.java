@@ -8,7 +8,6 @@ public abstract class Employee extends User   {
 		super(username, forename, surname, emailAddress);
 		this.employeeNumber = employeeNumber;
 	}
-
 	public int getEmployeeNumber() {
 		return employeeNumber;
 	}

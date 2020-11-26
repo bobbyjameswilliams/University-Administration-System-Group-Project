@@ -1,8 +1,11 @@
 package Models.UserAccounts;
 
 import Models.DatabaseBehaviours.DBController;
+import Models.Tables.StudentGrade;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Student extends User {
 	
@@ -69,6 +72,23 @@ public class Student extends User {
 		return creditsTaken;
 	}
 
+	public List<StudentGrade> getModules() {
+		String query = "SELECT * FROM StudentModule WHERE regNumber = " + this.getRegNumber();
+		List<StudentGrade> studentModuleGrades = new ArrayList<>();
+		try (Connection con = DriverManager.getConnection(this.url, this.user, this.password)) {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				int grade = rs.getInt("grade");
+				int resit = rs.getInt("resit");
+				studentModuleGrades.add(new StudentGrade(grade, resit));
+			}
+		}
+		catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
+		return studentModuleGrades;
+	}
 
 	public boolean canGraduate() {
 		return false;
@@ -78,9 +98,6 @@ public class Student extends User {
 		return false;
 	}
 
-	public ResultSet getModules() {
-		return null;
-	}
 
 	public ResultSet getModulesOfCurrentLevelOfStudyOfStudent(int regNumber, int levelOfStudy) throws SQLException {
 		String query = "SELECT S.moduleCode \n"+
@@ -104,7 +121,7 @@ public class Student extends User {
 	}
 	/**
 	 * Get the Modules Codes for the Modules of the provided  Level of Study
-	 * @param int levelOfStudy, the level of study of the student
+	 * @param  levelOfStudy, the level of study of the student
 	 * @return a Result set with all Modules Codes with the same level of study
 	 * @throws SQLException
 	 */
@@ -128,53 +145,7 @@ public class Student extends User {
 		}
 		return null;
 	}
-	/**
-	 * Get the Modules Codes for the Modules assigned to a student
-	 * @return a Result set with all Modules Codes assigned to the student
-	 * @throws SQLException
-	 */
-	public ResultSet getAllModules() throws SQLException {
-		String query = "SELECT moduleCode \n"+
-				"FROM StudentModule \n" +
-				"WHERE regNumber='"+this.regNumber+"';";
-		Statement stmt = null;
-		try {
-			stmt = DBController.getConnection().createStatement();
-			ResultSet rs = stmt.executeQuery(query);
-			return rs;
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		finally {
-			if (stmt != null) stmt.close();
-		}
-		return null;
-	}
-	/**
-	 * Get the Modules Codes for the Modules of a specific Student(regNumber)
-	 * @param int regNumber, The number of the student
-	 * @return a Result set with all Modules Codes assigend to the provided regNumber
-	 * @throws SQLException
-	 */
-	public ResultSet getAllModules(int regNumber) throws SQLException {
-		String query = "SELECT moduleCode \n"+
-				"FROM StudentModule \n" +
-				"WHERE regNumber='"+regNumber+"';";
-		Statement stmt = null;
-		try {
-			stmt = DBController.getConnection().createStatement();
-			ResultSet rs = stmt.executeQuery(query);
-			return rs;
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		finally {
-			if (stmt != null) stmt.close();
-		}
-		return null;
-	}
+
 	/**
 	 * Get the personal tutor(s) for a Student
 	 * @return a Result set of the tutor(s) assigned to the student

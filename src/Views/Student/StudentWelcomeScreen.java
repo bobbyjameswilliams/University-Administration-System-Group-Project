@@ -1,5 +1,7 @@
 package Views.Student;
 
+import Models.Tables.Student.StudentModuleTable;
+import Models.UserAccounts.Student;
 import Views.WelcomeScreen;
 
 import javax.swing.*;
@@ -31,7 +33,7 @@ public class StudentWelcomeScreen extends WelcomeScreen {
 
         //TODO: interface the moduleColumns and gradeColumns. Need to discuss with callum and salva.
         //instantiating table on model tab
-        DefaultTableModel moduleModel = new DefaultTableModel(moduleColumns, 0);
+        StudentModuleTable moduleModel = new StudentModuleTable(new Student("test","test","test","test",12345,"ENG040",4));
         modulesTable.setModel(moduleModel);
         //instantiating table on grades tab
         DefaultTableModel gradeModel = new DefaultTableModel(gradeColumns, 0);
