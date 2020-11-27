@@ -15,7 +15,7 @@ public class Teacher extends Employee {
 
 
 	public List<StudentGrade> getGradesOfStudents() {
-    	String query = "SELECT StudentModule.regNumber, forename, surname, grade, resit FROM StudentModule INNER JOIN TeachesModule ON " +
+    	String query = "SELECT StudentModule.regNumber, StudentModule.moduleCode, forename, surname, grade, resit FROM StudentModule INNER JOIN TeachesModule ON " +
 				"StudentModule.moduleCode = TeachesModule.moduleCode INNER JOIN Student ON Student.regNumber = StudentModule.regNumber " +
 				"INNER JOIN User ON User.username = Student.username WHERE TeachesModule.employeeNumber = " + this.getEmployeeNumber() + ";";
 		System.out.println(query);
@@ -25,11 +25,12 @@ public class Teacher extends Employee {
 			ResultSet rs =  stmt.executeQuery(query);
 			while(rs.next()){
 				int regNumber = rs.getInt("regNumber");
+				String moduleCode = rs.getString("moduleCode");
 				String forename = rs.getString("forename");
 				String surname = rs.getString("surname");
 				int grade = rs.getInt("grade");
 				int resit = rs.getInt("resit");
-				studentGrades.add(new StudentGrade(regNumber,forename,surname,grade,resit));
+				studentGrades.add(new StudentGrade(regNumber,moduleCode,forename,surname,grade,resit));
 			}
 			// Count should never be greater than one, I believe
 		} catch (Exception ex) {

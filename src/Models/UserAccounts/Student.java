@@ -79,9 +79,10 @@ public class Student extends User {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
+				String moduleCode = rs.getString("moduleCode");
 				int grade = rs.getInt("grade");
 				int resit = rs.getInt("resit");
-				studentModuleGrades.add(new StudentGrade(grade, resit));
+				studentModuleGrades.add(new StudentGrade(moduleCode,grade, resit));
 			}
 		}
 		catch (SQLException throwables) {

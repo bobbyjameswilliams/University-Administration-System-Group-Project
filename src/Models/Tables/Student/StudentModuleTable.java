@@ -17,8 +17,8 @@ public class StudentModuleTable extends AbstractTableModel {
 
     private final List<StudentGrade> studentGrades;
 
-    private final String[] columnNames = new String[] {"Grade","Resit"};
-    private final Class[] columnClass = new Class[] {Integer.class,Integer.class};
+    private final String[] columnNames = new String[] {"Module Code","Grade","Resit"};
+    private final Class[] columnClass = new Class[] {String.class,Integer.class,Integer.class};
 
     public StudentModuleTable(Student student){
         this.studentGrades = student.getModules();
@@ -54,8 +54,10 @@ public class StudentModuleTable extends AbstractTableModel {
         StudentGrade row = studentGrades.get(rowIndex);
         switch (columnIndex){
             case 0:
-                return row.getGrade();
+                return row.getModuleCode();
             case 1:
+                return row.getGrade();
+            case 2:
                 return row.getResit();
             default:
                 return null;

@@ -13,8 +13,8 @@ public class TeachesModuleTableModel extends AbstractTableModel {
 
     private final List<StudentGrade> studentGrades;
 
-    private final String[] columnNames = new String[] {"Reg Number","Forename","Surname","Grade","Resit"};
-    private final Class[] columnClass = new Class[] {Integer.class,String.class,String.class,Integer.class,Integer.class};
+    private final String[] columnNames = new String[] {"Module Code","Forename","Surname","Grade","Resit"};
+    private final Class[] columnClass = new Class[] {String.class,String.class,String.class,Integer.class,Integer.class};
 
     public TeachesModuleTableModel(Teacher teacher){
         this.studentGrades = teacher.getGradesOfStudents();
@@ -50,7 +50,7 @@ public class TeachesModuleTableModel extends AbstractTableModel {
         StudentGrade row = studentGrades.get(rowIndex);
         switch (columnIndex){
             case 0:
-                return row.getRegNumber();
+                return row.getModuleCode();
             case 1:
                 return row.getForename();
             case 2:
