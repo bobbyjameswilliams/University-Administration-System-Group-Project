@@ -12,6 +12,8 @@ public class Student extends User {
 	private int regNumber; 
 	private String degreeCode;
 	private int levelOfStudy;
+	private String personalTutorName;
+	private String personalTutorEmail;
 
 	public Student(String username,String forename,String surname,String emailAddress,int regNumber, String degreeCode, int levelOfStudy) {
 		super(username, forename, surname, emailAddress);
@@ -152,45 +154,43 @@ public class Student extends User {
 	 * @return a Result set of the tutor(s) assigned to the student
 	 * @throws SQLException
 	 */
-	public ResultSet getPersonalTutor() throws SQLException {
-		String query = "SELECT employeeNumber \n"+
-				"FROM PersonalTutor \n" +
-				"WHERE regNumber='"+this.regNumber+"';";
+
+	//Get the personal tutor ID to then query for the email and name.
+	//Set this at the property for the personal tutor name and email
+	//so it can then be got and displayed on the student
+	//welcome screen.
+	public List<String> getPersonalTutor() throws SQLException {
+		String query1 = "SELECT forename, surname, emailAddress FROM PersonalTutor"+
+				" JOIN Employee ON PersonalTutor.employeeNumber = Employee.employeeNumber"+
+				" JOIN User ON User.username = WHERE PersonalTutor.regNumber = " + this.regNumber+ ";";
+		String query = "SELECT forename, surname, emailAddress FROM PersonalTutor JOIN Employee ON PersonalTutor.employeeNumber = Employee.employeeNumber JOIN User ON User.username = Employee.username WHERE PersonalTutor.regNumber = " + this.regNumber;
 		Statement stmt = null;
+		String tutorForeName;
+		String tutorSurname;
+		String tutorEmail;
+		List<String> personalTutorInfo = new ArrayList<String>();
 		try {
 			stmt = DBController.getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			return rs;
+			while(rs.next()){
+				personalTutorInfo.add(rs.getString("forename"));
+				personalTutorInfo.add(rs.getString("surname"));
+				personalTutorInfo.add(rs.getString("emailAddress"));
+			}
+			return personalTutorInfo;
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		}
+		finally {
 			if (stmt != null) stmt.close();
 		}
 		return null;
 	}
-	/**
-	 * Get the personal tutor(s) for a Student
-	 * @return a Result set of the tutor(s) assigned to the student
-	 * @throws SQLException
-	 */
-	public ResultSet getPersonalTutor(int regNumber) throws SQLException {
-		String query = "SELECT employeeNumber \n"+
-				"FROM PersonalTutor \n" +
-				"WHERE regNumber='"+regNumber+"';";
-		Statement stmt = null;
-		try {
-			stmt = DBController.getConnection().createStatement();
-			ResultSet rs = stmt.executeQuery(query);
-			return rs;
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			if (stmt != null) stmt.close();
-		}
-		return null;
-	}
+
+
+
+
 
 	public ResultSet getYearlyGrades() {
 		return null;
