@@ -160,9 +160,6 @@ public class Student extends User {
 	//so it can then be got and displayed on the student
 	//welcome screen.
 	public List<String> getPersonalTutor() throws SQLException {
-		String query1 = "SELECT forename, surname, emailAddress FROM PersonalTutor"+
-				" JOIN Employee ON PersonalTutor.employeeNumber = Employee.employeeNumber"+
-				" JOIN User ON User.username = WHERE PersonalTutor.regNumber = " + this.regNumber+ ";";
 		String query = "SELECT forename, surname, emailAddress FROM PersonalTutor JOIN Employee ON PersonalTutor.employeeNumber = Employee.employeeNumber JOIN User ON User.username = Employee.username WHERE PersonalTutor.regNumber = " + this.regNumber;
 		Statement stmt = null;
 		String tutorForeName;
