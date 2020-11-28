@@ -6,10 +6,12 @@ package Controllers.LogIn;
  *
  */
 public class LogInController {
+
     public LogInController() {
 
     }
     public void loginButtonPress(String userName, String password){
         System.out.print("Implement This" + userName + password);
     }
+
 }
