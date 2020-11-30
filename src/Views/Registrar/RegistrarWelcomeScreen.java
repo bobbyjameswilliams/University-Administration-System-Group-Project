@@ -1,32 +1,25 @@
 package Views.Registrar;
 
+import Views.WelcomeScreen;
+
 import javax.swing.*;
-import java.awt.*;
 
-public class RegistrarWelcomeScreen extends javax.swing.JFrame {
+public class RegistrarWelcomeScreen extends WelcomeScreen {
+    private JPanel mainPanel;
+    private JComboBox periodOfStudyCombo;
+    private JComboBox sntCourseCombo;
+    private JPanel stntCoursePane;
+    private JLabel stntCourseLbl;
+    private JPanel periodOfStudyPane;
+    private JLabel periodOfStudyLbl;
+    private JTable viewStntTable;
+    private JPanel viewStntButtPane;
+    private JScrollPane viewStntScrollPane;
+    private JButton delStntButt;
+    private JButton applyStudentButt;
+    private JButton inspectRegistrationButt;
 
-    private  JLabel welcome;
-    private Container c;
-
-    public RegistrarWelcomeScreen(){
-
-        super("Registrar page");
-
-        c = getContentPane();
-        c.setLayout(new FlowLayout());
-
-        welcome= new JLabel("You are logged in as Registrar");
-
-        c.add(welcome);
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(180, 200);
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
-
-    public static void main(String args[]) {
-
-        RegistrarWelcomeScreen registrar = new RegistrarWelcomeScreen();
-    }
-
 }
-
