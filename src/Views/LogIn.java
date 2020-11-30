@@ -30,7 +30,7 @@ public class LogIn extends JFrame {
         logInButt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loginController.loginButtonPress(userNameField.getText(),passwordField.getText());
+                loginController.loginButtonPress(userNameField.getText(),passwordField.getPassword());
             }
         });
     }

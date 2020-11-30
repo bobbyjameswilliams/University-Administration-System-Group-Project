@@ -17,6 +17,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 /**
@@ -33,8 +34,8 @@ public class LogInController {
         loginFrame.setVisible(true);
     }
 
-    public void loginButtonPress(String username, String password) {
-        if (Login.loginAuthenticated(username, password)) {
+    public void loginButtonPress(String username, char[] password) {
+        if (Login.loginAuthenticated(username, String.valueOf(password))) {
             // if password matched instantiate new view
             JFrame frame = this.getUserFrame(username);
             frame.setVisible(true);
