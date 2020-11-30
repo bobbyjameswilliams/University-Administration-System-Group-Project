@@ -2,6 +2,7 @@ package Models.UserAccounts;
 
 import Models.UserAccounts.Administrator;
 import Models.UserAccounts.UserType;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +17,8 @@ class AdministratorTest {
 
     @Test
     public void departmentTest(){
-        administrator.addUniversityDepartment("Engineering");
-        administrator.removeUniversityDepartment("Engineering");
+        administrator.addUniversityDepartment("Departamento da vida");
+        administrator.removeUniversityDepartment("Departamento da vida");
     }
 
     @Test

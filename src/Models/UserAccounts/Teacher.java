@@ -3,21 +3,28 @@ package Models.UserAccounts;
 import Models.DatabaseBehaviours.DBController;
 import Models.Tables.StudentGrade;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Teacher extends Employee {
+
+	//for adding a new user to the DB
+  public Teacher (String forename,String surname){
+    super(forename, surname);
 
 	//Dummy Class
 	public Teacher(){
 		super();
 	}
 
-    public Teacher (String username,String forename,String surname,String emailAddress,int employeeNumber){
-        super(username, forename, surname, emailAddress, employeeNumber);
-    }
-
+  public Teacher (String username,String forename,String surname,String emailAddress,int employeeNumber){
+       super(username, forename, surname, emailAddress, employeeNumber);
+  }
+	//for editing a teacher that is already in the DB
+	public Teacher (String username,String forename,String surname,String emailAddress,int employeeNumber){
+    	super(username, forename, surname, emailAddress, employeeNumber);
+	}
 
 	public List<StudentGrade> getGradesOfStudents() {
     	String query = "SELECT StudentModule.regNumber, StudentModule.moduleCode, forename, surname, grade, resit FROM StudentModule INNER JOIN TeachesModule ON " +

@@ -1,4 +1,10 @@
 package Models.UserAccounts;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 public class User {
 	
 	private String username;
@@ -9,7 +15,14 @@ public class User {
 	protected final String url = "jdbc:mysql://stusql.dcs.shef.ac.uk/team045";
 	protected final String user = "team045" ;
 	protected final String password = "5e15b333";
-
+	//for adding a new user to the DB
+	public User(String forename,String surname) {
+		this.forename = forename;
+		this.surname = surname;
+		this.username = createUsername(forename,surname);
+		this.emailAddress = createEmail(createUsername(forename,surname));
+	}
+	//for editing a user that is already in the DB
 	public User(String username,String forename,String surname,String emailAddress) {
 		this.username = username;
 		this.forename = forename;
@@ -48,5 +61,47 @@ public class User {
 	public String getUserDetails() {
 		return getUsername() + "','" + getForename() + "','" + getSurname() + "','" + getEmailAddress();
 	}
+	/*
+	 * automatacli return the username of the user by providing the Forename and the surname(s)
+	 * @param String Forename
+	 * @param String Surname
+	 * @return the username
+	 */
+	public String createUsername(String forename,String surname){
+			char firstForenameLetter = forename.toUpperCase().toCharArray()[0];
+			char firstSurnameLetter = surname.toUpperCase().toCharArray()[0];
+			char[] surInchar= surname.toCharArray();
+
+			surInchar[0]=firstSurnameLetter;
+			String temporaria = new String(surInchar);
+			surname=temporaria;
+			String username = firstForenameLetter+surname;
+		    String usernameCount="";
+		try (Connection con = DriverManager.getConnection(url,user,password)){
+			Statement stmt = con.createStatement();
+			ResultSet rs =  stmt.executeQuery("SELECT COUNT(username) \n" +
+												   "FROM User \n"+
+													"WHERE username LIKE \'%"+username+"%\';");
+			rs.next();
+			usernameCount = String.valueOf(rs.getInt(1));
+
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+			username = username+usernameCount;
+		return username;
+	}
+	/*
+	 * automatacli return the email of the user by providing the username
+	 * @param String username
+	 * @return email
+	 */
+	public String createEmail(String username){
+		String email = username+"@shef.ac.uk";
+		return email;
+	}
+
+
 
 }

@@ -11,17 +11,22 @@ import java.sql.Statement;
 
 public class UniModule implements CourseStructure{
 
+    private String moduleName;
     private String moduleCode;
     private String moduleName;
     private int credits;
     private int levelOfStudy;
 
     //Constructor where only degreeCode is needed (remove,exists)
-    public UniModule(String moduleCode){
+    public UniModule(String moduleCode, String moduleName){
+        this.moduleName = moduleName;
         this.moduleCode = moduleCode;
         this.credits = 20;
         this.levelOfStudy = 1;
     }
+
+    public UniModule(String moduleCode, String moduleName, int credits, int levelOfStudy){
+        this.moduleName = moduleName;
 
     public UniModule(String moduleCode,String moduleName, int credits, int levelOfStudy){
         this.moduleCode = moduleCode;
@@ -33,6 +38,7 @@ public class UniModule implements CourseStructure{
     public String getCode(){
         return this.moduleCode;
     }
+    public int getLevelOfStudy(){return this.levelOfStudy;}
 
     public void add(){
         String values = this.moduleCode + "','" + this.moduleName + "','" + this.credits + "','" + this.levelOfStudy;

@@ -11,24 +11,32 @@ import java.sql.Statement;
 
 public class Administrator extends Employee {
 
+
+    //for adding a new Admin to the DB
+    public Administrator(String forename,String surname){
+        super(forename, surname);
+    }
+    //for editing a admin that is already in the DB
+
     // Dummy Class
     public Administrator(){
         super();
     }
 
     public Administrator(String username,String forename,String surname,String emailAddress,int employeeNumber){
-        super(username, forename, surname, emailAddress, employeeNumber);
+        super(username, forename, emailAddress, surname, employeeNumber);
     }
 
     public void addModule(String moduleCode,String moduleName,int credits,int levelOfStudy){
-        UniModule module = new UniModule(moduleCode,moduleName,credits,levelOfStudy);
+        UniModule module = new UniModule(moduleCode, moduleName,credits,levelOfStudy);
         module.add();
     }
 
-    public void removeModule(String moduleCode){
-        UniModule module = new UniModule(moduleCode);
+    public void removeModule(String moduleCode,String moduleName){
+        UniModule module = new UniModule(moduleCode, moduleName);
         module.remove();
     }
+
 
     public void addEmployee(Employee employee, UserType role){
         if (role != UserType.STUDENT) {
