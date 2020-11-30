@@ -2,6 +2,8 @@ package Controllers.LogIn;
 
 
 import Models.Authentication.Login;
+import Models.UserAccounts.Student;
+import Models.UserAccounts.UserAccountBuilder;
 import Views.LogIn;
 import Views.Student.StudentWelcomeScreen;
 import com.mysql.cj.log.Log;
@@ -22,10 +24,11 @@ public class LogInController {
         loginFrame.setVisible(true);
     }
 
-    public void loginButtonPress(String userName, String password){
-        if (Login.loginAuthenticated(userName,password)){
+    public void loginButtonPress(String username, String password){
+        if (Login.loginAuthenticated(username,password)){
             // if password matched instantiate new view
-            JFrame frame = new Views.Student.StudentWelcomeScreen(new Object[]{"Placeholder","for","grades"});
+            Student student = UserAccountBuilder.studentBuilder(username);
+            JFrame frame = new StudentWelcomeScreen(student,new Object[]{"Placeholder","for","grades"});
             frame.setVisible(true);
             loginFrame.dispose();
         }

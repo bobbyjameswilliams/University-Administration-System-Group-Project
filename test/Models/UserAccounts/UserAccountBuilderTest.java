@@ -8,7 +8,7 @@ class UserAccountBuilderTest {
 
     @Test
     public void studentBuilderTest(){
-        Student student = UserAccountBuilder.studentBuilder(12345);
+        Student student = UserAccountBuilder.studentBuilder("Lembrei");
         Student student1 = new Student("Lembrei","Bobby","Williams","bwilliams4@sheffield.ac.uk",
                 12345,null,1);
         assertEquals(student.getEmailAddress(),student1.getEmailAddress());
