@@ -18,6 +18,7 @@ public class RegistrarWelcomeScreen extends WelcomeScreen {
     private JButton delStntButt;
     private JButton applyStudentButt;
     private JButton inspectRegistrationButt;
+    private JLabel welcomeLabel;
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
