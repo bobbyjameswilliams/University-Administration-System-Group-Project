@@ -1,19 +1,27 @@
-package Models.Tables;
+package Models.Tables.Student;
 
+import Models.Tables.StudentGrade;
+
+import javax.swing.table.AbstractTableModel;
+
+import Models.UserAccounts.Employee;
+import Models.UserAccounts.Student;
 import Models.UserAccounts.Teacher;
 
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 import java.util.List;
 
-public class TeachesModuleTableModel extends AbstractTableModel {
+public class StudentModuleTable extends AbstractTableModel {
 
     private final List<StudentGrade> studentGrades;
 
-    private final String[] columnNames = new String[] {"Module Code","Forename","Surname","Grade","Resit"};
-    private final Class[] columnClass = new Class[] {String.class,String.class,String.class,Integer.class,Integer.class};
+    private final String[] columnNames = new String[] {"Module Code","Grade","Resit"};
+    private final Class[] columnClass = new Class[] {String.class,Integer.class,Integer.class};
 
-    public TeachesModuleTableModel(Teacher teacher){
-        this.studentGrades = teacher.getGradesOfStudents();
+    public StudentModuleTable(Student student){
+        this.studentGrades = student.getModules();
     }
 
     @Override
@@ -48,12 +56,8 @@ public class TeachesModuleTableModel extends AbstractTableModel {
             case 0:
                 return row.getModuleCode();
             case 1:
-                return row.getForename();
-            case 2:
-                return row.getSurname();
-            case 3:
                 return row.getGrade();
-            case 4:
+            case 2:
                 return row.getResit();
             default:
                 return null;
@@ -61,17 +65,9 @@ public class TeachesModuleTableModel extends AbstractTableModel {
     }
 
     @Override
-    public void setValueAt(Object value, int rowIndex, int columnIndex)
-    {
-        StudentGrade row = studentGrades.get(rowIndex);
-        if(3 == columnIndex) {
-            row.setGrade((Integer) value);
-        }
-    }
-
-    @Override
     public boolean isCellEditable(int rowindex, int columnIndex){
-        return (columnIndex == 3);
+        return false;
     }
 
 }
+

@@ -3,7 +3,7 @@ package Models.CourseStructure;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UniModuleTest {
 
@@ -11,15 +11,15 @@ public class UniModuleTest {
 
     @BeforeEach
     public void init(){
-        module = new UniModule("COM1003",20,1);
+        module = new UniModule("COM1009","Algorithm and Data Structures",20,1);
     }
 
     @Test
     public void addExistDeleteTest(){
         module.add();
-        assertEquals(true,module.exists());
+        assertTrue(module.exists());
         module.remove();
-        assertEquals(false,module.exists());
+        assertFalse(module.exists());
     }
 
 }

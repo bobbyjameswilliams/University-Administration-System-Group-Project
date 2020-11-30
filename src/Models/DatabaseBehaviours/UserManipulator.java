@@ -1,6 +1,6 @@
 package Models.DatabaseBehaviours;
 
-import Models.UserAccounts.User;
+import Models.UserAccounts.*;
 
 public class UserManipulator {
 

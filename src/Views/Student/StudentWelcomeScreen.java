@@ -1,12 +1,15 @@
 package Views.Student;
 
+import Models.Tables.Student.StudentModuleTable;
+import Models.UserAccounts.Student;
 import Views.WelcomeScreen;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
+import java.util.List;
 
 public class StudentWelcomeScreen extends WelcomeScreen {
-
 
     private JPanel mainPanel;
     private JTabbedPane tabbedPane1;
@@ -17,26 +20,27 @@ public class StudentWelcomeScreen extends WelcomeScreen {
     private JLabel welcomeLabel;
     private JLabel personalTutorLabel;
     private JButton logOutButt;
+    private Student student;
 
     /**
      *
-     * @param moduleColumns - Columns for the modules table
      * @param gradeColumns - Columns for the grades table
      */
-    public StudentWelcomeScreen(Object moduleColumns[], Object gradeColumns[]) {
+    public StudentWelcomeScreen(Student student,Object gradeColumns[]) {
         super();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
+        this.student = student;
         this.pack();
 
         //TODO: interface the moduleColumns and gradeColumns. Need to discuss with callum and salva.
         //instantiating table on model tab
-        DefaultTableModel moduleModel = new DefaultTableModel(moduleColumns, 0);
+        StudentModuleTable moduleModel = new StudentModuleTable(new Student("test","test","test","test",12345,"ENG040",4));
         modulesTable.setModel(moduleModel);
         //instantiating table on grades tab
         DefaultTableModel gradeModel = new DefaultTableModel(gradeColumns, 0);
         gradesTable.setModel(gradeModel);
-
+        //Instantiates student object using the login details
         //runs methods that update the welcome labels
         displayTutorLabel();
         displayWelcomeLabel();
@@ -45,17 +49,25 @@ public class StudentWelcomeScreen extends WelcomeScreen {
 
     public static void main(String[] args) {
         //is here to allow the form to be displayed without external call
-        JFrame frame = new Views.Student.StudentWelcomeScreen(new Object[]{"Placeholder","for","modules"}, new Object[]{"Placeholder","for","grades"});
+
+        Student student = new Student("Lembrei","Bobby","Williams","",12345,null,1);
+        JFrame frame = new Views.Student.StudentWelcomeScreen(student,new Object[]{"Placeholder","for","grades"});
         frame.setVisible(true);
     }
 
     private void displayWelcomeLabel() {
-        //TODO: add functionality that displays the users name and welcomes them
-        welcomeLabel.setText("Welcome (username), Logged in as Student ");
+
+        welcomeLabel.setText("Welcome "+ student.getForename() + " Logged in as Student ");
     }
 
     private void displayTutorLabel() {
-        // TODO: add functionality that displays the users personal tutor
-        personalTutorLabel.setText("Your personal tutor is: email:");
+        try {
+            List<String> tutorDetails = student.getPersonalTutor();
+            System.out.print(tutorDetails);
+            personalTutorLabel.setText("PERSONAL TUTOR NAME: " + tutorDetails.get(0) +
+                     " " +tutorDetails.get(1) + " EMAIL: " + tutorDetails.get(2));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }

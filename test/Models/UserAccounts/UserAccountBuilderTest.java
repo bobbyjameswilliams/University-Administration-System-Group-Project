@@ -1,0 +1,28 @@
+package Models.UserAccounts;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class UserAccountBuilderTest {
+
+    @Test
+    public void studentBuilderTest(){
+        UserAccountBuilder builder = new UserAccountBuilder("Lembrei");
+        Student student = builder.studentBuilder();
+        Student student1 = new Student("Lembrei","Bobby","Williams","bwilliams4@sheffield.ac.uk",
+                12345,null,1);
+        assertEquals(student.getEmailAddress(),student1.getEmailAddress());
+    }
+
+    @Test
+    public void teacherBuildTest(){
+        UserAccountBuilder builder = new UserAccountBuilder("Eu");
+        Teacher teacher = builder.employeeBuilder(new Teacher());
+        Teacher teacher1 = new Teacher("Eu","Callum","McCreadie","eu@sheffield.ac.uk",1);
+        assertTrue(teacher1.equals(teacher));
+    }
+
+
+
+}
