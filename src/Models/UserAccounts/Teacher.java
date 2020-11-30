@@ -9,6 +9,11 @@ import java.util.*;
 
 public class Teacher extends Employee {
 
+	//Dummy Class
+	public Teacher(){
+		super();
+	}
+
     public Teacher (String username,String forename,String surname,String emailAddress,int employeeNumber){
         super(username, forename, surname, emailAddress, employeeNumber);
     }

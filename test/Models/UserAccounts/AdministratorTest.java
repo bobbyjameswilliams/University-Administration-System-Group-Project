@@ -1,7 +1,7 @@
 package Models.UserAccounts;
 
 import Models.UserAccounts.Administrator;
-import Models.UserAccounts.EmployeeRole;
+import Models.UserAccounts.UserType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,13 +23,13 @@ class AdministratorTest {
     @Test
     public void addEmployeeTest(){
         // Obviously can't add your irl, but youre not gonna be able to login if you dont exist
-        administrator.addEmployee(administrator, EmployeeRole.ADMIN);
+        administrator.addEmployee(administrator, UserType.ADMIN);
         administrator.removeEmployee(administrator.getEmployeeNumber());
     }
 
     @Test
     public void addModuleTest(){
-        administrator.addModule("COM2004",35,2);
+        administrator.addModule("COM2004","Data Driven Computing",5,2);
         administrator.removeModule("COM2004");
     }
 

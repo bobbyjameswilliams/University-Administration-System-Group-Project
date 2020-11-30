@@ -20,28 +20,28 @@ public class User {
 	public String getUsername() {
 		return username;
 	}
-	public void setUsername(String username) {
+	protected void setUsername(String username) {
 	    this.username = username;
 	  }
 	
 	public String getSurname() {
 		return surname;
 	}
-	public void setSurname(String surname) {
+	protected void setSurname(String surname) {
 	    this.surname = surname;
 	  }
 	
 	public String getForename() {
 		return forename;
 	}
-	public void setForename(String forename) {
+	protected void setForename(String forename) {
 	    this.forename = forename;
 	  }
 	
 	public String getEmailAddress() {
 		return emailAddress;
 	}
-	public void setEmailAddress(String emailAddress) {
+	protected void setEmailAddress(String emailAddress) {
 	    this.emailAddress = emailAddress;
 	}
 

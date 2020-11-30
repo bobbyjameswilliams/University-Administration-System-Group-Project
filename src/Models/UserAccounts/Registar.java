@@ -12,6 +12,11 @@ import java.sql.Statement;
 
 public class Registar extends Employee {
 
+    // Dummy Class
+    public Registar(){
+        super();
+    }
+
     public Registar (String username,String forename,String surname,String emailAddress,int employeeNumber){
         super(username, forename, surname, emailAddress, employeeNumber);
     }

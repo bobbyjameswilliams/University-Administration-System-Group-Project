@@ -12,6 +12,7 @@ import java.sql.Statement;
 public class UniModule implements CourseStructure{
 
     private String moduleCode;
+    private String moduleName;
     private int credits;
     private int levelOfStudy;
 
@@ -22,8 +23,9 @@ public class UniModule implements CourseStructure{
         this.levelOfStudy = 1;
     }
 
-    public UniModule(String moduleCode, int credits, int levelOfStudy){
+    public UniModule(String moduleCode,String moduleName, int credits, int levelOfStudy){
         this.moduleCode = moduleCode;
+        this.moduleName = moduleName;
         this.credits = credits;
         this.levelOfStudy = levelOfStudy;
     }
@@ -33,7 +35,7 @@ public class UniModule implements CourseStructure{
     }
 
     public void add(){
-        String values = this.moduleCode + "','" + this.credits + "','" + this.levelOfStudy;
+        String values = this.moduleCode + "','" + this.moduleName + "','" + this.credits + "','" + this.levelOfStudy;
         DBController.executeCommand("INSERT INTO Module VALUES ('"+values+"');");
     }
 

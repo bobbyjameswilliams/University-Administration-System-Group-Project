@@ -29,16 +29,18 @@ public class TeacherWelcomeScreen extends WelcomeScreen {
     private JPanel assignedModulesActButtPane;
     private JButton viewCohortButt;
     private JButton studentBreakdownButt;
+    private Teacher teacher;
 
     /**
      *
      * @param moduleColumns Columns for the module table (as an object Object[])
      * @param studentColumns Columns for the student table (as an object Object [])
      */
-    public TeacherWelcomeScreen(Object moduleColumns[], Object studentColumns[]){
+    public TeacherWelcomeScreen(Teacher teacher,Object moduleColumns[], Object studentColumns[]){
         super();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
+        this.teacher = teacher;
         this.pack();
 
         //TODO: interface the moduleColumns and studentColumns. Need to discuss with callum and salva
@@ -48,18 +50,11 @@ public class TeacherWelcomeScreen extends WelcomeScreen {
         //instantiating table on students tab
         //DefaultTableModel studentModel = new DefaultTableModel(studentColumns, 5);
         // Manually recreating a teacher as if they had logged on
-        Teacher teacher = new Teacher("Eu","Estou","escrevendo","not got the patience",1);
-        TeachesModuleTableModel studentModel = new TeachesModuleTableModel(teacher);
+        TeachesModuleTableModel studentModel = new TeachesModuleTableModel(this.teacher);
         assStudentsTable.setModel(studentModel);
 
         //runs method that updates the labels.
         displayWelcomeLabel();
-    }
-
-    public static void main(String args[]){
-        JFrame frame = new Views.Teacher.TeacherWelcomeScreen
-                ( new Object[]{"Module","Columns"}, new Object[]{"Student","Columns"});
-        frame.setVisible(true);
     }
 
     private void displayWelcomeLabel() {
