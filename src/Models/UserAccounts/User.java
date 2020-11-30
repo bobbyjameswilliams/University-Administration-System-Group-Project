@@ -1,5 +1,7 @@
 package Models.UserAccounts;
 
+import Models.DatabaseBehaviours.DBController;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -101,7 +103,6 @@ public class User {
 		String email = username+"@shef.ac.uk";
 		return email;
 	}
-
 
 
 }

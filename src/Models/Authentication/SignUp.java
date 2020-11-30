@@ -1,6 +1,7 @@
 package Models.Authentication;
 
 import Models.DatabaseBehaviours.DBController;
+import Models.DatabaseBehaviours.UserManipulator;
 import Models.Tables.StudentGrade;
 import Models.UserAccounts.User;
 
@@ -29,7 +30,8 @@ public class SignUp {
 
 
     public static void main (String[] args ) {
-        User user = new User("Lembrei","bobby","williams","cmccrea@gmail.com");
+        User user = new User("Teacher5","Andrew","Stratton","andy@sheff.com");
+        UserManipulator.addUser(user);
         signUpUser(user,"test123");
     }
 }
