@@ -3,6 +3,7 @@ package Views;
 import Controllers.LogIn.LogInController;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,6 +22,8 @@ public class LogIn extends JFrame {
             super(title);
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.setContentPane(mainPanel);
+            super.setMinimumSize(new Dimension(400,150));
+            this.setLocationRelativeTo(null);
             this.pack();
             loginController = controller;
         //Submits the data in the fields. see LogInController
