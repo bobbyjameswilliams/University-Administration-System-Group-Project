@@ -12,12 +12,23 @@ import java.sql.Statement;
 public class Administrator extends Employee {
 
 
-    public Administrator(String username,String forename,String surname,String emailAddress,int employeeNumber){
-        super(username, forename, surname, emailAddress, employeeNumber);
+    //for adding a new Admin to the DB
+    public Administrator(String forename,String surname){
+        super(forename, surname);
+    }
+    //for editing a admin that is already in the DB
+
+    // Dummy Class
+    public Administrator(){
+        super();
     }
 
-    public void addModule(String moduleCode,int credits,int levelOfStudy){
-        UniModule module = new UniModule(moduleCode,credits,levelOfStudy);
+    public Administrator(String username,String forename,String surname,String emailAddress,int employeeNumber){
+        super(username, forename, emailAddress, surname, employeeNumber);
+    }
+
+    public void addModule(String moduleCode,String moduleName,int credits,int levelOfStudy){
+        UniModule module = new UniModule(moduleCode, moduleName,credits,levelOfStudy);
         module.add();
     }
 
@@ -26,10 +37,13 @@ public class Administrator extends Employee {
         module.remove();
     }
 
-    public void addEmployee(Employee employee, EmployeeRole role){
-        UserManipulator.addUser(employee);
-        String values = employee.getEmployeeNumber() + "','" + employee.getUsername() + "','Teacher";
-        DBController.executeCommand("INSERT INTO Employee VALUES ('"+values+"');");
+
+    public void addEmployee(Employee employee, UserType role){
+        if (role != UserType.STUDENT) {
+            UserManipulator.addUser(employee);
+            String values = employee.getEmployeeNumber() + "','" + employee.getUsername() + "','Teacher";
+            DBController.executeCommand("INSERT INTO Employee VALUES ('" + values + "');");
+        }
     }
 
     public void removeEmployee(int employeeNumber){

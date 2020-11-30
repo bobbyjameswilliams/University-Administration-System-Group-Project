@@ -1,5 +1,6 @@
 package Views.Admin;
 
+import Models.UserAccounts.Administrator;
 import Views.WelcomeScreen;
 
 import javax.swing.*;
@@ -22,13 +23,15 @@ public class AdminWelcomeScreen extends WelcomeScreen {
     private JTable modulesTable;
     private JTable departmentsTable;
     private JTable coursesTable;
+    private Administrator admin;
 
     //TODO: Fix issue where the table doesnt fill the viewport
-    public AdminWelcomeScreen(Object[]usersColumns, Object[]modulesColumns, Object[]departmentColumns, Object[]coursesColumns){
+    public AdminWelcomeScreen(Administrator admin, Object[]usersColumns, Object[]modulesColumns, Object[]departmentColumns, Object[]coursesColumns){
      super();
 
      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      this.setContentPane(mainPanel);
+     this.admin = admin;
      this.pack();
 
      //TODO: interface. Need to discuss with callum and salva
@@ -44,12 +47,6 @@ public class AdminWelcomeScreen extends WelcomeScreen {
 
      DefaultTableModel coursesModel = new DefaultTableModel(coursesColumns, 60);
      coursesTable.setModel(coursesModel);
-    }
-
-    public static void main(String args[]){
-        JFrame frame = new Views.Admin.AdminWelcomeScreen
-                ( new Object[]{"User","Columns"}, new Object[]{"Modules","Columns"},new Object[]{"Department","Columns"},new Object[]{"Courses","Columns"});
-        frame.setVisible(true);
     }
 
 

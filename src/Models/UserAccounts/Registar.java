@@ -12,13 +12,24 @@ import java.sql.Statement;
 
 public class Registar extends Employee {
 
+
+    //for adding a new registrar to the DB
+    public Registar (String forename,String surname){
+        super(forename, surname);
+    }
+
+    // Dummy Class
+    public Registar(){
+        super();
+    }
+
     public Registar (String username,String forename,String surname,String emailAddress,int employeeNumber){
-        super(username, forename, surname, emailAddress, employeeNumber);
+        super(username,forename, surname,emailAddress , employeeNumber);
     }
 
     public void addStudent(Student student){
         UserManipulator.addUser(student);
-        String values = student.getRegNumber() + "','" + student.getUsername() + "','" + student.getDegreeCode() + "','" + student.getLevelOfStudy();
+        String values = student.getStudentDetailsForInserting();
         DBController.executeCommand("INSERT INTO Student VALUES ('"+values+"');");
     }
 
@@ -43,8 +54,8 @@ public class Registar extends Employee {
         Degree degree = new Degree(degreeCode);
         UniModule module = new UniModule(moduleCode);
         if (degree.exists() & module.exists()){
-            String values = degree.getCode() + "','" + module.getCode();
-            DBController.executeCommand("INSERT INTO DegreeCompulsory VALUES ('"+values+"');");
+            String values = degree.getCode() + "','" + module.getCode()+"','"+module.getLevelOfStudy();
+            DBController.executeCommand("INSERT INTO DegreeCompulsory (moduleCode,moduleName,levelOfStudy) VALUES ('"+values+"');");
         }
     }
 

@@ -6,7 +6,6 @@ import Views.WelcomeScreen;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -21,16 +20,17 @@ public class StudentWelcomeScreen extends WelcomeScreen {
     private JLabel welcomeLabel;
     private JLabel personalTutorLabel;
     private JButton logOutButt;
-    private Student studentObj;
+    private Student student;
 
     /**
      *
      * @param gradeColumns - Columns for the grades table
      */
-    public StudentWelcomeScreen(Object gradeColumns[]) {
+    public StudentWelcomeScreen(Student student,Object gradeColumns[]) {
         super();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
+        this.student = student;
         this.pack();
 
         //TODO: interface the moduleColumns and gradeColumns. Need to discuss with callum and salva.
@@ -41,7 +41,6 @@ public class StudentWelcomeScreen extends WelcomeScreen {
         DefaultTableModel gradeModel = new DefaultTableModel(gradeColumns, 0);
         gradesTable.setModel(gradeModel);
         //Instantiates student object using the login details
-        studentObj = new Student("Lembrei","Bobby","Williams","",12345,null,1);
         //runs methods that update the welcome labels
         displayTutorLabel();
         displayWelcomeLabel();
@@ -50,18 +49,20 @@ public class StudentWelcomeScreen extends WelcomeScreen {
 
     public static void main(String[] args) {
         //is here to allow the form to be displayed without external call
-        JFrame frame = new Views.Student.StudentWelcomeScreen(new Object[]{"Placeholder","for","grades"});
+
+        Student student = new Student("Lembrei","Bobby","Williams","",12345,null,1);
+        JFrame frame = new Views.Student.StudentWelcomeScreen(student,new Object[]{"Placeholder","for","grades"});
         frame.setVisible(true);
     }
 
     private void displayWelcomeLabel() {
 
-        welcomeLabel.setText("Welcome "+ studentObj.getForename() + " Logged in as Student ");
+        welcomeLabel.setText("Welcome "+ student.getForename() + " Logged in as Student ");
     }
 
     private void displayTutorLabel() {
         try {
-            List<String> tutorDetails = studentObj.getPersonalTutor();
+            List<String> tutorDetails = student.getPersonalTutor();
             System.out.print(tutorDetails);
             personalTutorLabel.setText("PERSONAL TUTOR NAME: " + tutorDetails.get(0) +
                      " " +tutorDetails.get(1) + " EMAIL: " + tutorDetails.get(2));

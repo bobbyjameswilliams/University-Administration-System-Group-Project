@@ -1,12 +1,8 @@
 package Models.Tables;
 
-import Models.UserAccounts.Employee;
-import Models.UserAccounts.Student;
 import Models.UserAccounts.Teacher;
 
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TeachesModuleTableModel extends AbstractTableModel {
