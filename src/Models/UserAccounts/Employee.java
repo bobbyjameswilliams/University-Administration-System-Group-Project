@@ -1,5 +1,7 @@
 package Models.UserAccounts;
 
+import Models.DatabaseBehaviours.DBController;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -30,6 +32,8 @@ public abstract class Employee extends User   {
 	public int getEmployeeNumber() {
 		return employeeNumber;
 	}
+
+
 
 	/**
 	 * genarates the new employeeNumber for the new employee being created\added
