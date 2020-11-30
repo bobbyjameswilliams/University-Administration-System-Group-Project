@@ -13,20 +13,15 @@ public class UniModule implements CourseStructure{
 
     private String moduleName;
     private String moduleCode;
-    private String moduleName;
     private int credits;
     private int levelOfStudy;
 
     //Constructor where only degreeCode is needed (remove,exists)
-    public UniModule(String moduleCode, String moduleName){
-        this.moduleName = moduleName;
+    public UniModule(String moduleCode){
         this.moduleCode = moduleCode;
         this.credits = 20;
         this.levelOfStudy = 1;
     }
-
-    public UniModule(String moduleCode, String moduleName, int credits, int levelOfStudy){
-        this.moduleName = moduleName;
 
     public UniModule(String moduleCode,String moduleName, int credits, int levelOfStudy){
         this.moduleCode = moduleCode;

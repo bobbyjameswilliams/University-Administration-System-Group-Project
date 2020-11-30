@@ -23,7 +23,7 @@ class AdministratorTest {
 
     @Test
     public void addEmployeeTest(){
-        // Obviously can't add your irl, but youre not gonna be able to login if you dont exist
+        // Obviously can't add your irl, but your'e not gonna be able to login if you dont exist
         administrator.addEmployee(administrator, UserType.ADMIN);
         administrator.removeEmployee(administrator.getEmployeeNumber());
     }

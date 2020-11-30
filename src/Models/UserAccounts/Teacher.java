@@ -10,24 +10,20 @@ import java.util.List;
 public class Teacher extends Employee {
 
 	//for adding a new user to the DB
-  public Teacher (String forename,String surname){
-    super(forename, surname);
-
+	public Teacher (String forename,String surname) {
+		super(forename, surname);
+	}
 	//Dummy Class
 	public Teacher(){
 		super();
 	}
 
-  public Teacher (String username,String forename,String surname,String emailAddress,int employeeNumber){
-       super(username, forename, surname, emailAddress, employeeNumber);
-  }
-	//for editing a teacher that is already in the DB
-	public Teacher (String username,String forename,String surname,String emailAddress,int employeeNumber){
-    	super(username, forename, surname, emailAddress, employeeNumber);
-	}
+  	public Teacher (String username,String forename,String surname,String emailAddress,int employeeNumber){
+	   super(username, forename, surname, emailAddress, employeeNumber);
+  	}
 
 	public List<StudentGrade> getGradesOfStudents() {
-    	String query = "SELECT StudentModule.regNumber, StudentModule.moduleCode, forename, surname, grade, resit FROM StudentModule INNER JOIN TeachesModule ON " +
+		String query = "SELECT StudentModule.regNumber, StudentModule.moduleCode, forename, surname, grade, resit FROM StudentModule INNER JOIN TeachesModule ON " +
 				"StudentModule.moduleCode = TeachesModule.moduleCode INNER JOIN Student ON Student.regNumber = StudentModule.regNumber " +
 				"INNER JOIN User ON User.username = Student.username WHERE TeachesModule.employeeNumber = " + this.getEmployeeNumber() + ";";
 		System.out.println(query);
@@ -49,60 +45,57 @@ public class Teacher extends Employee {
 			ex.printStackTrace();
 		}
 		return studentGrades;
-    }
+	}
 
 
-    /** 
-     * Get the regNumbers for the tutees of a especific Teacher
-     * @return a Result set with all regNumbers from the teacher's tutees
-     * @throws SQLException
-     */
-    public ResultSet getTutees() throws SQLException {
-    	    String query = "SELECT regNumber \n"+
-    	    			   "FROM PersonalTutor \n" + 
-    	    			   "WHERE employeeNumber='"+this.getEmployeeNumber()+"';";
-    	    Statement stmt = null;
-    	    try {
-    	      stmt = DBController.getConnection().createStatement();
-    	      ResultSet rs = stmt.executeQuery(query);
-    	      return rs;
-    	      }
-    	     catch (SQLException e) {
-    	    	 e.printStackTrace();
-    	    }finally {
-    	    	if (stmt != null) stmt.close();
-    			}
-    	  
+	/**
+	 * Get the regNumbers for the tutees of a especific Teacher
+	 * @return a Result set with all regNumbers from the teacher's tutees
+	 * @throws SQLException
+	 */
+	public ResultSet getTutees() throws SQLException {
+		String query = "SELECT regNumber \n"+
+					   "FROM PersonalTutor \n" +
+					   "WHERE employeeNumber='"+this.getEmployeeNumber()+"';";
+		Statement stmt = null;
+		try {
+		  stmt = DBController.getConnection().createStatement();
+		  ResultSet rs = stmt.executeQuery(query);
+		  return rs;
+		  }
+		 catch (SQLException e) {
+			 e.printStackTrace();
+		}finally {
+			if (stmt != null) stmt.close();
+			}
+		return null;
+	}
 
-        return null;
-    	}
+	/**
+	 * Get the Module Code for the Module taught by a especific Teacher
+	 * @return a Result set with all regNumbers from the teacher's tutees
+	 * @throws SQLException
+	 */
 
-    /** 
-     * Get the Module Code for the Module taught by a especific Teacher
-     * @return a Result set with all regNumbers from the teacher's tutees
-     * @throws SQLException
-     */
+	public ResultSet getModulesTaught() throws SQLException{
+		 String query = "SELECT moduleCode \n"+
+						"FROM TeachesModule \n" +
+						"WHERE employeeNumber='"+this.getEmployeeNumber()+"';";
+		 Statement stmt = null;
+		 try {
+			 stmt = DBController.getConnection().createStatement();
+			 ResultSet rs = stmt.executeQuery(query);
 
-    public ResultSet getModulesTaught() throws SQLException{
-    	 String query = "SELECT moduleCode \n"+
-  			   			"FROM TeachesModule \n" + 
-  			   			"WHERE employeeNumber='"+this.getEmployeeNumber()+"';";
-    	 Statement stmt = null;
-    	 try {
-    		 stmt = DBController.getConnection().createStatement();
-    		 ResultSet rs = stmt.executeQuery(query);
-  		
-    	 
-    	 return rs;
-    	 }
-    	catch (SQLException e) {
-    		e.printStackTrace();
-    	}finally {
-    			if (stmt != null) stmt.close();
-    	}
-		
-        return null;
-    }
+
+		 return rs;
+		 }
+		catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+				if (stmt != null) stmt.close();
+		}
+		return null;
+	}
 
 }
 

@@ -17,7 +17,6 @@ public class Registar extends Employee {
     public Registar (String forename,String surname){
         super(forename, surname);
     }
-    //for editing a teacher that is already in the DB
 
     // Dummy Class
     public Registar(){
@@ -51,9 +50,9 @@ public class Registar extends Employee {
         }
     }
 
-    public void makeModuleCompulsory(String degreeCode, String moduleCode,String moduleName){
+    public void makeModuleCompulsory(String degreeCode, String moduleCode){
         Degree degree = new Degree(degreeCode);
-        UniModule module = new UniModule(moduleCode, moduleName);
+        UniModule module = new UniModule(moduleCode);
         if (degree.exists() & module.exists()){
             String values = degree.getCode() + "','" + module.getCode()+"','"+module.getLevelOfStudy();
             DBController.executeCommand("INSERT INTO DegreeCompulsory (moduleCode,moduleName,levelOfStudy) VALUES ('"+values+"');");

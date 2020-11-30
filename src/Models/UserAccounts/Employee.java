@@ -27,24 +27,9 @@ public abstract class Employee extends User   {
 		this.employeeNumber = employeeNumber;
 	}
 
-	/**
-	 * Get All the details of the user plus its own employee number
-	 */
-	public String getEmployeeDetails() {
-		return super.getUserDetails()+ "','" + getEmployeeNumber()+"','"+getEmployeeRoleFromClass();
-	}
-
-	/**
-	 * Get the details needed to insert in the table
-	 */
-	public String getEmployeeDetailsForInserting() {
-		return getEmployeeNumber()+"','" +getUsername()+"','"+getEmployeeRoleFromClass() ;
-	}
-
 	public int getEmployeeNumber() {
 		return employeeNumber;
 	}
-
 
 	/**
 	 * genarates the new employeeNumber for the new employee being created\added

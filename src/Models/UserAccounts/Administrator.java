@@ -32,8 +32,8 @@ public class Administrator extends Employee {
         module.add();
     }
 
-    public void removeModule(String moduleCode,String moduleName){
-        UniModule module = new UniModule(moduleCode, moduleName);
+    public void removeModule(String moduleCode){
+        UniModule module = new UniModule(moduleCode);
         module.remove();
     }
 
