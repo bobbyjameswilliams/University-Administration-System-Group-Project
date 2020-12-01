@@ -21,7 +21,10 @@ public class LogIn extends JFrame {
             super(title);
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.setContentPane(mainPanel);
-            super.setMinimumSize(new Dimension(400,150));
+            //Setting size constraints
+            super.setMinimumSize(new Dimension(400,175));
+            super.setResizable(false);
+            super.revalidate();
             this.setLocationRelativeTo(null);
             this.getRootPane().setDefaultButton(logInButt);
             this.pack();
