@@ -9,11 +9,10 @@ import java.util.List;
 public class CourseTableModel extends AbstractTableModel {
 
     private final List<Degree> courses;
-
     private final String[] columnNames = new String[] {"Degree Code","Course Name","Length of Study", "Year in industry"};
     private final Class[] columnClass = new Class[] {String.class,String.class, int.class, boolean.class};
 
-    public CourseTableModel() {this.courses = Degree.getAllDegrees();}
+    public CourseTableModel() {this.courses = new Degree().getAll();}
 
     @Override
     public String getColumnName(int column) {return columnNames[column];}
