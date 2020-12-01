@@ -45,7 +45,7 @@ public class LogInController {
         loginFrame.incorrectPassword();
         }
     }
-    
+
     public JFrame getUserFrame(String username) {
         UserAccountBuilder builder = new UserAccountBuilder(username);
         if (Student.exist(username)) {
@@ -56,6 +56,7 @@ public class LogInController {
         switch (builder.getEmployeeRole()) {
             case ADMIN:
                 Administrator administrator = builder.employeeBuilder(new Administrator());
+                //TODO: Need to update this for new admin view
                 return new AdminWelcomeScreen(administrator, new Object[]{"User", "Columns"}, new Object[]{"Modules", "Columns"},
                         new Object[]{"Department", "Columns"}, new Object[]{"Courses", "Columns"});
             case TEACHER:
