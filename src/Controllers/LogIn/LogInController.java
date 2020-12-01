@@ -41,8 +41,11 @@ public class LogInController {
             frame.setVisible(true);
             loginFrame.dispose();
         }
+        else{
+        loginFrame.incorrectPassword();
+        }
     }
-
+    
     public JFrame getUserFrame(String username) {
         UserAccountBuilder builder = new UserAccountBuilder(username);
         if (Student.exist(username)) {

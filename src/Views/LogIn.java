@@ -14,6 +14,7 @@ public class LogIn extends JFrame {
     private JButton logInButt;
     private JLabel passwordLabel;
     private JLabel usernameLabel;
+    private JLabel statusLabel;
     private LogInController loginController;
 
     public LogIn(String title,LogInController controller) {
@@ -29,6 +30,10 @@ public class LogIn extends JFrame {
         logInButt.addActionListener(e -> loginController.loginButtonPress(userNameField.getText(),passwordField.getPassword()));
     }
 
+    public void incorrectPassword(){
+        statusLabel.setForeground(Color.red);
+        statusLabel.setVisible(true);
+    }
 
     public static void main(String[] args) {
         //is here to allow the form to be displayed without external call
