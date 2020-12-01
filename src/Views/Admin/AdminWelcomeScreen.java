@@ -1,7 +1,11 @@
 package Views.Admin;
 
+
+import Models.Tables.Admin.CourseTableModel;
+
 import Models.CourseStructure.Department;
 import Models.CourseStructure.UniModule;
+
 import Models.Tables.Admin.DepartmentsTableModel;
 import Models.Tables.Admin.ModulesTableModel;
 import Models.UserAccounts.Administrator;
@@ -92,8 +96,12 @@ public class AdminWelcomeScreen extends WelcomeScreen {
         DepartmentsTableModel departmentsModel = new DepartmentsTableModel(new Department());
         departmentsTable.setModel(departmentsModel);
 
-        //DefaultTableModel coursesModel = new DefaultTableModel(coursesColumns, 60);
-        //coursesTable.setModel(coursesModel);
+
+    
+
+     CourseTableModel coursesModel = new CourseTableModel();
+     coursesTable.setModel(coursesModel);
+
     }
 
     public static void main(String args[]){

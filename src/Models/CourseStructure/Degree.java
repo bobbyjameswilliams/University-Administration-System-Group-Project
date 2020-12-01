@@ -106,5 +106,23 @@ public class Degree implements CourseStructure{
         return null;
     }
 
+    //Getters
+
+    public String getDegreeCode(){
+        return degreeCode;
+    };
+
+    public String getCourseName(){
+        return courseName;
+    };
+
+    public int getLengthOfStudy(){
+        return lengthOfStudy;
+    }
+
+    public boolean getYearInIndustry(){
+        return yearInIndustry;
+    }
+
 
 }
