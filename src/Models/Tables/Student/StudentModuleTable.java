@@ -17,8 +17,8 @@ public class StudentModuleTable extends AbstractTableModel {
 
     private final List<StudentGrade> studentGrades;
 
-    private final String[] columnNames = new String[] {"Module Code","Grade","Resit"};
-    private final Class[] columnClass = new Class[] {String.class,Integer.class,Integer.class};
+    private final String[] columnNames = new String[] {"Module Code","Level Taken","Grade","Resit"};
+    private final Class[] columnClass = new Class[] {String.class,String.class,Integer.class,Integer.class};
 
     public StudentModuleTable(Student student){
         this.studentGrades = student.getModules();
@@ -56,8 +56,10 @@ public class StudentModuleTable extends AbstractTableModel {
             case 0:
                 return row.getModuleCode();
             case 1:
-                return row.getGrade();
+                return row.getLevelOfStudyTaken();
             case 2:
+                return row.getGrade();
+            case 3:
                 return row.getResit();
             default:
                 return null;
@@ -65,7 +67,7 @@ public class StudentModuleTable extends AbstractTableModel {
     }
 
     @Override
-    public boolean isCellEditable(int rowindex, int columnIndex){
+    public boolean isCellEditable(int rowIndex, int columnIndex){
         return false;
     }
 

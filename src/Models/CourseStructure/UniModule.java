@@ -14,29 +14,25 @@ public class UniModule implements CourseStructure{
     private String moduleName;
     private String moduleCode;
     private int credits;
-    private int levelOfStudy;
 
     //Constructor where only degreeCode is needed (remove,exists)
     public UniModule(String moduleCode){
         this.moduleCode = moduleCode;
         this.credits = 20;
-        this.levelOfStudy = 1;
     }
 
-    public UniModule(String moduleCode,String moduleName, int credits, int levelOfStudy){
+    public UniModule(String moduleCode,String moduleName, int credits){
         this.moduleCode = moduleCode;
         this.moduleName = moduleName;
         this.credits = credits;
-        this.levelOfStudy = levelOfStudy;
     }
 
     public String getCode(){
         return this.moduleCode;
     }
-    public int getLevelOfStudy(){return this.levelOfStudy;}
 
     public void add(){
-        String values = this.moduleCode + "','" + this.moduleName + "','" + this.credits + "','" + this.levelOfStudy;
+        String values = this.moduleCode + "','" + this.moduleName + "','" + this.credits;
         DBController.executeCommand("INSERT INTO Module VALUES ('"+values+"');");
     }
 

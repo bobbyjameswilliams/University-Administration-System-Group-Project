@@ -11,7 +11,7 @@ public class UniModuleTest {
 
     @BeforeEach
     public void init(){
-        module = new UniModule("COM1009","Algorithm and Data Structures",20,1);
+        module = new UniModule("COM1009","Algorithm and Data Structures",20);
     }
 
     @Test

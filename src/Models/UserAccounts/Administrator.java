@@ -28,7 +28,7 @@ public class Administrator extends Employee {
     }
 
     public void addModule(String moduleCode,String moduleName,int credits,int levelOfStudy){
-        UniModule module = new UniModule(moduleCode, moduleName,credits,levelOfStudy);
+        UniModule module = new UniModule(moduleCode, moduleName,credits);
         module.add();
     }
 
@@ -71,12 +71,14 @@ public class Administrator extends Employee {
         degree.remove();
     }
 
-    public void addUniversityDepartment(String departmentName){
-        DBController.executeCommand("INSERT INTO Department VALUES ('"+departmentName+"');");
+    public void addUniversityDepartment(String departmentCode,String departmentName){
+        Department department = new Department(departmentCode,departmentName);
+        department.addUniversityDepartment();
     }
 
-    public void removeUniversityDepartment(String departmentName){
-        UserManipulator.remove(departmentName,"Department","departmentName");
+    public void removeUniversityDepartment(String departmentCode){
+        Department department = new Department(departmentCode);
+        department.removeUniversityDepartment();
     }
 
 }

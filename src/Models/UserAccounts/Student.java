@@ -1,5 +1,6 @@
 package Models.UserAccounts;
 
+import Models.CourseStructure.LevelOfStudy;
 import Models.DatabaseBehaviours.DBController;
 import Models.Tables.StudentGrade;
 
@@ -10,20 +11,21 @@ public class Student extends User {
 	
 	private int regNumber; 
 	private String degreeCode;
-	private int levelOfStudy;
+	private LevelOfStudy levelOfStudy;
 	//for adding a new Student to the DB
-	public Student(String forename,String surname, String degreeCode, int levelOfStudy) {
+	public Student(String forename,String surname, String degreeCode, String levelOfStudy) {
 		super(forename, surname);
 		this.regNumber = generateNewRegNumber();
 		this.degreeCode = degreeCode;
-		this.levelOfStudy = levelOfStudy;
+		this.levelOfStudy = LevelOfStudy.valueOf(levelOfStudy.toUpperCase());
 	}
+
 	//for editing a Student that is already in the DB
-	public Student(String username,String forename,String surname,String emailAddress,int regNumber, String degreeCode, int levelOfStudy) {
+	public Student(String username,String forename,String surname,String emailAddress,int regNumber, String degreeCode, String levelOfStudy) {
 		super(username, forename, surname, emailAddress);
 		this.regNumber = regNumber;
 		this.degreeCode = degreeCode;
-		this.levelOfStudy = levelOfStudy;
+		this.levelOfStudy = LevelOfStudy.valueOf(levelOfStudy.toUpperCase());
 	}
 	/**
 	 * get information about the student including their user details
@@ -36,8 +38,7 @@ public class Student extends User {
 	 * get information for adding a new student so
 	 */
 	public String getStudentDetailsForInserting() {
-		return getRegNumber() +"','"+ getUsername() +"','" + getDegreeCode() + "','"+
-				getLevelOfStudy();
+		return getRegNumber() +"','"+ getUsername() +"','" + getDegreeCode() + "','" + getLevelOfStudy();
 	}
 
 
@@ -65,18 +66,18 @@ public class Student extends User {
 		return degreeCode;
 	}
 
-	public int getLevelOfStudy() {
+	public LevelOfStudy getLevelOfStudy() {
 		return levelOfStudy;
 	}
 
-	public void setLevelOfStudy(int newLevelOfStudy) {
-	    this.levelOfStudy = newLevelOfStudy;
+	public void setLevelOfStudy(String levelOfStudy) {
+	    this.levelOfStudy = LevelOfStudy.valueOf(levelOfStudy.toUpperCase());
 	}
 
 	public void updateLevelOfStudy(){
 		try (Connection con = DriverManager.getConnection(this.url,this.user,this.password)){
 			Statement stmt = con.createStatement();
-			String query = "UPDATE Student SET yearOfStudy = " + this.getLevelOfStudy() + " WHERE regNumber = " + this.getRegNumber();
+			String query = "UPDATE Student SET yearOfStudy = " + this.getLevelOfStudy().toString() + " WHERE regNumber = " + this.getRegNumber();
 			stmt.execute(query);
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -84,7 +85,7 @@ public class Student extends User {
 	}
 
 	public int getCreditRequirements(){
-		if (this.levelOfStudy > 3 ){
+		if (this.levelOfStudy == LevelOfStudy.P){
 			// post grad
 			return 180;
 		}
@@ -97,7 +98,7 @@ public class Student extends User {
 		try (Connection con = DriverManager.getConnection(this.url,this.user,this.password)){
 			Statement stmt = con.createStatement();
 			String query = "SELECT credits FROM StudentModule JOIN Module ON Module.moduleCode = StudentModule.moduleCode " +
-					"WHERE regNumber = '"+this.getRegNumber()+"' AND levelOfStudy = '" + this.getLevelOfStudy() + "';";
+					"WHERE regNumber = '"+this.getRegNumber()+"' AND StudentModule.levelOfStudyTaken = '" + this.getLevelOfStudy().toString() + "';";
 			ResultSet rs =  stmt.executeQuery(query);
 			while(rs.next()){
 				creditsTaken += Integer.parseInt(rs.getString("credits"));
@@ -138,9 +139,10 @@ public class Student extends User {
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				String moduleCode = rs.getString("moduleCode");
+				String levelOfStudyTaken = rs.getString("levelOfStudyTaken");
 				int grade = rs.getInt("grade");
 				int resit = rs.getInt("resit");
-				studentModuleGrades.add(new StudentGrade(moduleCode,grade, resit));
+				studentModuleGrades.add(new StudentGrade(moduleCode,levelOfStudyTaken,grade, resit));
 			}
 		}
 		catch (SQLException throwables) {
@@ -148,7 +150,6 @@ public class Student extends User {
 		}
 		return studentModuleGrades;
 	}
-
 
 	/**
 	 * Get the personal tutor(s) for a Student
@@ -160,7 +161,8 @@ public class Student extends User {
 	//so it can then be got and displayed on the student
 	//welcome screen.
 	public List<String> getPersonalTutor() throws SQLException {
-		String query = "SELECT forename, surname, emailAddress FROM PersonalTutor JOIN Employee ON PersonalTutor.employeeNumber = Employee.employeeNumber JOIN User ON User.username = Employee.username WHERE PersonalTutor.regNumber = " + this.regNumber;
+		String query = "SELECT forename, surname, emailAddress FROM PersonalTutor JOIN Employee ON PersonalTutor.employeeNumber = " +
+				"Employee.employeeNumber JOIN User ON User.username = Employee.username WHERE PersonalTutor.regNumber = " + this.regNumber;
 		Statement stmt = null;
 		String tutorForeName;
 		String tutorSurname;
@@ -184,10 +186,5 @@ public class Student extends User {
 		}
 		return null;
 	}
-
-	public ResultSet getYearlyGrades() {
-		return null;
-	}
-
 
 }

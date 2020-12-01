@@ -1,6 +1,7 @@
 package Models.UserAccounts;
 
 import Models.CourseStructure.Degree;
+import Models.CourseStructure.LevelOfStudy;
 import Models.CourseStructure.UniModule;
 import Models.DatabaseBehaviours.DBController;
 import Models.DatabaseBehaviours.UserManipulator;
@@ -50,11 +51,11 @@ public class Registar extends Employee {
         }
     }
 
-    public void makeModuleCompulsory(String degreeCode, String moduleCode){
+    public void makeModuleCompulsory(String degreeCode, String moduleCode, LevelOfStudy levelOfStudy){
         Degree degree = new Degree(degreeCode);
         UniModule module = new UniModule(moduleCode);
         if (degree.exists() & module.exists()){
-            String values = degree.getCode() + "','" + module.getCode()+"','"+module.getLevelOfStudy();
+            String values = degree.getCode() + "','" + module.getCode()+"','"+levelOfStudy.toString();
             DBController.executeCommand("INSERT INTO DegreeCompulsory (moduleCode,moduleName,levelOfStudy) VALUES ('"+values+"');");
         }
     }

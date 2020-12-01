@@ -29,7 +29,7 @@ public class UserAccountBuilder {
                 String surname = rs.getString("surname");
                 String emailAddress = rs.getString("emailAddress");
                 String degreeCode = rs.getString("degreeCode");
-                int levelOfStudy = rs.getInt("yearOfStudy");
+                String levelOfStudy = rs.getString("levelOfStudy");
                 return new Student(username,forename,surname,emailAddress,regNumber,degreeCode,levelOfStudy);
             }
         } catch (Exception ex) {

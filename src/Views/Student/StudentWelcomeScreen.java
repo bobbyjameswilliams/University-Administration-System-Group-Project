@@ -35,7 +35,7 @@ public class StudentWelcomeScreen extends WelcomeScreen {
 
         //TODO: interface the moduleColumns and gradeColumns. Need to discuss with callum and salva.
         //instantiating table on model tab
-        StudentModuleTable moduleModel = new StudentModuleTable(new Student("test","test","test","test",12345,"ENG040",4));
+        StudentModuleTable moduleModel = new StudentModuleTable(this.student);
         modulesTable.setModel(moduleModel);
         //instantiating table on grades tab
         DefaultTableModel gradeModel = new DefaultTableModel(gradeColumns, 0);
@@ -47,16 +47,7 @@ public class StudentWelcomeScreen extends WelcomeScreen {
     }
 
 
-    public static void main(String[] args) {
-        //is here to allow the form to be displayed without external call
-
-        Student student = new Student("Lembrei","Bobby","Williams","",12345,null,1);
-        JFrame frame = new Views.Student.StudentWelcomeScreen(student,new Object[]{"Placeholder","for","grades"});
-        frame.setVisible(true);
-    }
-
     private void displayWelcomeLabel() {
-
         welcomeLabel.setText("Welcome "+ student.getForename() + " Logged in as Student ");
     }
 
