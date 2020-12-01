@@ -12,10 +12,15 @@ import java.util.List;
 
 public class Degree implements CourseStructure{
 
+    private final String tableName = "Degree";
+    private final String primaryColumnName = "degreeCode";
+
     private String degreeCode;
     private String courseName;
     private int lengthOfStudy;
     private boolean yearInIndustry;
+
+    public Degree(){}
 
     //Constructor where only degreeCode is needed (remove,exists)
     public Degree(String degreeCode){
@@ -36,10 +41,40 @@ public class Degree implements CourseStructure{
         return x ? 1 : 0 ;
     }
 
+    public boolean IntToBool(int x){
+        return x == 1;
+    }
+
     @Override
     public String getCode() {
         return this.degreeCode;
     }
+
+    @Override
+    public String getTableName() {
+        return tableName;
+    }
+
+    @Override
+    public String getPrimaryColumn() {
+        return primaryColumnName;
+    }
+
+    @Override
+    public ArrayList<Object> getVariables(){
+        ArrayList<Object> list = new ArrayList<>();
+        list.add(this.degreeCode);
+        list.add(this.courseName);
+        list.add(this.lengthOfStudy);
+        list.add(this.yearInIndustry);
+        return list;
+    }
+
+    @Override
+    public String[] getVariableNames(){ return new String[] {"Degree Code","Course Name","Length Of Study","Year in Industry"};}
+
+    @Override
+    public Class[] getVariableClass(){ return new Class[] {String.class,String.class,Integer.class,Boolean.class};}
 
     public void add(){
         String values = this.degreeCode + "','" + this.courseName + "','" + this.lengthOfStudy + "','" + this.boolToInt(this.yearInIndustry);
@@ -51,47 +86,24 @@ public class Degree implements CourseStructure{
         userManipulator.remove(this.degreeCode,"Degree","degreeCode");
     }
 
-    public boolean exists(){
-        try (Connection con = DriverManager.getConnection(this.url,this.user,this.password)){
-            Statement stmt = con.createStatement();
-            ResultSet rs =  stmt.executeQuery("SELECT COUNT(1) FROM Degree Where degreeCode = '"+degreeCode+"';");
-            rs.next();
-            int count = Integer.parseInt(rs.getString("COUNT(1)"));
-            // Count should never be greater than one, I believe
-            return count >= 1;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return false;
-    }
-
-    public static List<Degree> getAllDegrees(){
+    public List<Degree> getAll(){
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
             Statement stmt = con.createStatement();
             List<Degree> degrees = new ArrayList<>();
-            String query = "SELECT * FROM Degree";
+            String query = "SELECT * FROM " + this.getTableName();
             ResultSet rs =  stmt.executeQuery(query);
             while(rs.next()){
                 String degreeCode = rs.getString("degreeCode");
                 String courseName = rs.getString("courseName");
                 int lengthOfStudy = rs.getInt("lengthOfStudy");
-                boolean yearInIndustry = Degree.yiiBool(rs.getInt("yearInIndustry"));
-                degrees.add(new Degree(degreeCode,courseName,lengthOfStudy,yearInIndustry));
+                int yearInIndustry = rs.getInt("yearInIndustry");
+                degrees.add(new Degree(degreeCode,courseName,lengthOfStudy,this.IntToBool(yearInIndustry)));
             }
             return degrees;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return null;
-    }
-
-    public static boolean yiiBool(int x){
-        if (x == 1){
-            return true;
-        }
-        else{
-            return false;
-        }
     }
 
     //Getters
@@ -111,5 +123,6 @@ public class Degree implements CourseStructure{
     public boolean getYearInIndustry(){
         return yearInIndustry;
     }
+
 
 }

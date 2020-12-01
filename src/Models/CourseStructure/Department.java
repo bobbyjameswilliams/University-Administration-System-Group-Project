@@ -2,7 +2,6 @@ package Models.CourseStructure;
 
 import Models.DatabaseBehaviours.DBController;
 import Models.DatabaseBehaviours.UserManipulator;
-import Models.Tables.StudentGrade;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,18 +10,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Department {
+public class Department implements CourseStructure{
 
-    public String getDepartmentCode() {
-        return departmentCode;
-    }
-
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
+    private final String tableName = "Department";
+    private final String primaryColumnName = "departmentCode";
     private String departmentCode;
     private String departmentName;
+
+    public Department(){
+
+    }
 
     public Department(String departmentCode) {
         this.departmentCode = departmentCode;
@@ -33,15 +30,33 @@ public class Department {
         this.departmentName = departmentName;
     }
 
-    public void addUniversityDepartment(){
+    public String getCode() {
+        return departmentCode;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    @Override
+    public String getTableName() {
+        return tableName;
+    }
+
+    @Override
+    public String getPrimaryColumn() {
+        return primaryColumnName;
+    }
+
+    public void add(){
         DBController.executeCommand("INSERT INTO Department VALUES ('"+this.departmentCode + "','" + this.departmentName+"');");
     }
 
-    public void removeUniversityDepartment(){
+    public void remove(){
         UserManipulator.remove(this.departmentCode,"Department","departmentCode");
     }
 
-    public static List<Department> getAllDepartments(){
+    public List<Department> getAll(){
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
             Statement stmt = con.createStatement();
             List<Department> departments = new ArrayList<>();
@@ -59,19 +74,19 @@ public class Department {
         return null;
     }
 
-    private void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+    public ArrayList<Object> getVariables(){
+        ArrayList<Object> list = new ArrayList<>();
+        list.add(this.departmentCode);
+        list.add(this.departmentName);
+        return list;
     }
 
-    public void updateDepartmentName(String departmentName){
-        this.setDepartmentName(departmentName);
-        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
-            Statement stmt = con.createStatement();
-            String query = "UPDATE Department SET departmentName = '" + this.departmentName + "' WHERE departmentCode = '" + this.departmentCode + "';";
-            System.out.println(query);
-            stmt.execute(query);
-        } catch (Exception ex){
-
-        }
+    public String[] getVariableNames(){
+        return new String[] {"Department Code","Department Name"};
     }
+
+    public Class[] getVariableClass(){
+        return new Class[] {String.class,String.class};
+    }
+
 }

@@ -1,63 +1,22 @@
 package Models.Tables.Admin;
 
+import Models.CourseStructure.CourseStructure;
 import Models.CourseStructure.Department;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.List;
+import java.awt.*;
+import java.util.ArrayList;
 
-public class DepartmentsTableModel extends AbstractTableModel {
+public class DepartmentsTableModel extends CourseStructureTableModel {
 
-    private final List<Department> departments;
-
-    private final String[] columnNames = new String[] {"Department Code","Department Name"};
-    private final Class[] columnClass = new Class[] {String.class,String.class};
-
-    public DepartmentsTableModel() {this.departments = Department.getAllDepartments();}
-
-    @Override
-    public String getColumnName(int column)
-    {
-        return columnNames[column];
-    }
-
-    @Override
-    public Class<?> getColumnClass(int columnIndex)
-    {
-        return columnClass[columnIndex];
-    }
-
-    @Override
-    public int getColumnCount()
-    {
-        return columnNames.length;
-    }
-
-    @Override
-    public int getRowCount()
-    {
-        return departments.size();
-    }
-
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex)
-    {
-        Department row =  departments.get(rowIndex);
-        switch (columnIndex){
-            case 0:
-                return row.getDepartmentCode();
-            case 1:
-                return row.getDepartmentName();
-            default:
-                return null;
-        }
-    }
+    public DepartmentsTableModel(Department department){super(department);}
 
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex)
     {
-        Department row = departments.get(rowIndex);
+        CourseStructure row = this.courseStructureList.get(rowIndex);
         if(columnIndex==1) {
-            row.updateDepartmentName((String) value);
+            row.update("departmentName",(String) value);
         }
     }
 
@@ -65,6 +24,5 @@ public class DepartmentsTableModel extends AbstractTableModel {
     public boolean isCellEditable(int rowIndex, int columnIndex){
         return columnIndex == 1;
     }
-
 
 }
