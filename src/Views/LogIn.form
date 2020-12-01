@@ -40,19 +40,6 @@
         </constraints>
         <properties/>
       </component>
-      <component id="11ae5" class="javax.swing.JComboBox" binding="privellageCombo">
-        <constraints>
-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <model>
-            <item value="Admin"/>
-            <item value="Student"/>
-            <item value="Teacher"/>
-            <item value="Registrar"/>
-          </model>
-        </properties>
-      </component>
       <component id="9c2b3" class="javax.swing.JButton" binding="logInButt">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>

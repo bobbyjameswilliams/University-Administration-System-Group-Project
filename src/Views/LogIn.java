@@ -4,15 +4,13 @@ import Controllers.LogIn.LogInController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 public class LogIn extends JFrame {
 
     private JPanel mainPanel;
     private JTextField userNameField;
     private JPasswordField passwordField;
-    private JComboBox privellageCombo;
     private JButton logInButt;
     private JLabel passwordLabel;
     private JLabel usernameLabel;
@@ -24,15 +22,11 @@ public class LogIn extends JFrame {
             this.setContentPane(mainPanel);
             super.setMinimumSize(new Dimension(400,150));
             this.setLocationRelativeTo(null);
+            this.getRootPane().setDefaultButton(logInButt);
             this.pack();
             loginController = controller;
         //Submits the data in the fields. see LogInController
-        logInButt.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                loginController.loginButtonPress(userNameField.getText(),passwordField.getPassword());
-            }
-        });
+        logInButt.addActionListener(e -> loginController.loginButtonPress(userNameField.getText(),passwordField.getPassword()));
     }
 
 
