@@ -60,7 +60,6 @@ public class Administrator extends Employee {
         }
     }
 
-
     public void addDegree(String degreeCode,String courseName, int lengthOfStudy, boolean yearInIndustry){
         Degree degree = new Degree(degreeCode,courseName,lengthOfStudy,yearInIndustry);
         degree.add();
@@ -73,12 +72,12 @@ public class Administrator extends Employee {
 
     public void addUniversityDepartment(String departmentCode,String departmentName){
         Department department = new Department(departmentCode,departmentName);
-        department.addUniversityDepartment();
+        department.add();
     }
 
     public void removeUniversityDepartment(String departmentCode){
         Department department = new Department(departmentCode);
-        department.removeUniversityDepartment();
+        department.remove();
     }
 
 }

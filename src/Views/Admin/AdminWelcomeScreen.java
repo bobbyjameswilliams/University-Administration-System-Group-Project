@@ -1,6 +1,9 @@
 package Views.Admin;
 
+import Models.CourseStructure.Department;
+import Models.CourseStructure.UniModule;
 import Models.Tables.Admin.DepartmentsTableModel;
+import Models.Tables.Admin.ModulesTableModel;
 import Models.UserAccounts.Administrator;
 import Views.WelcomeScreen;
 
@@ -72,28 +75,25 @@ public class AdminWelcomeScreen extends WelcomeScreen {
     private JComboBox userPrivilegeCombo;
     private Administrator admin;
 
-    //TODO: Fix issue where the table doesnt fill the viewport
     public AdminWelcomeScreen(Administrator admin){
-     super();
+        super();
 
-     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-     this.setContentPane(mainPanel);
-     this.admin = admin;
-     this.pack();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setContentPane(mainPanel);
+        this.admin = admin;
+        this.pack();
 
-     //TODO: interface. Need to discuss with callum and salva
-     //instantiating table
-    // DefaultTableModel usersModel = new DefaultTableModel(usersColumns, 60);
-    // usersTable.setModel(usersModel);
+        //instantiating table
+        // DefaultTableModel usersModel = new DefaultTableModel(usersColumns, 60);
+        // usersTable.setModel(usersModel);
+        ModulesTableModel modulesModel = new ModulesTableModel(new UniModule());
+        modulesTable.setModel(modulesModel);
 
-    // DefaultTableModel modulesModel = new DefaultTableModel(modulesColumns, 60);
-    // modulesTable.setModel(modulesModel);
+        DepartmentsTableModel departmentsModel = new DepartmentsTableModel(new Department());
+        departmentsTable.setModel(departmentsModel);
 
-    DepartmentsTableModel departmentsModel = new DepartmentsTableModel();
-    departmentsTable.setModel(departmentsModel);
-
-     //DefaultTableModel coursesModel = new DefaultTableModel(coursesColumns, 60);
-     //coursesTable.setModel(coursesModel);
+        //DefaultTableModel coursesModel = new DefaultTableModel(coursesColumns, 60);
+        //coursesTable.setModel(coursesModel);
     }
 
     public static void main(String args[]){
