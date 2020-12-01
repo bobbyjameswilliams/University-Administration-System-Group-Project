@@ -17,6 +17,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 /**
@@ -33,12 +34,15 @@ public class LogInController {
         loginFrame.setVisible(true);
     }
 
-    public void loginButtonPress(String username, String password) {
-        if (Login.loginAuthenticated(username, password)) {
+    public void loginButtonPress(String username, char[] password) {
+        if (Login.loginAuthenticated(username, String.valueOf(password))) {
             // if password matched instantiate new view
             JFrame frame = this.getUserFrame(username);
             frame.setVisible(true);
             loginFrame.dispose();
+        }
+        else{
+        loginFrame.incorrectPassword();
         }
     }
 
@@ -52,6 +56,7 @@ public class LogInController {
         switch (builder.getEmployeeRole()) {
             case ADMIN:
                 Administrator administrator = builder.employeeBuilder(new Administrator());
+                //TODO: Need to update this for new admin view
                 return new AdminWelcomeScreen(administrator, new Object[]{"User", "Columns"}, new Object[]{"Modules", "Columns"},
                         new Object[]{"Department", "Columns"}, new Object[]{"Courses", "Columns"});
             case TEACHER:
