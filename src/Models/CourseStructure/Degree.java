@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Degree implements CourseStructure{
 
@@ -61,6 +63,53 @@ public class Degree implements CourseStructure{
             ex.printStackTrace();
         }
         return false;
+    }
+
+    public static List<Degree> getAllDegrees(){
+        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+            Statement stmt = con.createStatement();
+            List<Degree> degrees = new ArrayList<>();
+            String query = "SELECT * FROM Degree";
+            ResultSet rs =  stmt.executeQuery(query);
+            while(rs.next()){
+                String degreeCode = rs.getString("degreeCode");
+                String courseName = rs.getString("courseName");
+                int lengthOfStudy = rs.getInt("lengthOfStudy");
+                boolean yearInIndustry = Degree.yiiBool(rs.getInt("yearInIndustry"));
+                degrees.add(new Degree(degreeCode,courseName,lengthOfStudy,yearInIndustry));
+            }
+            return degrees;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static boolean yiiBool(int x){
+        if (x == 1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    //Getters
+
+    public String getDegreeCode(){
+        return degreeCode;
+    };
+
+    public String getCourseName(){
+        return courseName;
+    };
+
+    public int getLengthOfStudy(){
+        return lengthOfStudy;
+    }
+
+    public boolean getYearInIndustry(){
+        return yearInIndustry;
     }
 
 }
