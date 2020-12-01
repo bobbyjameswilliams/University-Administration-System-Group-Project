@@ -1,5 +1,6 @@
 package Views.Admin;
 
+import Models.Tables.Admin.DepartmentsTableModel;
 import Models.UserAccounts.Administrator;
 import Views.WelcomeScreen;
 
@@ -13,9 +14,9 @@ public class AdminWelcomeScreen extends WelcomeScreen {
     private JPanel usersTab;
     private JLabel welcomeLabel;
     private JPanel userTabButtPanel;
-    private JComboBox userAccEditPribellageCombo;
+    private JComboBox userAccEditPrivilegeCombo;
     private JLabel editUserLbl;
-    private JButton assignEditPrivellageButt;
+    private JButton assignEditPrivilegeButt;
     private JLabel newUserLabel;
     private JTextField userNameTxtField;
     private JLabel userNameLabel;
@@ -24,7 +25,7 @@ public class AdminWelcomeScreen extends WelcomeScreen {
     private JButton removeSelectedButt;
     private JCheckBox yearInIndustryCheckBox;
     private JTable table1;
-    private JButton addAdditonalDeptButton;
+    private JButton courseAddAdditionalButton;
     private JComboBox courseAdditionalDeptCombo;
     private JTextField deptCodeTxtField;
     private JTable coreRelationsTable;
@@ -68,11 +69,11 @@ public class AdminWelcomeScreen extends WelcomeScreen {
     private JTextField userForeNameTxtField;
     private JTextField userSurNameTxtField;
     private JTextField userEmailTxtField;
-    private JComboBox userPrivellageCombo;
+    private JComboBox userPrivilegeCombo;
     private Administrator admin;
 
     //TODO: Fix issue where the table doesnt fill the viewport
-    public AdminWelcomeScreen(Administrator admin, Object[]usersColumns, Object[]modulesColumns, Object[]departmentColumns, Object[]coursesColumns){
+    public AdminWelcomeScreen(Administrator admin){
      super();
 
      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,8 +89,8 @@ public class AdminWelcomeScreen extends WelcomeScreen {
     // DefaultTableModel modulesModel = new DefaultTableModel(modulesColumns, 60);
     // modulesTable.setModel(modulesModel);
 
-    // DefaultTableModel departmentsModel = new DefaultTableModel(departmentColumns, 60);
-    // departmentsTable.setModel(departmentsModel);
+    DepartmentsTableModel departmentsModel = new DepartmentsTableModel();
+    departmentsTable.setModel(departmentsModel);
 
      //DefaultTableModel coursesModel = new DefaultTableModel(coursesColumns, 60);
      //coursesTable.setModel(coursesModel);
@@ -97,7 +98,7 @@ public class AdminWelcomeScreen extends WelcomeScreen {
 
     public static void main(String args[]){
         Administrator admin = new Administrator();
-        JFrame frame = new AdminWelcomeScreen(admin, new Object[]{""},new Object[]{""},new Object[]{""},new Object[]{""});
+        JFrame frame = new AdminWelcomeScreen(admin);
         frame.setVisible(true);
     }
 

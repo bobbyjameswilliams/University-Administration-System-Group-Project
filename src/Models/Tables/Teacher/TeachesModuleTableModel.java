@@ -1,5 +1,6 @@
-package Models.Tables;
+package Models.Tables.Teacher;
 
+import Models.Tables.StudentGrade;
 import Models.UserAccounts.Teacher;
 
 import javax.swing.table.AbstractTableModel;

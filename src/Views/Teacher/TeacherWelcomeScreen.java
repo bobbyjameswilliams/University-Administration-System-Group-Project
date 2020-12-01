@@ -1,16 +1,11 @@
 package Views.Teacher;
 
-import Models.Tables.TeachesModuleTableModel;
-import Models.UserAccounts.Student;
+import Models.Tables.Teacher.TeachesModuleTableModel;
 import Models.UserAccounts.Teacher;
 import Views.WelcomeScreen;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.geom.Dimension2D;
-import java.util.ArrayList;
-import java.util.List;
 
 //TODO: Replace the tabbed pane with a jpane so that the tabs can have a scroll pane and also pane at buttom for butts
 public class TeacherWelcomeScreen extends WelcomeScreen {

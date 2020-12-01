@@ -57,8 +57,7 @@ public class LogInController {
             case ADMIN:
                 Administrator administrator = builder.employeeBuilder(new Administrator());
                 //TODO: Need to update this for new admin view
-                return new AdminWelcomeScreen(administrator, new Object[]{"User", "Columns"}, new Object[]{"Modules", "Columns"},
-                        new Object[]{"Department", "Columns"}, new Object[]{"Courses", "Columns"});
+                return new AdminWelcomeScreen(administrator);
             case TEACHER:
                 Teacher teacher = builder.employeeBuilder(new Teacher());
                 return new TeacherWelcomeScreen(teacher, new Object[]{"Module", "Columns"}, new Object[]{"Student", "Columns"});
