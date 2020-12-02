@@ -82,6 +82,7 @@ public class AdminWelcomeScreen extends WelcomeScreen {
     private JButton moduleAddButton;
     private JTextField moduleNumberTxtField;
     private JButton removeSelectedModuleButton;
+    private JTextField qualificationTxtField;
     private AdminController controller;
 
     public AdminWelcomeScreen(AdminController controller){
@@ -102,7 +103,8 @@ public class AdminWelcomeScreen extends WelcomeScreen {
         });
 
         addCourseButt.addActionListener(e -> {
-            this.controller.addCourse((String)courseLeadDeptComboBox.getSelectedItem(),degreeCodeTxtField.getText(),courseNameTxt.getText(),Integer.parseInt(courseLengthTxtArea.getText()),yearInIndustryCheckBox.isContentAreaFilled());
+            this.controller.addCourse((String)courseLeadDeptComboBox.getSelectedItem(),degreeCodeTxtField.getText(),courseNameTxt.getText(),Integer.parseInt(courseLengthTxtArea.getText()),yearInIndustryCheckBox.isSelected(),
+            qualificationTxtField.getText());
             this.degreeCodeTxtField.setText("");
             this.courseNameTxt.setText("");
             this.courseLengthTxtArea.setText("");

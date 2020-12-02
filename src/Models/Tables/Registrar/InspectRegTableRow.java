@@ -26,7 +26,6 @@ public class InspectRegTableRow {
         return credits;
     }
 
-
     public InspectRegTableRow(String moduleCode, String moduleName, int credits, LevelOfStudy levelOfStudyTaken) {
         this.moduleCode = moduleCode;
         this.moduleName = moduleName;

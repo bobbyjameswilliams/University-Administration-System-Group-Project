@@ -2,6 +2,7 @@ package Controllers.Admin;
 
 import Models.CourseStructure.Degree;
 import Models.CourseStructure.Department;
+import Models.CourseStructure.Qualification;
 import Models.CourseStructure.UniModule;
 import Models.UserAccounts.*;
 import Views.Admin.AdminWelcomeScreen;
@@ -24,10 +25,11 @@ public class AdminController {
         administrator.addUniversityDepartment(departmentCode,departmentName);
     }
 
-    public void addCourse(String departmentName,String degreeSignature,String courseName,int lengthOfStudy,boolean yearInIndustry){
+    public void addCourse(String departmentName, String degreeSignature, String courseName, int lengthOfStudy, boolean yearInIndustry, String qual){
+        Qualification qualification = Qualification.valueOf(qual);
         String departmentCode = Department.getCodeFromName(departmentName);
         String degreeCode = Degree.generateDegreeCode(departmentCode,degreeSignature);
-        administrator.addDegree(degreeCode,courseName,lengthOfStudy,yearInIndustry);
+        administrator.addDegree(degreeCode,courseName,lengthOfStudy,yearInIndustry,qualification);
     }
 
     public void addUser(UserType userType,String forename,String surname){

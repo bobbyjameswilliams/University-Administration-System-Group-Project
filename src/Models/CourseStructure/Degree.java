@@ -19,6 +19,7 @@ public class Degree implements CourseStructure{
     private String courseName;
     private int lengthOfStudy;
     private boolean yearInIndustry;
+    private Qualification qualification;
 
     public Degree(){}
 
@@ -30,11 +31,12 @@ public class Degree implements CourseStructure{
         this.yearInIndustry = false;
     }
 
-    public Degree(String degreeCode, String courseName, int lengthOfStudy, boolean yearInIndustry){
+    public Degree(String degreeCode, String courseName, int lengthOfStudy, boolean yearInIndustry,Qualification qualification){
         this.degreeCode = degreeCode;
         this.courseName = courseName;
         this.lengthOfStudy = lengthOfStudy;
         this.yearInIndustry = yearInIndustry;
+        this.qualification = qualification;
     }
 
     public int boolToInt(boolean x){
@@ -67,17 +69,19 @@ public class Degree implements CourseStructure{
         list.add(this.courseName);
         list.add(this.lengthOfStudy);
         list.add(this.yearInIndustry);
+        list.add(this.qualification);
         return list;
     }
 
     @Override
-    public String[] getVariableNames(){ return new String[] {"Degree Code","Course Name","Length Of Study","Year in Industry"};}
+    public String[] getVariableNames(){ return new String[] {"Degree Code","Course Name","Length Of Study","Year in Industry","Qualification"};}
 
     @Override
-    public Class[] getVariableClass(){ return new Class[] {String.class,String.class,Integer.class,Boolean.class};}
+    public Class[] getVariableClass(){ return new Class[] {String.class,String.class,Integer.class,Boolean.class,String.class};}
 
     public void add(){
-        String values = this.degreeCode + "','" + this.courseName + "','" + this.lengthOfStudy + "','" + this.boolToInt(this.yearInIndustry);
+        String values = this.degreeCode + "','" + this.courseName + "','" + this.lengthOfStudy + "','" + this.boolToInt(this.yearInIndustry)
+                + "','" + this.qualification.toString() ;
         DBController.executeCommand("INSERT INTO Degree VALUES ('"+values+"');");
     }
 
@@ -97,7 +101,8 @@ public class Degree implements CourseStructure{
                 String courseName = rs.getString("courseName");
                 int lengthOfStudy = rs.getInt("lengthOfStudy");
                 int yearInIndustry = rs.getInt("yearInIndustry");
-                degrees.add(new Degree(degreeCode,courseName,lengthOfStudy,this.IntToBool(yearInIndustry)));
+                Qualification qualification = Qualification.valueOf(rs.getString("qualification"));
+                degrees.add(new Degree(degreeCode,courseName,lengthOfStudy,this.IntToBool(yearInIndustry),qualification));
             }
             return degrees;
         } catch (Exception ex) {
