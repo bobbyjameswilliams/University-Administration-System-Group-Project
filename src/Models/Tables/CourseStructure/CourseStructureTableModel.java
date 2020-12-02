@@ -1,11 +1,13 @@
-package Models.Tables.Admin;
+package Models.Tables.CourseStructure;
 
 import Models.CourseStructure.CourseStructure;
-import Models.CourseStructure.Department;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public abstract class CourseStructureTableModel extends AbstractTableModel {
 
@@ -19,6 +21,23 @@ public abstract class CourseStructureTableModel extends AbstractTableModel {
         this.courseStructureList = t.getAll();
         this.columnNames = t.getVariableNames();
         this.columnClass = t.getVariableClass();
+    }
+
+    public void removeRow(int[] rowIndex) {
+        List<CourseStructure> courseStructuresToRemove = new ArrayList<>();
+        for (int i: rowIndex){
+            courseStructuresToRemove.add(this.courseStructureList.get(i));
+        }
+        // we couldn't put this in the for loop above because the index would be wrong after first delete
+        List<Integer> rowIndexList  = Arrays.stream( rowIndex ).boxed().collect( Collectors.toList() );
+        Collections.reverse(rowIndexList);
+        for (Integer i : rowIndexList){
+            this.courseStructureList.remove(i);
+        }
+        // Remove elements from Database
+        for (CourseStructure courseStructureElement: courseStructuresToRemove){
+            courseStructureElement.remove();
+        }
     }
 
     @Override

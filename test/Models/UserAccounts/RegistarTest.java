@@ -15,13 +15,4 @@ class RegistarTest {
         this.registar = new Registar();
     }
 
-    @Test
-    public void addRemoveStudent(){
-        Student student = new Student("testy01","Mr","test","dsadas@gmail.com",101,"COMU01","ONE");
-        for (int i = 0; i < 3; i++) {
-            registar.addStudent(student);
-            registar.removeStudent(student.getRegNumber());
-        }
-    }
-
 }

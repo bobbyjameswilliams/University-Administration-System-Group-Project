@@ -29,11 +29,11 @@ public abstract class Employee extends User   {
 		this.employeeNumber = employeeNumber;
 	}
 
+	public abstract UserType getRole();
+
 	public int getEmployeeNumber() {
 		return employeeNumber;
 	}
-
-
 
 	/**
 	 * genarates the new employeeNumber for the new employee being created\added

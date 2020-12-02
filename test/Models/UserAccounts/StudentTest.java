@@ -16,7 +16,7 @@ public class StudentTest {
 
     @Test
     public void getCreditsTakenTest() {
-        assertEquals(20,student.getCreditsTaken());
+        assertEquals(40,student.getCreditsTaken());
     }
 
 }

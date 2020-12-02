@@ -33,6 +33,10 @@ public class UniModule implements CourseStructure{
         this.credits = credits;
     }
 
+    public static String generateModuleCode(String departmentCode,String moduleNumber){
+        return departmentCode + moduleNumber;
+    }
+
     public String getCode(){
         return this.moduleCode;
     }

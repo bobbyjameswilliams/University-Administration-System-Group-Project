@@ -17,9 +17,7 @@ public class Department implements CourseStructure{
     private String departmentCode;
     private String departmentName;
 
-    public Department(){
-
-    }
+    public Department(){}
 
     public Department(String departmentCode) {
         this.departmentCode = departmentCode;
@@ -70,6 +68,14 @@ public class Department implements CourseStructure{
             return departments;
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getCodeFromName(String departmentName){
+        List<Department> departments = new Department().getAll();
+        for (Department department : departments) {
+            if (department.getDepartmentName().equals(departmentName)) return department.getCode();
         }
         return null;
     }

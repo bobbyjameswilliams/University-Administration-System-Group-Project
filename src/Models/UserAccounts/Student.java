@@ -12,10 +12,18 @@ public class Student extends User {
 	private int regNumber; 
 	private String degreeCode;
 	private LevelOfStudy levelOfStudy;
+
 	//for adding a new Student to the DB
+	public Student(String forename,String surname){
+		super(forename,surname);
+		// wont have decided yet when being added by admin
+		this.degreeCode = null;
+		// Fair to assume that students start at Level 1
+		this.levelOfStudy = LevelOfStudy.ONE;
+	}
+
 	public Student(String forename,String surname, String degreeCode, String levelOfStudy) {
 		super(forename, surname);
-		this.regNumber = generateNewRegNumber();
 		this.degreeCode = degreeCode;
 		this.levelOfStudy = LevelOfStudy.valueOf(levelOfStudy.toUpperCase());
 	}
@@ -44,22 +52,6 @@ public class Student extends User {
 
 	public int getRegNumber() {
 		return regNumber;
-	}
-
-	public int generateNewRegNumber(){
-		int genaratedRegnumber=0;
-		try (Connection con = DriverManager.getConnection(this.url,this.user,this.password)){
-
-			String query = "SELECT COUNT(regNumber) \n"+
-					       "FROM  Student;";
-			Statement stmt = con.createStatement();
-			ResultSet rs =  stmt.executeQuery(query);
-			rs.next();
-			genaratedRegnumber = rs.getInt(1)+1;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return genaratedRegnumber;
 	}
 
 	public String getDegreeCode() {

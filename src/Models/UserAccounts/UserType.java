@@ -17,5 +17,10 @@ public enum UserType {
 		return userType;
 	}
 
+	public static UserType[] getAllUserTypes(){
+		UserType[] array = {ADMIN,REGISTRAR,TEACHER,STUDENT};
+		return array;
+	}
+
 }
 
