@@ -68,7 +68,6 @@ public class LogInController {
                 return null;
         }
     }
-
     public static void main(String[] args) {
         LogInController logInController = new LogInController();
     }
