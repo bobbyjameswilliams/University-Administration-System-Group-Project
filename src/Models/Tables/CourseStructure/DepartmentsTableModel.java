@@ -1,11 +1,10 @@
-package Models.Tables.Admin;
+package Models.Tables.CourseStructure;
 
 import Models.CourseStructure.CourseStructure;
 import Models.CourseStructure.Department;
 
-import javax.swing.table.AbstractTableModel;
-import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DepartmentsTableModel extends CourseStructureTableModel {
 

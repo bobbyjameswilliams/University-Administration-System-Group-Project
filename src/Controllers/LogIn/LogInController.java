@@ -1,6 +1,7 @@
 package Controllers.LogIn;
 
 
+import Controllers.Admin.AdminController;
 import Models.Authentication.Login;
 import Models.DatabaseBehaviours.DBController;
 import Models.Tables.StudentGrade;
@@ -56,8 +57,8 @@ public class LogInController {
         switch (builder.getEmployeeRole()) {
             case ADMIN:
                 Administrator administrator = builder.employeeBuilder(new Administrator());
-                //TODO: Need to update this for new admin view
-                return new AdminWelcomeScreen(administrator);
+                AdminController adminController = new AdminController(administrator);
+                return new AdminWelcomeScreen(adminController);
             case TEACHER:
                 Teacher teacher = builder.employeeBuilder(new Teacher());
                 return new TeacherWelcomeScreen(teacher, new Object[]{"Module", "Columns"}, new Object[]{"Student", "Columns"});
