@@ -34,7 +34,7 @@ public interface CourseStructure {
     public default boolean exists(){
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
             Statement stmt = con.createStatement();
-            String query = "SELECT * FROM "+this.getTableName()+"WHERE "+this.getPrimaryColumn()+"= '" + this.getCode() + "' ;";
+            String query = "SELECT * FROM "+this.getTableName()+" WHERE "+this.getPrimaryColumn()+"= '" + this.getCode() + "' ;";
             ResultSet rs = stmt.executeQuery(query);
             return rs.isBeforeFirst();
         } catch (Exception ex){

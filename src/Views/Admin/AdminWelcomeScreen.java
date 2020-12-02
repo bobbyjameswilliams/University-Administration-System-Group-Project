@@ -8,6 +8,7 @@ import Models.CourseStructure.UniModule;
 
 import Models.Tables.Admin.DepartmentsTableModel;
 import Models.Tables.Admin.ModulesTableModel;
+import Models.Tables.Admin.UserTableModel;
 import Models.UserAccounts.Administrator;
 import Views.WelcomeScreen;
 
@@ -96,11 +97,11 @@ public class AdminWelcomeScreen extends WelcomeScreen {
         DepartmentsTableModel departmentsModel = new DepartmentsTableModel(new Department());
         departmentsTable.setModel(departmentsModel);
 
+        CourseTableModel coursesModel = new CourseTableModel();
+        coursesTable.setModel(coursesModel);
 
-    
-
-     CourseTableModel coursesModel = new CourseTableModel();
-     coursesTable.setModel(coursesModel);
+        UserTableModel userTableModel = new UserTableModel();
+        usersTable.setModel(userTableModel);
 
     }
 

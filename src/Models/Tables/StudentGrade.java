@@ -26,6 +26,7 @@ public class StudentGrade {
         this.grade = grade;
         this.resit = resit;
     }
+
     public StudentGrade(String moduleCode,String levelOfStudyTaken,int grade, int resit) {
         this.moduleCode = moduleCode;
         this.levelOfStudyTaken = levelOfStudyTaken;
