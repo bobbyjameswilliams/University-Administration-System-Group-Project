@@ -11,7 +11,7 @@ class UserAccountBuilderTest {
         UserAccountBuilder builder = new UserAccountBuilder("Lembrei");
         Student student = builder.studentBuilder();
         Student student1 = new Student("Lembrei","Bobby","Williams","bwilliams4@sheffield.ac.uk",
-                12345,null,1);
+                12345,null,"ONE");
         assertEquals(student.getEmailAddress(),student1.getEmailAddress());
     }
 

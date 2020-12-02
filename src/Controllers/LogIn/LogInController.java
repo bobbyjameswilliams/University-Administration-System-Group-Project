@@ -12,10 +12,12 @@ import Views.Teacher.TeacherWelcomeScreen;
 import com.mysql.cj.log.Log;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 /**
@@ -28,45 +30,45 @@ public class LogInController {
     private LogIn loginFrame;
 
     public LogInController() {
-        this.loginFrame = new LogIn("University Management System",this);
+        this.loginFrame = new LogIn("University Management System", this);
         loginFrame.setVisible(true);
     }
 
-    public void loginButtonPress(String username, String password){
-        if (Login.loginAuthenticated(username,password)){
+    public void loginButtonPress(String username, char[] password) {
+        if (Login.loginAuthenticated(username, String.valueOf(password))) {
             // if password matched instantiate new view
             JFrame frame = this.getUserFrame(username);
             frame.setVisible(true);
             loginFrame.dispose();
         }
-    }
-
-
-    public JFrame getUserFrame(String username){
-        UserAccountBuilder builder = new UserAccountBuilder(username);
-        try {
-            Student student = builder.studentBuilder();
-            JFrame frame = new StudentWelcomeScreen(student,new Object[]{"Placeholder","for","grades"});
-            return frame;
-        } catch (NoSuchElementException ex){
-            switch(builder.getEmployeeRole()){
-                case ADMIN:
-                    Administrator administrator = builder.employeeBuilder(new Administrator());
-                    return new AdminWelcomeScreen(administrator,new Object[]{"User","Columns"}, new Object[]{"Modules","Columns"},
-                            new Object[]{"Department","Columns"},new Object[]{"Courses","Columns"});
-                case TEACHER:
-                    Teacher teacher = builder.employeeBuilder(new Teacher());
-                    return new TeacherWelcomeScreen( teacher,new Object[]{"Module","Columns"}, new Object[]{"Student","Columns"});
-                case REGISTRAR:
-                    builder.employeeBuilder(new Registar());
-                    return null;
-                default:
-                    return null;
-            }
+        else{
+        loginFrame.incorrectPassword();
         }
     }
 
-    public static void main(String[] args){
+    public JFrame getUserFrame(String username) {
+        UserAccountBuilder builder = new UserAccountBuilder(username);
+        if (Student.exist(username)) {
+            Student student = builder.studentBuilder();
+            JFrame frame = new StudentWelcomeScreen(student, new Object[]{"Placeholder", "for", "grades"});
+            return frame;
+        }
+        switch (builder.getEmployeeRole()) {
+            case ADMIN:
+                Administrator administrator = builder.employeeBuilder(new Administrator());
+                //TODO: Need to update this for new admin view
+                return new AdminWelcomeScreen(administrator);
+            case TEACHER:
+                Teacher teacher = builder.employeeBuilder(new Teacher());
+                return new TeacherWelcomeScreen(teacher, new Object[]{"Module", "Columns"}, new Object[]{"Student", "Columns"});
+            case REGISTRAR:
+                builder.employeeBuilder(new Registar());
+                return null;
+            default:
+                return null;
+        }
+    }
+    public static void main(String[] args) {
         LogInController logInController = new LogInController();
     }
 

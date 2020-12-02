@@ -18,20 +18,18 @@ public class UserAccountBuilder {
         this.username = username;
     }
 
-    public Student studentBuilder() throws NoSuchElementException{
+    public Student studentBuilder() {
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
             Statement stmt = con.createStatement();
             String query = "SELECT * FROM Student JOIN User on Student.username = User.username WHERE Student.username = '" + username + "';";
             ResultSet rs =  stmt.executeQuery(query);
-            // if student doesn't exist throw exception
-            if (!rs.isBeforeFirst()){ throw new NoSuchElementException() ;}
             while(rs.next()){
                 int regNumber = rs.getInt("regNumber");
                 String forename = rs.getString("forename");
                 String surname = rs.getString("surname");
                 String emailAddress = rs.getString("emailAddress");
                 String degreeCode = rs.getString("degreeCode");
-                int levelOfStudy = rs.getInt("yearOfStudy");
+                String levelOfStudy = rs.getString("levelOfStudy");
                 return new Student(username,forename,surname,emailAddress,regNumber,degreeCode,levelOfStudy);
             }
         } catch (Exception ex) {
@@ -47,11 +45,11 @@ public class UserAccountBuilder {
             ResultSet rs =  stmt.executeQuery(query);
             rs.next();
             String role = rs.getString("role");
-            return UserType.valueOf(role);
+            return UserType.valueOf(role.toUpperCase());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        throw new NoSuchElementException();
+        return null;
     }
 
     public <T extends Employee> T employeeBuilder(T employee) {
@@ -59,8 +57,6 @@ public class UserAccountBuilder {
             Statement stmt = con.createStatement();
             String query = "SELECT * FROM Employee JOIN User On User.username = Employee.username WHERE Employee.username = '" + username + "';";
             ResultSet rs =  stmt.executeQuery(query);
-            // if student doesn't exist throw exception
-            if (!rs.isBeforeFirst()){ throw new NoSuchElementException() ;}
             rs.next();
             employee.setUsername(rs.getString("username"));
             employee.setForename(rs.getString("forename"));

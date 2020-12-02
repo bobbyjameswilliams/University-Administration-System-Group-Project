@@ -17,13 +17,13 @@ class AdministratorTest {
 
     @Test
     public void departmentTest(){
-        administrator.addUniversityDepartment("Departamento da vida");
-        administrator.removeUniversityDepartment("Departamento da vida");
+        administrator.addUniversityDepartment("ART","Art Department");
+        administrator.removeUniversityDepartment("ART");
     }
 
     @Test
     public void addEmployeeTest(){
-        // Obviously can't add your irl, but your'e not gonna be able to login if you dont exist
+        // Obviously can't add yourself irl, but your'e not gonna be able to login if you dont exist
         administrator.addEmployee(administrator, UserType.ADMIN);
         administrator.removeEmployee(administrator.getEmployeeNumber());
     }
@@ -37,7 +37,6 @@ class AdministratorTest {
     @Test
     public void degreeTest(){
         administrator.addDegree("COM060","Computer Science",3,false);
-        // This will ned to be changed
         administrator.removeDegree("COM060");
     }
 

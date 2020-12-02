@@ -10,6 +10,7 @@ public class StudentGrade {
     private String moduleCode;
     private String forename;
     private String surname;
+    private String levelOfStudyTaken;
     private int grade;
     private int resit;
 
@@ -25,8 +26,10 @@ public class StudentGrade {
         this.grade = grade;
         this.resit = resit;
     }
-    public StudentGrade(String moduleCode,int grade, int resit) {
+
+    public StudentGrade(String moduleCode,String levelOfStudyTaken,int grade, int resit) {
         this.moduleCode = moduleCode;
+        this.levelOfStudyTaken = levelOfStudyTaken;
         this.grade = grade;
         this.resit = resit;
     }
@@ -42,6 +45,8 @@ public class StudentGrade {
     public String getSurname() {
         return surname;
     }
+
+    public String getLevelOfStudyTaken() {return levelOfStudyTaken;}
 
     public int getGrade() {
         return grade;
