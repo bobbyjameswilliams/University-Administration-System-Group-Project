@@ -6,6 +6,8 @@ import Models.UserAccounts.Registar;
 import Views.WelcomeScreen;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class RegistrarWelcomeScreen extends WelcomeScreen {
     private JPanel mainPanel;
@@ -37,7 +39,16 @@ public class RegistrarWelcomeScreen extends WelcomeScreen {
         RegistrarTableModel viewStntTableModel = new RegistrarTableModel();
         viewStntTable.setModel(viewStntTableModel);
 
-        inspectRegistrationButt.addActionListener(e -> viewStntTableModel.getRow(viewStntTable.getSelectedRow()));
+
+        inspectRegistrationButt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selRowIndex = viewStntTable.getSelectedRow();
+                if (selRowIndex > -1) {
+                    controller.inspectStudentRegistration(viewStntTableModel.getRow(selRowIndex));
+                }
+            }
+        });
     }
 
     public static void main(String args[]){
