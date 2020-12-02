@@ -25,8 +25,12 @@ public class RegistrarWelcomeScreenController {
     }
 
     public void inspectStudentRegistration(RegistrarTableRow row){
-        InspectRegistration inspectFrame = new InspectRegistration(new Student(row.getUserName(),row.getForeName(),row.getSurName(),row.getEmail(),row.getRegNumber(),row.getDegreeCode(),row.getLevelOfStudy()));
-        inspectFrame.setVisible(true);
+        if(row.getDegreeCode() == null || row.getLevelOfStudy() == null) {
+        }
+        else {
+            InspectRegistration inspectFrame = new InspectRegistration(new Student(row.getUserName(), row.getForeName(), row.getSurName(), row.getEmail(), row.getRegNumber(), row.getDegreeCode(), row.getLevelOfStudy()));
+            inspectFrame.setVisible(true);
+        }
     }
 
     public static void main(String args[]){
