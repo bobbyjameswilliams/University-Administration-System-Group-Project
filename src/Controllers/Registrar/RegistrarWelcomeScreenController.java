@@ -24,8 +24,6 @@ public class RegistrarWelcomeScreenController {
         registrarFrame.setVisible(true);
     }
 
-
-
     public void inspectStudentRegistration(RegistrarTableRow row){
         InspectRegistration inspectFrame = new InspectRegistration(new Student(row.getUserName(),row.getForeName(),row.getSurName(),row.getEmail(),row.getRegNumber(),row.getDegreeCode(),row.getLevelOfStudy()));
         inspectFrame.setVisible(true);

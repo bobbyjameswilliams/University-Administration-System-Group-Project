@@ -21,7 +21,7 @@ public class InspectRegistration extends WelcomeScreen {
     public InspectRegistration(Student student) {
         super();
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.student = student;
         this.pack();
