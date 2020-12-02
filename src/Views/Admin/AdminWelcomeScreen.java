@@ -88,6 +88,9 @@ public class AdminWelcomeScreen extends WelcomeScreen {
         this.admin = admin;
         this.pack();
 
+        //Sets welcome label
+        welcomeLabel.setText("Welcome " + admin.getForename() + " " + admin.getSurname() +
+                ", Logged in as Administrator");
         //instantiating table
         // DefaultTableModel usersModel = new DefaultTableModel(usersColumns, 60);
         // usersTable.setModel(usersModel);
