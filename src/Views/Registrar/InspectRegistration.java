@@ -16,6 +16,7 @@ public class InspectRegistration extends WelcomeScreen {
     private JLabel moduleCreditsLabel;
     private JLabel addModuleLabel;
     private JLabel studentInfoLabel;
+    private JTextField moduleCreditsTakenTxtField;
     private final Student student;
 
     public InspectRegistration(Student student) {
@@ -29,6 +30,9 @@ public class InspectRegistration extends WelcomeScreen {
         //sets the students info label
         studentInfoLabel.setText("Showing Registration for " + student.getForename() + " " + student.getSurname() +
                 " Reg: " + student.getRegNumber());
+
+        //module credits taken
+        moduleCreditsTakenTxtField.setText(Integer.toString(student.getCreditsTaken()));
 
         //instantiates the table model
         InspectRegTableModel inspectRegModel = new InspectRegTableModel(student);
