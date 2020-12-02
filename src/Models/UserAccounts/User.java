@@ -86,12 +86,10 @@ public class User {
 													"WHERE username LIKE \'%"+username+"%\';");
 			rs.next();
 			usernameCount = String.valueOf(rs.getInt(1));
-
-
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-			username = username+usernameCount;
+		username = username+usernameCount;
 		return username;
 	}
 	/*

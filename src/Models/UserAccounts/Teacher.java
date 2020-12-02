@@ -22,6 +22,11 @@ public class Teacher extends Employee {
 	   super(username, forename, surname, emailAddress, employeeNumber);
   	}
 
+  	@Override
+	public UserType getRole(){
+		return UserType.TEACHER;
+	}
+
 	public List<StudentGrade> getGradesOfStudents() {
 		String query = "SELECT StudentModule.regNumber, StudentModule.moduleCode, forename, surname, grade, resit FROM StudentModule INNER JOIN TeachesModule ON " +
 				"StudentModule.moduleCode = TeachesModule.moduleCode INNER JOIN Student ON Student.regNumber = StudentModule.regNumber " +

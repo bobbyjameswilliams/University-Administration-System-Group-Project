@@ -17,21 +17,21 @@ class AdministratorTest {
 
     @Test
     public void departmentTest(){
-        administrator.addUniversityDepartment("ART","Art Department");
-        administrator.removeUniversityDepartment("ART");
+        administrator.addUniversityDepartment("ARTY","Art Department");
+        administrator.removeUniversityDepartment("ARTY");
     }
 
     @Test
     public void addEmployeeTest(){
         // Obviously can't add yourself irl, but your'e not gonna be able to login if you dont exist
-        administrator.addEmployee(administrator, UserType.ADMIN);
+        administrator.addEmployee(administrator);
         administrator.removeEmployee(administrator.getEmployeeNumber());
     }
 
     @Test
     public void addModuleTest(){
-        administrator.addModule("COM2004","Data Driven Computing",5,2);
-        administrator.removeModule("COM2004");
+        administrator.addModule("COM1009","Algorithms And Data Structures",5);
+        administrator.removeModule("COM1009");
     }
 
     @Test
@@ -39,5 +39,12 @@ class AdministratorTest {
         administrator.addDegree("COM060","Computer Science",3,false);
         administrator.removeDegree("COM060");
     }
-
+    @Test
+    public void addRemoveStudent(){
+        Student student = new Student("testy01","Mr","test","dsadas@gmail.com",101,"COMU01","ONE");
+        for (int i = 0; i < 3; i++) {
+            administrator.addStudent(student);
+            administrator.removeStudent(student.getRegNumber());
+        }
+    }
 }

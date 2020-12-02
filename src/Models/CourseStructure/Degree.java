@@ -106,6 +106,10 @@ public class Degree implements CourseStructure{
         return null;
     }
 
+    public static String generateDegreeCode(String departmentCode, String degreeSignature){
+        return departmentCode + degreeSignature;
+    }
+
     //Getters
 
     public String getDegreeCode(){
