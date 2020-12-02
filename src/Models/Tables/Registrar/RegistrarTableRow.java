@@ -47,6 +47,5 @@ private String email;
         this.foreName = foreName;
         this.surName = surName;
         this.email = email;
-
     }
 }

@@ -1,5 +1,6 @@
 package Views.Registrar;
 
+import Controllers.Registrar.RegistrarWelcomeScreenController;
 import Models.Tables.Registrar.RegistrarTableModel;
 import Models.UserAccounts.Registar;
 import Views.WelcomeScreen;
@@ -22,8 +23,11 @@ public class RegistrarWelcomeScreen extends WelcomeScreen {
     private JButton inspectRegistrationButt;
     private JLabel welcomeLabel;
     private Registar registrar;
-    public RegistrarWelcomeScreen(Registar registrar){
+    private RegistrarWelcomeScreenController controller;
+
+    public RegistrarWelcomeScreen(Registar registrar, RegistrarWelcomeScreenController controller){
         super();
+        this.controller = controller;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.registrar = registrar;
@@ -32,11 +36,13 @@ public class RegistrarWelcomeScreen extends WelcomeScreen {
         //Sets up the main table
         RegistrarTableModel viewStntTableModel = new RegistrarTableModel();
         viewStntTable.setModel(viewStntTableModel);
+
+        inspectRegistrationButt.addActionListener(e -> viewStntTableModel.getRow(viewStntTable.getSelectedRow()));
     }
 
     public static void main(String args[]){
-        Registar registrar = new Registar();
-        JFrame frame = new RegistrarWelcomeScreen(registrar);
-        frame.setVisible(true);
+        //Registar registrar = new Registar();
+        //JFrame frame = new RegistrarWelcomeScreen(registrar);
+        //frame.setVisible(true);
     }
 }

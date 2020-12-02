@@ -30,7 +30,7 @@ public class SignUp {
 
 
     public static void main (String[] args ) {
-        User user = new User("Teacher5","Andrew","Stratton","andy@sheff.com");
+        User user = new User("acb18bw","James","Williams","jwilliams1@sheffield.ac.uk");
         UserManipulator.addUser(user);
         signUpUser(user,"test123");
     }

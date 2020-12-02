@@ -2,6 +2,8 @@ package Models.UserAccounts;
 
 import Models.CourseStructure.LevelOfStudy;
 import Models.DatabaseBehaviours.DBController;
+import Models.Tables.Registrar.InspectRegTableRow;
+import Models.Tables.Registrar.RegistrarTableRow;
 import Models.Tables.StudentGrade;
 
 import java.sql.*;
@@ -27,6 +29,7 @@ public class Student extends User {
 		this.degreeCode = degreeCode;
 		this.levelOfStudy = LevelOfStudy.valueOf(levelOfStudy.toUpperCase());
 	}
+
 	/**
 	 * get information about the student including their user details
 	 */
@@ -108,6 +111,29 @@ public class Student extends User {
 			ex.printStackTrace();
 		}
 		return creditsTaken;
+	}
+
+	public List<InspectRegTableRow> getAllModulesTaken(){
+		String query = "SELECT Module.moduleCode, Module.moduleName, Module.credits FROM Student\n" +
+				" INNER JOIN StudentModule ON Student.regNumber = StudentModule.regNumber\n" +
+				" INNER JOIN Module ON StudentModule.moduleCode = Module.moduleCode\n" +
+				" WHERE Student.regNumber = "+ this.getRegNumber() ;
+		System.out.println(query);
+		List<InspectRegTableRow> inspectRegTableRows = new ArrayList<>();
+		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+			Statement stmt = con.createStatement();
+			ResultSet rs =  stmt.executeQuery(query);
+			while(rs.next()){
+				String moduleCode = rs.getString("moduleCode");
+				String moduleName = rs.getString("moduleName");
+				int credits = rs.getInt("credits");
+				inspectRegTableRows.add(new InspectRegTableRow(moduleCode,moduleName,credits));
+			}
+			return inspectRegTableRows;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
 	}
 
 	public static boolean exist(String username){

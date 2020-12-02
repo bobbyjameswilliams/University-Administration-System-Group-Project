@@ -17,7 +17,7 @@ public class RegistrarTableModel extends AbstractTableModel {
         this.rows = registrar.getAllStudents();
     }
 
-    // @Override
+    //@Override
     public String getColumnName(int column) {
         return columnNames[column];
     }
@@ -63,4 +63,13 @@ public class RegistrarTableModel extends AbstractTableModel {
                 return null;
         }
     }
+
+    public RegistrarTableRow getRow(int rowIndex) {
+        if (rowIndex > -1) {
+            return rows.get(rowIndex);
+        } else {
+            return null;
+        }
+    }
+
 }
