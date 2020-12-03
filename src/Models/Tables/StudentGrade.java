@@ -1,7 +1,10 @@
 package Models.Tables;
 
+import Models.DatabaseBehaviours.DBController;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 public class StudentGrade {
@@ -58,15 +61,20 @@ public class StudentGrade {
 
     public void setGrade(int grade) {
         this.grade = grade;
-        try (Connection con = DriverManager.getConnection(this.url,this.user,this.password)){
-            Statement stmt = con.createStatement();
-            String query = "UPDATE StudentModule SET grade = " + this.getGrade() + " WHERE regNumber = " + this.getRegNumber() +
-                    " AND moduleCode = '" + this.getModuleCode() + "' ;";
-            System.out.println(query);
-            stmt.execute(query);
+        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+
+            PreparedStatement pstmt = con.prepareStatement("UPDATE StudentModule SET grade =? \n"+
+                                                                " WHERE regNumber =? AND moduleCode =? ;");
+            pstmt.setInt(1,this.getGrade());
+            pstmt.setInt(2,this.getRegNumber());
+            pstmt.setString(3, this.getModuleCode());
+
+            int count = pstmt.executeUpdate();
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
     }
 
 }
