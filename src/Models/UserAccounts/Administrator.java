@@ -122,13 +122,36 @@ public class Administrator extends Employee {
         Degree degree = new Degree(degreeCode);
         UniModule module = new UniModule(moduleCode);
         if (degree.exists() & module.exists()){
-            String values = degree.getCode() + "','" + module.getCode()+"','"+levelOfStudy.toString();
-            DBController.executeCommand("INSERT INTO DegreeCompulsory (degreeCode,moduleCode,levelOfStudy) VALUES ('"+values+"');");
+            try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+
+                PreparedStatement pstmt = con.prepareStatement("INSERT INTO DegreeCompulsory (degreeCode,moduleCode,levelOfStudy)\n" +
+                        "VALUES (?,?,?);");
+                pstmt.setString(1,degreeCode);
+                pstmt.setString(2,moduleCode);
+                pstmt.setString(3,levelOfStudy.toString());
+
+                int count = pstmt.executeUpdate();
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
         }
     }
 
     public void addDegreeDepartment(String departmentCode,String degreeCode){
-        String values = departmentCode + "','" + degreeCode;
-        DBController.executeCommand("INSERT INTO DegreeDepartment (departmentCode,degreeCode) VALUES ('"+values+"');");
+        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+
+            PreparedStatement pstmt = con.prepareStatement("INSERT INTO DegreeDepartment (departmentCode,degreeCode)\n" +
+                    "VALUES (?,?);");
+
+            pstmt.setString(1,departmentCode);
+            pstmt.setString(2,degreeCode);
+            int count = pstmt.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 }
