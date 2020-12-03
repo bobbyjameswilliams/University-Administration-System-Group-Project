@@ -7,12 +7,11 @@ import java.util.List;
 
 public class InspectRegTableModel extends AbstractTableModel {
     private final List<InspectRegTableRow> rows;
-    private Student student;
-    private String[] columnNames = new String[]{"Module Code","Module Name", "Credits"};
-    private final Class[] columnClass = new Class[]{String.class,String.class,int.class};
+
+    private String[] columnNames = new String[]{"Module Code","Module Name", "Credits","Level Of Study Taken"};
+    private final Class[] columnClass = new Class[]{String.class,String.class,Integer.class,String.class};
 
     public InspectRegTableModel(Student student){
-        this.student = student;
         this.rows = student.getAllModulesTaken();
     }
 
@@ -50,6 +49,8 @@ public class InspectRegTableModel extends AbstractTableModel {
                 return row.getModuleName();
             case 2:
                 return row.getCredits();
+            case 3:
+                return row.getLevelOfStudyTaken().toString();
             default:
                 return null;
         }

@@ -1,8 +1,7 @@
 package Controllers.Admin;
 
-import Models.CourseStructure.Degree;
-import Models.CourseStructure.Department;
-import Models.CourseStructure.UniModule;
+import Models.Authentication.SignUp;
+import Models.CourseStructure.*;
 import Models.UserAccounts.*;
 import Views.Admin.AdminWelcomeScreen;
 
@@ -24,29 +23,42 @@ public class AdminController {
         administrator.addUniversityDepartment(departmentCode,departmentName);
     }
 
-    public void addCourse(String departmentName,String degreeSignature,String courseName,int lengthOfStudy,boolean yearInIndustry){
+    public void addCourse(String departmentName, String degreeSignature, String courseName, int lengthOfStudy, boolean yearInIndustry, String qual){
+        Qualification qualification = Qualification.valueOf(qual);
         String departmentCode = Department.getCodeFromName(departmentName);
         String degreeCode = Degree.generateDegreeCode(departmentCode,degreeSignature);
-        administrator.addDegree(degreeCode,courseName,lengthOfStudy,yearInIndustry);
+        administrator.addDegree(degreeCode,courseName,lengthOfStudy,yearInIndustry,qualification);
     }
 
-    public void addUser(UserType userType,String forename,String surname){
+    public void addCompulsoryModule(String degreeCode,String moduleCode,LevelOfStudy levelOfStudy){
+        administrator.addCompulsoryModule(degreeCode,moduleCode,levelOfStudy);
+    }
+
+    public void addDegreeDepartment(String departmentCode,String degreeCode){
+        administrator.addDegreeDepartment(departmentCode,degreeCode);
+    }
+
+    public void addUser(UserType userType,String forename,String surname,String password){
         switch (userType){
             case STUDENT:
                 Student student = new Student(forename,surname);
                 administrator.addStudent(student);
+                SignUp.signUpUser(student,password);
                 return;
             case TEACHER:
                 Teacher teacher = new Teacher(forename,surname);
                 administrator.addEmployee(teacher);
+                SignUp.signUpUser(teacher,password);
                 return;
             case REGISTRAR:
                 Registar  registrar = new Registar(forename,surname);
                 administrator.addEmployee(registrar);
+                SignUp.signUpUser(registrar,password);
                 return;
             case ADMIN:
                 Administrator admin = new Administrator(forename,surname);
                 administrator.addEmployee(admin);
+                SignUp.signUpUser(admin,password);
                 return;
         }
     }

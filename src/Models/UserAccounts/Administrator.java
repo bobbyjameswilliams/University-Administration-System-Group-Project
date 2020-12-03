@@ -63,8 +63,8 @@ public class Administrator extends Employee {
         }
     }
 
-    public void addDegree(String degreeCode,String courseName, int lengthOfStudy, boolean yearInIndustry){
-        Degree degree = new Degree(degreeCode,courseName,lengthOfStudy,yearInIndustry);
+    public void addDegree(String degreeCode,String courseName, int lengthOfStudy, boolean yearInIndustry,Qualification qualification){
+        Degree degree = new Degree(degreeCode,courseName,lengthOfStudy,yearInIndustry,qualification);
         degree.add();
     }
 
@@ -103,5 +103,19 @@ public class Administrator extends Employee {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void addCompulsoryModule(String degreeCode, String moduleCode, LevelOfStudy levelOfStudy){
+        Degree degree = new Degree(degreeCode);
+        UniModule module = new UniModule(moduleCode);
+        if (degree.exists() & module.exists()){
+            String values = degree.getCode() + "','" + module.getCode()+"','"+levelOfStudy.toString();
+            DBController.executeCommand("INSERT INTO DegreeCompulsory (degreeCode,moduleCode,levelOfStudy) VALUES ('"+values+"');");
+        }
+    }
+
+    public void addDegreeDepartment(String departmentCode,String degreeCode){
+        String values = departmentCode + "','" + degreeCode;
+        DBController.executeCommand("INSERT INTO DegreeDepartment (departmentCode,degreeCode) VALUES ('"+values+"');");
     }
 }

@@ -28,8 +28,7 @@ public class RegistrarWelcomeScreenController {
         if(row.getDegreeCode() == null || row.getLevelOfStudy() == null) {
         }
         else {
-            InspectRegistration inspectFrame = new InspectRegistration(new Student(row.getUserName(), row.getForeName(), row.getSurName(), row.getEmail(), row.getRegNumber(), row.getDegreeCode(), row.getLevelOfStudy()));
-            inspectFrame.setVisible(true);
+            InspectRegistrationController inspectFrame = new InspectRegistrationController(new Student(row.getUserName(), row.getForeName(), row.getSurName(), row.getEmail(), row.getRegNumber(), row.getDegreeCode(), row.getLevelOfStudy()));
         }
     }
 

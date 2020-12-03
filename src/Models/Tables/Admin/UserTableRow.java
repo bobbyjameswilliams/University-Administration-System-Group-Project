@@ -1,7 +1,9 @@
 package Models.Tables.Admin;
 
 import Models.DatabaseBehaviours.DBController;
+import Models.DatabaseBehaviours.UserManipulator;
 import Models.Tables.StudentGrade;
+import Models.UserAccounts.Administrator;
 import Models.UserAccounts.User;
 import Models.UserAccounts.UserType;
 
@@ -30,6 +32,10 @@ public class UserTableRow {
         this.surname = surname;
         this.email = email;
         this.userType = userType;
+    }
+
+    public void remove(){
+        UserManipulator.remove(this.username,"User","username");
     }
 
     public int getEmployeeNumber() {
