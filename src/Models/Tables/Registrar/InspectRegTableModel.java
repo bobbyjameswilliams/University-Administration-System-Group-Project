@@ -1,8 +1,12 @@
 package Models.Tables.Registrar;
 
+import Models.DatabaseBehaviours.DBController;
 import Models.UserAccounts.Student.*;;
 
 import javax.swing.table.AbstractTableModel;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.List;
 
 public class InspectRegTableModel extends AbstractTableModel {
@@ -57,5 +61,4 @@ public class InspectRegTableModel extends AbstractTableModel {
                 return null;
         }
     }
-
 }

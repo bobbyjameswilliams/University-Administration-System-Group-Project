@@ -1,6 +1,12 @@
 package Models.Tables.Registrar;
 
 import Models.CourseStructure.LevelOfStudy;
+import Models.DatabaseBehaviours.DBController;
+import Models.UserAccounts.Student.Student;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 
 public class InspectRegTableRow {
 
@@ -38,5 +44,8 @@ public class InspectRegTableRow {
         this.credits = credits;
         this.levelOfStudyTaken = levelOfStudyTaken;
     }
+
+
+
 
 }

@@ -6,6 +6,8 @@ import Models.UserAccounts.Student.*;;
 import Views.WelcomeScreen;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 public class InspectRegistration extends WelcomeScreen {
@@ -51,6 +53,11 @@ public class InspectRegistration extends WelcomeScreen {
             this.update();
         });
 
+
+        submitButt.addActionListener(e -> {
+            controller.assignOptionalModule(optionalModulesCombo.getSelectedItem().toString(), student);
+            this.update();
+        });
         this.update();
     }
 

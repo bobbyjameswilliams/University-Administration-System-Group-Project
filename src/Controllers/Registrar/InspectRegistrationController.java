@@ -26,7 +26,6 @@ public class InspectRegistrationController {
         try {
             inspectionFrame.errLabel.setText("");
             student.updateLevelOfStudy();
-            // TODO Exception handling needs to be changes
         } catch (InsufficientCreditEnrollment ex){
             inspectionFrame.errLabel.setText("Insufficient Module Credits");
         } catch (InsufficientGradeAttainment ex){
@@ -54,5 +53,17 @@ public class InspectRegistrationController {
         }
         return null;
     }
+
+    public void assignOptionalModule(String moduleCode, Student student){
+        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+            Statement stmt = con.createStatement();
+            String query = "INSERT INTO StudentModule (regNumber, moduleCode, grade, resit, levelOfStudyTaken) VALUES(" + student.getRegNumber() + ", \"" + moduleCode + "\" ," + 0 + ", FALSE, \"" + "TWO\")"  ;
+            System.out.println(query);
+            stmt.execute(query);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }
 
