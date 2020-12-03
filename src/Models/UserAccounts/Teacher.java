@@ -64,22 +64,53 @@ public class Teacher extends Employee {
 	 * @return a Result set with all regNumbers from the teacher's tutees
 	 * @throws SQLException
 	 */
-	public ResultSet getTutees() throws SQLException {
+	public List<Student> getTutees() throws SQLException {
 		String query = "SELECT regNumber \n"+
 					   "FROM PersonalTutor \n" +
 					   "WHERE employeeNumber='"+this.getEmployeeNumber()+"';";
-		Statement stmt = null;
-		try {
-		  stmt = DBController.getConnection().createStatement();
-		  ResultSet rs = stmt.executeQuery(query);
-		  return rs;
+		List<Integer> tuteesRegNumbers = new ArrayList<>();
+		List<Student> tutees = new ArrayList<>();
+
+		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+
+			PreparedStatement pstmt = con.prepareStatement("SELECT regNumber \n"+
+																"FROM PersonalTutor \n" +
+																"WHERE employeeNumber=?;");
+			pstmt.setInt(1,this.getEmployeeNumber());
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int regNumber = rs.getInt("regNumber");
+				tuteesRegNumbers.add(regNumber);
+			}
 		  }
 		 catch (SQLException e) {
 			 e.printStackTrace();
-		}finally {
-			if (stmt != null) stmt.close();
+		}
+		for (int tuteeRegNumber : tuteesRegNumbers) {
+			try (Connection con = DriverManager.getConnection(DBController.url, DBController.user, DBController.password)) {
+
+				PreparedStatement pstmt = con.prepareStatement("SELECT User.username, User.forename, User.surname, User.emailAddress, Student.regNumber, Student.degreeCode, Student.levelOfStudy \n" +
+																	"FROM Student INNER JOIN User ON Student.username = User.username  \n" +
+																	"WHERE Student.regNumber=?;");
+				pstmt.setInt(1, tuteeRegNumber);
+				ResultSet rs = pstmt.executeQuery();
+				while (rs.next()) {
+					String username = rs.getString("username");
+					String forename = rs.getString("forename");
+					String surname = rs.getString("surname");
+					String emailAddress = rs.getString("emailAddress");
+					int regNumber = rs.getInt("regNumber");
+					String degreeCode = rs.getString("degreeCode");
+					String levelOfStudy = rs.getString("levelOfStudy");
+					tutees.add(new Student(username,forename,surname,emailAddress,regNumber, degreeCode, levelOfStudy));
+
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		return null;
+		}
+
+		return tutees;
 	}
 
 	/**
@@ -88,24 +119,28 @@ public class Teacher extends Employee {
 	 * @throws SQLException
 	 */
 
-	public ResultSet getModulesTaught() throws SQLException{
+	public List<String> getModulesTaught() throws SQLException{
 		 String query = "SELECT moduleCode \n"+
 						"FROM TeachesModule \n" +
 						"WHERE employeeNumber='"+this.getEmployeeNumber()+"';";
-		 Statement stmt = null;
-		 try {
-			 stmt = DBController.getConnection().createStatement();
-			 ResultSet rs = stmt.executeQuery(query);
+		List<String> modulesCodes = new ArrayList<>();
 
+		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)) {
 
-		 return rs;
-		 }
+			PreparedStatement pstmt = con.prepareStatement("SELECT moduleCode \n"+
+																"FROM TeachesModule \n" +
+																"WHERE employeeNumber=?;");
+			pstmt.setInt(1, this.getEmployeeNumber());
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				String moduleCode = rs.getString("moduleCode");
+				modulesCodes.add(moduleCode);
+			}
+		}
 		catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-				if (stmt != null) stmt.close();
 		}
-		return null;
+		return modulesCodes;
 	}
 
 }
