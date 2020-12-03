@@ -1,12 +1,8 @@
 package Models.UserAccounts;
 
-import Models.CourseStructure.Degree;
-import Models.CourseStructure.LevelOfStudy;
-import Models.CourseStructure.UniModule;
 import Models.DatabaseBehaviours.DBController;
-import Models.DatabaseBehaviours.UserManipulator;
-import Models.Tables.Admin.UserTableRow;
 import Models.Tables.Registrar.RegistrarTableRow;
+import Models.UserAccounts.Student.Student;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

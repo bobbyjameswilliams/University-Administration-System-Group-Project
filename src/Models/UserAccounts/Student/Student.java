@@ -1,4 +1,4 @@
-package Models.UserAccounts;
+package Models.UserAccounts.Student;
 
 import Models.CourseStructure.CompulsoryModule;
 import Models.CourseStructure.LevelOfStudy;
@@ -7,6 +7,7 @@ import Models.DatabaseBehaviours.DBController;
 import Models.Tables.Registrar.InspectRegTableRow;
 import Models.Tables.Registrar.RegistrarTableRow;
 import Models.Tables.StudentGrade;
+import Models.UserAccounts.User;
 
 import java.sql.*;
 import java.util.*;
@@ -75,7 +76,7 @@ public class Student extends User {
 		return LevelOfStudy.getNext(this.levelOfStudy);
 	}
 
-	public void updateLevelOfStudy(){
+	public void updateLevelOfStudy() throws InsufficientCreditEnrollment,InsufficientGradeAttainment{
 		LevelOfStudy nextLevel = this.getNextLevelOfStudy();
 		if (nextLevel == this.getLevelOfStudy())	{
 			return;
@@ -106,7 +107,6 @@ public class Student extends User {
 			while(rs.next()){
 				creditsTaken += Integer.parseInt(rs.getString("credits"));
 			}
-			// Count should never be greater than one, I believe
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -114,10 +114,9 @@ public class Student extends User {
 	}
 
 	public List<InspectRegTableRow> getAllModulesTaken(){
-		String query = "SELECT Module.moduleCode, Module.moduleName, Module.credits, StudentModule.levelOfStudyTaken FROM Student\n" +
-				" INNER JOIN StudentModule ON Student.regNumber = StudentModule.regNumber\n" +
-				" INNER JOIN Module ON StudentModule.moduleCode = Module.moduleCode\n" +
-				" WHERE Student.regNumber = "+ this.getRegNumber() ;
+		String query  = "SELECT StudentModule.moduleCode,StudentModule.grade,Module.credits,StudentModule.levelOfStudyTaken," +
+				"Module.moduleName FROM StudentModule JOIN Module ON StudentModule.moduleCode = Module.moduleCode" +
+				" WHERE StudentModule.regNumber =" + this.getRegNumber() + ";";
 		System.out.println(query);
 		List<InspectRegTableRow> inspectRegTableRows = new ArrayList<>();
 		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
@@ -126,9 +125,10 @@ public class Student extends User {
 			while(rs.next()){
 				String moduleCode = rs.getString("moduleCode");
 				String moduleName = rs.getString("moduleName");
+				String grade = rs.getString("grade");
 				int credits = rs.getInt("credits");
 				LevelOfStudy levelOfStudyTaken = LevelOfStudy.valueOf(rs.getString("levelOfStudyTaken"));
-				inspectRegTableRows.add(new InspectRegTableRow(moduleCode,moduleName,credits,levelOfStudyTaken));
+				inspectRegTableRows.add(new InspectRegTableRow(moduleCode,moduleName,grade,credits,levelOfStudyTaken));
 			}
 			return inspectRegTableRows;
 		} catch (Exception ex) {

@@ -2,12 +2,8 @@ package Controllers.Registrar;
 
 import Models.Tables.Registrar.RegistrarTableRow;
 import Models.UserAccounts.Registar;
-import Models.UserAccounts.Student;
-import Views.Registrar.InspectRegistration;
+import Models.UserAccounts.Student.Student;
 import Views.Registrar.RegistrarWelcomeScreen;
-
-import javax.swing.*;
-import java.util.List;
 
 public class RegistrarWelcomeScreenController {
     private RegistrarWelcomeScreen registrarFrame;

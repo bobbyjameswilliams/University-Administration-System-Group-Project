@@ -1,6 +1,6 @@
 package Models.Tables.Registrar;
 
-import Models.UserAccounts.Student;
+import Models.UserAccounts.Student.Student;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
@@ -8,8 +8,8 @@ import java.util.List;
 public class InspectRegTableModel extends AbstractTableModel {
     private final List<InspectRegTableRow> rows;
 
-    private String[] columnNames = new String[]{"Module Code","Module Name", "Credits","Level Of Study Taken"};
-    private final Class[] columnClass = new Class[]{String.class,String.class,Integer.class,String.class};
+    private String[] columnNames = new String[]{"Module Code","Module Name","Grade","Credits","Level Of Study Taken"};
+    private final Class[] columnClass = new Class[]{String.class,String.class,String.class,Integer.class,String.class};
 
     public InspectRegTableModel(Student student){
         this.rows = student.getAllModulesTaken();
@@ -48,8 +48,10 @@ public class InspectRegTableModel extends AbstractTableModel {
             case 1:
                 return row.getModuleName();
             case 2:
-                return row.getCredits();
+                return row.getGrade();
             case 3:
+                return row.getCredits();
+            case 4:
                 return row.getLevelOfStudyTaken().toString();
             default:
                 return null;

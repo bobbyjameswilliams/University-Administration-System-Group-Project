@@ -1,9 +1,7 @@
 package Controllers.Registrar;
 
 import Models.DatabaseBehaviours.DBController;
-import Models.Tables.Registrar.InspectRegTableRow;
-import Models.UserAccounts.Registar;
-import Models.UserAccounts.Student;
+import Models.UserAccounts.Student.Student;
 import Views.Registrar.InspectRegistration;
 
 import java.sql.Connection;
@@ -22,7 +20,12 @@ public class InspectRegistrationController {
     }
 
     public void progressStudent(Student student) {
-        student.updateLevelOfStudy();
+        try {
+            student.updateLevelOfStudy();
+            // TODO Exception handling needs to be changes
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     public List<String> dataForModuleCombo(){

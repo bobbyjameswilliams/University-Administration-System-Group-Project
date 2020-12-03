@@ -3,23 +3,14 @@ package Controllers.LogIn;
 
 import Controllers.Admin.AdminController;
 import Models.Authentication.Login;
-import Models.DatabaseBehaviours.DBController;
-import Models.Tables.StudentGrade;
 import Models.UserAccounts.*;
+import Models.UserAccounts.Student.Student;
 import Views.Admin.AdminWelcomeScreen;
 import Views.LogIn;
 import Views.Student.StudentWelcomeScreen;
 import Views.Teacher.TeacherWelcomeScreen;
-import com.mysql.cj.log.Log;
 
 import javax.swing.*;
-import java.awt.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.Arrays;
-import java.util.NoSuchElementException;
 
 /**
  * Action listeners are added in login class and methods are called here
