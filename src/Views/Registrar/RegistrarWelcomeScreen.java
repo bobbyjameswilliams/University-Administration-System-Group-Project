@@ -5,7 +5,6 @@ import Models.CourseStructure.LevelOfStudy;
 import Models.Tables.Registrar.RegistrarTableModel;
 import Models.UserAccounts.Registar;
 import Views.WelcomeScreen;
-import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

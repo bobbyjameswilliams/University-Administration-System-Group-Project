@@ -1,6 +1,8 @@
 package Controllers.Registrar;
 
 import Models.DatabaseBehaviours.DBController;
+import Models.UserAccounts.Student.InsufficientCreditEnrollment;
+import Models.UserAccounts.Student.InsufficientGradeAttainment;
 import Models.UserAccounts.Student.Student;
 import Views.Registrar.InspectRegistration;
 
@@ -23,7 +25,9 @@ public class InspectRegistrationController {
         try {
             student.updateLevelOfStudy();
             // TODO Exception handling needs to be changes
-        } catch (Exception ex){
+        } catch (InsufficientCreditEnrollment ex){
+            ex.printStackTrace();
+        } catch (InsufficientGradeAttainment ex){
             ex.printStackTrace();
         }
     }
