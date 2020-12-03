@@ -4,10 +4,7 @@ import Models.DatabaseBehaviours.DBController;
 import Models.DatabaseBehaviours.UserManipulator;
 import Models.CourseStructure.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Administrator extends Employee {
 
@@ -45,22 +42,38 @@ public class Administrator extends Employee {
 
     public <T extends Employee> void addEmployee(T employee){
         UserManipulator.addUser(employee);
-        String values = employee.getEmployeeNumber() + "','" + employee.getUsername() + "','" + employee.getRole().toString() ;
-        DBController.executeCommand("INSERT INTO Employee VALUES ('" + values + "');");
+        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+            PreparedStatement pstmt = con.prepareStatement("INSERT INTO Employee (employeeNumber,username,role)\n" +
+                    "VALUES (?,?,?);");
+            pstmt.setInt(1,employee.getEmployeeNumber());
+            pstmt.setString(2,employee.getUsername());
+            pstmt.setString(3,employee.getRole().toString());
+
+
+            int count = pstmt.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 
     public void removeEmployee(int employeeNumber){
-        String empNumber = Integer.toString(employeeNumber);
-        try (Connection con = DriverManager.getConnection(url,user,password)){
-            Statement stmt = con.createStatement();
-            ResultSet rs =  stmt.executeQuery("SELECT * FROM Employee WHERE employeeNumber = " + empNumber);
+
+        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM Employee\n" +
+                    "WHERE employeeNumber =?;");
+            pstmt.setInt(1,employeeNumber);
+            ResultSet rs = pstmt.executeQuery();
             rs.next();
             String username = rs.getString("username");
             // Removing user will remove the associated employee
             UserManipulator.remove(username,"User","username");
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
     }
 
     public void addDegree(String degreeCode,String courseName, int lengthOfStudy, boolean yearInIndustry,Qualification qualification){

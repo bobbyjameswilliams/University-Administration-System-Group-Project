@@ -49,7 +49,15 @@ public class Student extends User {
 	 * get information for adding a new student so
 	 */
 	public String getStudentDetailsForInserting() {
-		return getRegNumber() +"','"+ getUsername() +"','" + getDegreeCode() + "','" + getLevelOfStudy();
+		return this.getRegNumber() +"','"+ this.getUsername() +"','" + this.getDegreeCode() + "','" + this.getLevelOfStudy();
+	}
+	public Object[] getStudentDetailsAsArrayForInserting() {
+		Object[] studentDetails = new Object[4];
+		studentDetails[0] = this.getRegNumber();
+		studentDetails[1] = this.getUsername();
+		studentDetails[2] = this.getDegreeCode();
+		studentDetails[3] = this.getLevelOfStudy();
+		return studentDetails;
 	}
 
 
