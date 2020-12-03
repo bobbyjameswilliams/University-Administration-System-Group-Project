@@ -11,13 +11,10 @@ public class RegistrarWelcomeScreenController {
 
     public RegistrarWelcomeScreenController(){
         this.registrar = new Registar();
-        this.registrarFrame = new RegistrarWelcomeScreen(registrar, this);
-        registrarFrame.setVisible(true);
     }
+
     public RegistrarWelcomeScreenController(Registar registrar){
         this.registrar = registrar;
-        this.registrarFrame = new RegistrarWelcomeScreen(registrar, this);
-        registrarFrame.setVisible(true);
     }
 
     public void inspectStudentRegistration(RegistrarTableRow row){

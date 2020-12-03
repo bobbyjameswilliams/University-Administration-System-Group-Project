@@ -41,9 +41,6 @@ public class InspectRegistration extends WelcomeScreen {
         //sets the students info label
         studentInfoLabel.setText("Showing Registration for " + student.getForename() + " " + student.getSurname() +
                 " Reg: " + student.getRegNumber() + " Year: " + student.getLevelOfStudy());
-        //sets the combobox selections for modules
-        DefaultComboBoxModel comboModel = new DefaultComboBoxModel(controller.dataForModuleCombo().toArray());
-        optionalModulesCombo.setModel(comboModel);
 
         retakeLevelButton.addActionListener(e -> {
             this.controller.retake(student);
@@ -54,7 +51,6 @@ public class InspectRegistration extends WelcomeScreen {
             this.controller.progressStudent(student);
             this.update();
         });
-
 
         submitButt.addActionListener(e -> {
             controller.assignOptionalModule(optionalModulesCombo.getSelectedItem().toString(), student);
@@ -71,8 +67,13 @@ public class InspectRegistration extends WelcomeScreen {
     }
 
     public void update(){
+
+        // Provides optional modules in the combo box the student hasn't already chosen
+        DefaultComboBoxModel comboModel = new DefaultComboBoxModel(controller.dataForModuleCombo(student).toArray());
+        optionalModulesCombo.setModel(comboModel);
         this.inspectRegModel = new InspectRegTableModel(student);
         studentModulesTable.setModel(inspectRegModel);
+
         int creditsTaken = student.getCreditsTaken();
         int creditsNeeded = student.getCreditRequirements();
         progressBar1.setMaximum(creditsNeeded);

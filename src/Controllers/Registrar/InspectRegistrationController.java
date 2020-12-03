@@ -38,8 +38,8 @@ public class InspectRegistrationController {
         student.retake();
     }
 
-    public List<String> dataForModuleCombo(){
-        String query = "SELECT * FROM Module;";
+    public List<String> dataForModuleCombo(Student student){
+        String query = "SELECT moduleCode FROM Module WHERE moduleCode NOT IN (SELECT moduleCode FROM StudentModule WHERE regNumber = "+student.getRegNumber()+");";
         System.out.println(query);
         List<String> moduleCodes = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){

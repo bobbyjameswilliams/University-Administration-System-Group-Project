@@ -33,7 +33,6 @@ public class StudentWelcomeScreen extends WelcomeScreen {
         this.student = student;
         this.pack();
 
-        //TODO: interface the moduleColumns and gradeColumns. Need to discuss with callum and salva.
         //instantiating table on model tab
         StudentModuleTable moduleModel = new StudentModuleTable(this.student);
         modulesTable.setModel(moduleModel);
