@@ -6,6 +6,7 @@ public class InspectRegTableRow {
 
     private String moduleCode;
     private String moduleName;
+    private String grade;
     private int credits;
 
     public LevelOfStudy getLevelOfStudyTaken() {
@@ -22,13 +23,18 @@ public class InspectRegTableRow {
         return moduleName;
     }
 
+    public String getGrade() {
+        return grade;
+    }
+
     public int getCredits() {
         return credits;
     }
 
-    public InspectRegTableRow(String moduleCode, String moduleName, int credits, LevelOfStudy levelOfStudyTaken) {
+    public InspectRegTableRow(String moduleCode, String moduleName,String grade, int credits, LevelOfStudy levelOfStudyTaken) {
         this.moduleCode = moduleCode;
         this.moduleName = moduleName;
+        this.grade = grade;
         this.credits = credits;
         this.levelOfStudyTaken = levelOfStudyTaken;
     }

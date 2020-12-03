@@ -2,7 +2,7 @@ package Views.Registrar;
 
 import Controllers.Registrar.InspectRegistrationController;
 import Models.Tables.Registrar.InspectRegTableModel;
-import Models.UserAccounts.Student;
+import Models.UserAccounts.Student.Student;
 import Views.WelcomeScreen;
 
 import javax.swing.*;
@@ -19,6 +19,8 @@ public class InspectRegistration extends WelcomeScreen {
     private JLabel addModuleLabel;
     private JLabel studentInfoLabel;
     private JTextField moduleCreditsTakenTxtField;
+    private JButton progressStudentToNextButton;
+    private JProgressBar progressBar1;
     private final Student student;
     private InspectRegistrationController controller;
 
@@ -37,12 +39,24 @@ public class InspectRegistration extends WelcomeScreen {
         DefaultComboBoxModel comboModel = new DefaultComboBoxModel(controller.dataForModuleCombo().toArray());
         optionalModulesCombo.setModel(comboModel);
 
-        //module credits taken
-        moduleCreditsTakenTxtField.setText(Integer.toString(student.getCreditsTaken()));
-
         //instantiates the table model
         InspectRegTableModel inspectRegModel = new InspectRegTableModel(student);
         studentModulesTable.setModel(inspectRegModel);
+
+        progressStudentToNextButton.addActionListener(e -> {
+            this.controller.progressStudent(student);
+            this.update();
+        });
+
+        this.update();
+    }
+
+    public void update(){
+        int creditsTaken = student.getCreditsTaken();
+        int creditsNeeded = student.getCreditRequirements();
+        progressBar1.setMaximum(creditsNeeded);
+        moduleCreditsTakenTxtField.setText(Integer.toString(creditsTaken));
+        progressBar1.setValue(student.getCreditsTaken());
     }
 
     //for includes sample data for testing

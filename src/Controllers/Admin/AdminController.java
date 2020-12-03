@@ -3,9 +3,7 @@ package Controllers.Admin;
 import Models.Authentication.SignUp;
 import Models.CourseStructure.*;
 import Models.UserAccounts.*;
-import Views.Admin.AdminWelcomeScreen;
-
-import java.util.List;
+import Models.UserAccounts.Student.Student;
 
 public class AdminController {
 

@@ -1,8 +1,7 @@
 package Controllers.Registrar;
 
 import Models.DatabaseBehaviours.DBController;
-import Models.Tables.Registrar.InspectRegTableRow;
-import Models.UserAccounts.Student;
+import Models.UserAccounts.Student.Student;
 import Views.Registrar.InspectRegistration;
 
 import java.sql.Connection;
@@ -14,9 +13,19 @@ import java.util.List;
 
 public class InspectRegistrationController {
     private InspectRegistration inspectionFrame;
+
     public InspectRegistrationController(Student student){
         this.inspectionFrame = new InspectRegistration(student,this);
         inspectionFrame.setVisible(true);
+    }
+
+    public void progressStudent(Student student) {
+        try {
+            student.updateLevelOfStudy();
+            // TODO Exception handling needs to be changes
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     public List<String> dataForModuleCombo(){
