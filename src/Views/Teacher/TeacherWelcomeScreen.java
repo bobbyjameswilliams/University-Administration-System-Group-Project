@@ -7,7 +7,6 @@ import Views.WelcomeScreen;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-//TODO: Replace the tabbed pane with a jpane so that the tabs can have a scroll pane and also pane at buttom for butts
 public class TeacherWelcomeScreen extends WelcomeScreen {
     private JPanel mainPanel;
     private JTabbedPane tabbedPane1;
@@ -38,7 +37,6 @@ public class TeacherWelcomeScreen extends WelcomeScreen {
         this.teacher = teacher;
         this.pack();
 
-        //TODO: interface the moduleColumns and studentColumns. Need to discuss with callum and salva
         //instantiating table on modules
         DefaultTableModel moduleModel = new DefaultTableModel(moduleColumns, 60);
         assModulesTable.setModel(moduleModel);
@@ -53,7 +51,6 @@ public class TeacherWelcomeScreen extends WelcomeScreen {
     }
 
     private void displayWelcomeLabel() {
-        //TODO: add functionality that displays the users name and welcomes them
-        welcomeLabel.setText("Welcome (username), Logged in as Teacher ");
+        welcomeLabel.setText("Welcome "+this.teacher.getForename()+", Logged in as Teacher ");
     }
 }
