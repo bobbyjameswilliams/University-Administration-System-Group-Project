@@ -34,7 +34,7 @@ public class InspectRegistration extends WelcomeScreen {
         studentInfoLabel.setText("Showing Registration for " + student.getForename() + " " + student.getSurname() +
                 " Reg: " + student.getRegNumber());
         //sets the combobox selections for modules
-        DefaultComboBoxModel comboModel = new DefaultComboBoxModel(new Vector<String>(controller.dataForModuleCombo()));
+        DefaultComboBoxModel comboModel = new DefaultComboBoxModel(controller.dataForModuleCombo().toArray());
         optionalModulesCombo.setModel(comboModel);
 
         //module credits taken
