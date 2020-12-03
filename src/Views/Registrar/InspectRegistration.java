@@ -21,6 +21,7 @@ public class InspectRegistration extends WelcomeScreen {
     private JTextField moduleCreditsTakenTxtField;
     private JButton progressStudentToNextButton;
     private JProgressBar progressBar1;
+    public JLabel errLabel;
     private final Student student;
     private InspectRegistrationController controller;
 
@@ -34,7 +35,7 @@ public class InspectRegistration extends WelcomeScreen {
 
         //sets the students info label
         studentInfoLabel.setText("Showing Registration for " + student.getForename() + " " + student.getSurname() +
-                " Reg: " + student.getRegNumber());
+                " Reg: " + student.getRegNumber() + " Year: " + student.getLevelOfStudy());
         //sets the combobox selections for modules
         DefaultComboBoxModel comboModel = new DefaultComboBoxModel(controller.dataForModuleCombo().toArray());
         optionalModulesCombo.setModel(comboModel);

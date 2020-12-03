@@ -6,6 +6,7 @@ import Models.UserAccounts.Student.InsufficientGradeAttainment;
 import Models.UserAccounts.Student.Student;
 import Views.Registrar.InspectRegistration;
 
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -23,12 +24,13 @@ public class InspectRegistrationController {
 
     public void progressStudent(Student student) {
         try {
+            inspectionFrame.errLabel.setText("");
             student.updateLevelOfStudy();
             // TODO Exception handling needs to be changes
         } catch (InsufficientCreditEnrollment ex){
-            ex.printStackTrace();
+            inspectionFrame.errLabel.setText("Insufficient Module Credits");
         } catch (InsufficientGradeAttainment ex){
-            ex.printStackTrace();
+            inspectionFrame.errLabel.setText("Insufficient Grades Attained");
         }
     }
 
