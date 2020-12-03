@@ -113,6 +113,12 @@
           <text value="Progress Student To Next Level Of Study"/>
         </properties>
       </component>
+      <component id="10db1" class="javax.swing.JButton" binding="retakeLevelButton">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Make Student Retake Level"/>
       <component id="9704b" class="javax.swing.JLabel" binding="errLabel">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>

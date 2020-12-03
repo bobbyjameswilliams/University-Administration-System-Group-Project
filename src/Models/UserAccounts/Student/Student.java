@@ -1,8 +1,6 @@
 package Models.UserAccounts.Student;
 
-import Models.CourseStructure.CompulsoryModule;
-import Models.CourseStructure.LevelOfStudy;
-import Models.CourseStructure.UniModule;
+import Models.CourseStructure.*;
 import Models.DatabaseBehaviours.DBController;
 import Models.Tables.Registrar.InspectRegTableRow;
 import Models.Tables.Registrar.RegistrarTableRow;
@@ -76,6 +74,11 @@ public class Student extends User {
 		return LevelOfStudy.getNext(this.levelOfStudy);
 	}
 
+	public Qualification getQualificationType(){
+		Degree degree = DegreeBuilder.build(this.degreeCode);
+		return degree.getQualification();
+	}
+
 	public void updateLevelOfStudy() throws InsufficientCreditEnrollment,InsufficientGradeAttainment{
 		if (this.metCredits() == false)	{
 			throw new InsufficientCreditEnrollment();
@@ -94,10 +97,24 @@ public class Student extends User {
 		this.autoEnroll();
 	}
 
+	public int getGradeNeeded(){
+		Qualification qualification = this.getQualificationType();
+		switch (qualification){
+			case MEng:
+			case MA:
+			case MSc:
+			case MPsy:
+				return 50;
+			// everything else we just return 40
+			default:
+				return 40;
+		}
+	}
+
 	public boolean metGrades(){
 		List<StudentGrade> modules = this.getModules();
 		for (StudentGrade module: modules){
-			if (module.getGrade() < 40) return false;
+			if (module.getGrade() < getGradeNeeded()) return false;
 		}
 		return true;
 	}
@@ -172,10 +189,6 @@ public class Student extends User {
 		return false;
 	}
 
-	public boolean canProgressToNextLevel() {
-		return false;
-	}
-
 	public void enroll(UniModule module){
 		String values = this.getRegNumber() + "','" + module.getCode() + "','" + this.getLevelOfStudy().toString();
 		String query = "INSERT INTO StudentModule (regNumber,moduleCode,levelOfStudyTaken) VALUES ('" + values + "');";
@@ -201,14 +214,24 @@ public class Student extends User {
 				String moduleCode = rs.getString("moduleCode");
 				String levelOfStudyTaken = rs.getString("levelOfStudyTaken");
 				int grade = rs.getInt("grade");
-				int resit = rs.getInt("resit");
-				studentModuleGrades.add(new StudentGrade(moduleCode,levelOfStudyTaken,grade, resit));
+				String resit = rs.getString("resit");
+				studentModuleGrades.add(new StudentGrade(this.regNumber,moduleCode,this.getForename(),this.getSurname(),grade, Boolean.valueOf(resit)));
 			}
 		}
 		catch (SQLException throwables) {
 			throwables.printStackTrace();
 		}
 		return studentModuleGrades;
+	}
+
+	public void retake(){
+		List<StudentGrade> grades = this.getModules();
+		for (StudentGrade grade : grades){
+			if (grade.getGrade() < this.getGradeNeeded()){
+				grade.setResit(true);
+				grade.setGrade(0);
+			}
+		}
 	}
 
 	/**

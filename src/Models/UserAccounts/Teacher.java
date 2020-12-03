@@ -42,8 +42,8 @@ public class Teacher extends Employee {
 				String forename = rs.getString("forename");
 				String surname = rs.getString("surname");
 				int grade = rs.getInt("grade");
-				int resit = rs.getInt("resit");
-				studentGrades.add(new StudentGrade(regNumber,moduleCode,forename,surname,grade,resit));
+				String resit = rs.getString("resit");
+				studentGrades.add(new StudentGrade(regNumber,moduleCode,forename,surname,grade,Boolean.valueOf(resit)));
 			}
 			// Count should never be greater than one, I believe
 		} catch (Exception ex) {

@@ -31,7 +31,7 @@ public class Degree implements CourseStructure{
         this.yearInIndustry = false;
     }
 
-    public Degree(String degreeCode, String courseName, int lengthOfStudy, boolean yearInIndustry,Qualification qualification){
+    public Degree(String degreeCode, String courseName, int lengthOfStudy, boolean yearInIndustry, Qualification qualification){
         this.degreeCode = degreeCode;
         this.courseName = courseName;
         this.lengthOfStudy = lengthOfStudy;
@@ -45,6 +45,10 @@ public class Degree implements CourseStructure{
 
     public boolean IntToBool(int x){
         return x == 1;
+    }
+
+    public Qualification getQualification() {
+        return qualification;
     }
 
     @Override
