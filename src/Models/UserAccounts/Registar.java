@@ -37,14 +37,7 @@ public class Registar extends Employee {
         return UserType.REGISTRAR;
     }
 
-    public void makeModuleCompulsory(String degreeCode, String moduleCode, LevelOfStudy levelOfStudy){
-        Degree degree = new Degree(degreeCode);
-        UniModule module = new UniModule(moduleCode);
-        if (degree.exists() & module.exists()){
-            String values = degree.getCode() + "','" + module.getCode()+"','"+levelOfStudy.toString();
-            DBController.executeCommand("INSERT INTO DegreeCompulsory (moduleCode,moduleName,levelOfStudy) VALUES ('"+values+"');");
-        }
-    }
+
 
     // if a student has met all their credit requirements
     public boolean studentMetRequirement(Student student){

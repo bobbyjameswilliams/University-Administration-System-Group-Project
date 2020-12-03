@@ -111,6 +111,23 @@ public class Degree implements CourseStructure{
         return null;
     }
 
+    public static String[] getAllDegreeCodes(){
+        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+            Statement stmt = con.createStatement();
+            List<String> degreeCodes = new ArrayList<>();
+            String query = "SELECT * FROM Degree";
+            ResultSet rs =  stmt.executeQuery(query);
+            while(rs.next()){
+                String degreeCode = rs.getString("degreeCode");
+                degreeCodes.add(degreeCode);
+            }
+            return degreeCodes.toArray(new String[degreeCodes.size()]);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
     public static String generateDegreeCode(String departmentCode, String degreeSignature){
         return departmentCode + degreeSignature;
     }

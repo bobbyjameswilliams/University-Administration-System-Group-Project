@@ -104,4 +104,18 @@ public class Administrator extends Employee {
             ex.printStackTrace();
         }
     }
+
+    public void addCompulsoryModule(String degreeCode, String moduleCode, LevelOfStudy levelOfStudy){
+        Degree degree = new Degree(degreeCode);
+        UniModule module = new UniModule(moduleCode);
+        if (degree.exists() & module.exists()){
+            String values = degree.getCode() + "','" + module.getCode()+"','"+levelOfStudy.toString();
+            DBController.executeCommand("INSERT INTO DegreeCompulsory (degreeCode,moduleCode,levelOfStudy) VALUES ('"+values+"');");
+        }
+    }
+
+    public void addDegreeDepartment(String departmentCode,String degreeCode){
+        String values = departmentCode + "','" + degreeCode;
+        DBController.executeCommand("INSERT INTO DegreeDepartment (departmentCode,degreeCode) VALUES ('"+values+"');");
+    }
 }

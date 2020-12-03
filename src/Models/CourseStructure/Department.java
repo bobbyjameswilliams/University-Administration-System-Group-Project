@@ -72,6 +72,23 @@ public class Department implements CourseStructure{
         return null;
     }
 
+    public static String[] getAllDepartmentCodes(){
+        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+            Statement stmt = con.createStatement();
+            List<String> departmentCodes = new ArrayList<>();
+            String query = "SELECT * FROM Department";
+            ResultSet rs =  stmt.executeQuery(query);
+            while(rs.next()){
+                String departmentCode = rs.getString("departmentCode");
+                departmentCodes.add(departmentCode);
+            }
+            return departmentCodes.toArray(new String[departmentCodes.size()]);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
     public static String getCodeFromName(String departmentName){
         List<Department> departments = new Department().getAll();
         for (Department department : departments) {
