@@ -1,6 +1,7 @@
 package Models.Tables.Teacher;
 
 import Models.Tables.StudentGrade;
+import Models.UserAccounts.Student.Student;
 import Models.UserAccounts.Teacher;
 
 import javax.swing.table.AbstractTableModel;
@@ -68,6 +69,11 @@ public class TeachesModuleTableModel extends AbstractTableModel {
         if(3 == columnIndex) {
             row.setGrade((Integer) value);
         }
+    }
+
+
+    public StudentGrade getRow(int rowIndex) {
+        return studentGrades.get(rowIndex);
     }
 
     @Override

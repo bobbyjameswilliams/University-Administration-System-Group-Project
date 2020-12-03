@@ -42,16 +42,6 @@ public class InspectRegistration extends WelcomeScreen {
         studentInfoLabel.setText("Showing Registration for " + student.getForename() + " " + student.getSurname() +
                 " Reg: " + student.getRegNumber() + " Year: " + student.getLevelOfStudy());
 
-        retakeLevelButton.addActionListener(e -> {
-            this.controller.retake(student);
-            this.update();
-        });
-
-        progressStudentToNextButton.addActionListener(e -> {
-            this.controller.progressStudent(student);
-            this.update();
-        });
-
         submitButt.addActionListener(e -> {
             controller.assignOptionalModule(optionalModulesCombo.getSelectedItem().toString(), student);
             this.update();

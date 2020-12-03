@@ -118,7 +118,7 @@ public class CompulsoryModule implements CourseStructure {
     public static boolean isCompulsoryModule(String degreeCode,String moduleCode){
         try(Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
             Statement statement = con.createStatement();
-            String query = "SELECT * FROM StudentModule WHERE degreeCode = '" + degreeCode + "' AND moduleCode = '" + moduleCode + "' ;";
+            String query = "SELECT * FROM DegreeCompulsory WHERE degreeCode = '" + degreeCode + "' AND moduleCode = '" + moduleCode + "' ;";
             ResultSet rs = statement.executeQuery(query);
             // if anything exists then the module is compulsory
             return rs.isBeforeFirst();

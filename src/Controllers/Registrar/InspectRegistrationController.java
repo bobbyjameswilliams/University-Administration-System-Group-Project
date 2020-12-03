@@ -25,21 +25,6 @@ public class InspectRegistrationController {
         inspectionFrame.setVisible(true);
     }
 
-    public void progressStudent(Student student) {
-        try {
-            inspectionFrame.errLabel.setText("");
-            student.updateLevelOfStudy();
-        } catch (InsufficientCreditEnrollment ex){
-            inspectionFrame.errLabel.setText("Insufficient Module Credits");
-        } catch (InsufficientGradeAttainment ex){
-            inspectionFrame.errLabel.setText("Insufficient Grades Attained");
-        }
-    }
-
-    public void retake(Student student){
-        student.retake();
-    }
-
     public List<String> dataForModuleCombo(Student student){
         String query = "SELECT moduleCode FROM Module WHERE moduleCode NOT IN (SELECT moduleCode FROM StudentModule WHERE regNumber = "+student.getRegNumber()+");";
         System.out.println(query);

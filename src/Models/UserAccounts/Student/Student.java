@@ -40,13 +40,6 @@ public class Student extends User {
 	}
 
 	/**
-	 * get information about the student including their user details
-	 */
-	public String getStudentDetails() {
-		return super.getUserDetails()+ "','" + getRegNumber() + "','" + getDegreeCode() + "','"+
-		       getLevelOfStudy();
-	}
-	/**
 	 * get information for adding a new student so
 	 */
 	public String getStudentDetailsForInserting() {

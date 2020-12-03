@@ -3,6 +3,7 @@ package Controllers.LogIn;
 
 import Controllers.Admin.AdminController;
 import Controllers.Registrar.RegistrarWelcomeScreenController;
+import Controllers.Teacher.TeacherWelcomeScreenController;
 import Models.Authentication.Login;
 import Models.UserAccounts.*;
 import Models.UserAccounts.Student.*;;
@@ -54,7 +55,7 @@ public class LogInController {
                 return new AdminWelcomeScreen(adminController);
             case TEACHER:
                 Teacher teacher = builder.employeeBuilder(new Teacher());
-                return new TeacherWelcomeScreen(teacher, new Object[]{"Module", "Columns"}, new Object[]{"Student", "Columns"});
+                return new TeacherWelcomeScreen(teacher, new TeacherWelcomeScreenController(teacher));
             case REGISTRAR:
                 Registar registrar = builder.employeeBuilder(new Registar());
                 return new RegistrarWelcomeScreen(registrar, new RegistrarWelcomeScreenController(registrar));

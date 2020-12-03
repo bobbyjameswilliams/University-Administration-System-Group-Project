@@ -17,6 +17,30 @@ public class UserAccountBuilder {
         this.username = username;
     }
 
+    public static Student studentBuilderFromReg(int regNumber){
+        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+
+            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM Student " +
+                    "JOIN User on Student.username = User.username\n " +
+                    "WHERE Student.regNumber = ?;");
+            pstmt.setInt(1,regNumber);
+            ResultSet rs = pstmt.executeQuery();
+
+            while(rs.next()){
+                String username = rs.getString("username");
+                String forename = rs.getString("forename");
+                String surname = rs.getString("surname");
+                String emailAddress = rs.getString("emailAddress");
+                String degreeCode = rs.getString("degreeCode");
+                String levelOfStudy = rs.getString("levelOfStudy");
+                return new Student(username,forename,surname,emailAddress,regNumber,degreeCode,levelOfStudy);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
     public Student studentBuilder() {
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
 
