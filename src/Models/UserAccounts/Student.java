@@ -78,10 +78,13 @@ public class Student extends User {
 	}
 
 	public void updateLevelOfStudy(){
-		try (Connection con = DriverManager.getConnection(this.url,this.user,this.password)){
-			Statement stmt = con.createStatement();
-			String query = "UPDATE Student SET yearOfStudy = " + this.getLevelOfStudy().toString() + " WHERE regNumber = " + this.getRegNumber();
-			stmt.execute(query);
+		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+
+			PreparedStatement pstmt = con.prepareStatement("UPDATE Student SET yearOfStudy =? \n "+
+																" WHERE regNumber =?;");
+			pstmt.setString(1,this.getLevelOfStudy().toString());
+			pstmt.setInt(2,this.getRegNumber());
+			pstmt.executeQuery();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
