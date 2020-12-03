@@ -25,8 +25,10 @@ public class InspectRegistration extends WelcomeScreen {
     private JProgressBar progressBar1;
     private JButton retakeLevelButton;
     public JLabel errLabel;
+    private JButton removeSelectedButton;
     private final Student student;
     private InspectRegistrationController controller;
+    private InspectRegTableModel inspectRegModel;
 
     public InspectRegistration(Student student, InspectRegistrationController controller) {
         super();
@@ -58,11 +60,18 @@ public class InspectRegistration extends WelcomeScreen {
             controller.assignOptionalModule(optionalModulesCombo.getSelectedItem().toString(), student);
             this.update();
         });
+
+        removeSelectedButton.addActionListener(e ->{
+            //TODO: Do not allow core modules to be removed
+            controller.removeOptionalModule(this.inspectRegModel.getRow(studentModulesTable.getSelectedRow()), this.student);
+            this.update();
+        });
+        //Last in statement
         this.update();
     }
 
     public void update(){
-        InspectRegTableModel inspectRegModel = new InspectRegTableModel(student);
+        this.inspectRegModel = new InspectRegTableModel(student);
         studentModulesTable.setModel(inspectRegModel);
         int creditsTaken = student.getCreditsTaken();
         int creditsNeeded = student.getCreditRequirements();

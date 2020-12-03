@@ -1,6 +1,7 @@
 package Controllers.Registrar;
 
 import Models.DatabaseBehaviours.DBController;
+import Models.Tables.Registrar.InspectRegTableRow;
 import Models.UserAccounts.Student.InsufficientCreditEnrollment;
 import Models.UserAccounts.Student.InsufficientGradeAttainment;
 import Models.UserAccounts.Student.*;;
@@ -55,15 +56,13 @@ public class InspectRegistrationController {
     }
 
     public void assignOptionalModule(String moduleCode, Student student){
-        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
-            Statement stmt = con.createStatement();
-            String query = "INSERT INTO StudentModule (regNumber, moduleCode, grade, resit, levelOfStudyTaken) VALUES(" + student.getRegNumber() + ", \"" + moduleCode + "\" ," + 0 + ", FALSE, \"" + "TWO\")"  ;
-            System.out.println(query);
-            stmt.execute(query);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        String query = "INSERT INTO StudentModule (regNumber, moduleCode, grade, resit, levelOfStudyTaken) VALUES(" + student.getRegNumber() + ", \"" + moduleCode + "\" ," + 0 + ", FALSE, \"" + "TWO\")"  ;
+        DBController.executeCommand(query);
     }
 
+    public void removeOptionalModule(InspectRegTableRow row, Student student){
+        String query = "DELETE FROM StudentModule WHERE regNumber = " + student.getRegNumber() + " AND moduleCode = \"" + row.getModuleCode() + "\";";
+        DBController.executeCommand(query);
+    }
 }
 
