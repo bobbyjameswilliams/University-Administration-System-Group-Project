@@ -61,4 +61,7 @@ public class InspectRegTableModel extends AbstractTableModel {
                 return null;
         }
     }
+    public InspectRegTableRow getRow(int rowIndex){
+        return rows.get(rowIndex);
+    }
 }
