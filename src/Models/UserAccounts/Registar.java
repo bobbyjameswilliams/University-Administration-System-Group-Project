@@ -38,11 +38,15 @@ public class Registar extends Employee {
     }
 
 
-
     // if a student has met all their credit requirements
     public boolean studentMetRequirement(Student student){
         return (student.getCreditsTaken() == student.getCreditRequirements());
     }
+
+    public void autoEnroll(Student student){
+
+    }
+
 
     public List<RegistrarTableRow> getAllStudents(){
         String query = "SELECT Student.regNumber, Student.userName, Student.degreeCode, Student.levelOfStudy, User.forename, User.surname, User.emailAddress from Student JOIN User ON Student.username = User.username;";

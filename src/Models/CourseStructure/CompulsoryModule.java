@@ -33,6 +33,8 @@ public class CompulsoryModule implements CourseStructure {
         return Integer.toString(uniqueId);
     }
 
+    public String getModuleCode(){ return this.moduleCode;}
+
     @Override
     public String getTableName() {
         return tableName;
@@ -80,6 +82,27 @@ public class CompulsoryModule implements CourseStructure {
         return null;
     }
 
+    public List<CompulsoryModule> getAll(String specificDegreeCode,LevelOfStudy specificLevelOfStudy){
+        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+            Statement stmt = con.createStatement();
+            List<CompulsoryModule> compulsoryModules = new ArrayList<>();
+            String query = "SELECT * FROM " + getTableName() + " WHERE degreeCode = '" + specificDegreeCode + "' AND " +
+                    "levelOfStudy = '" + specificLevelOfStudy.toString() + "';" ;
+            ResultSet rs =  stmt.executeQuery(query);
+            while(rs.next()){
+                int uniqueId = rs.getInt("uniqueID");
+                String degreeCode = rs.getString("degreeCode");
+                String moduleCode = rs.getString("moduleCode");
+                LevelOfStudy levelOfStudy = LevelOfStudy.valueOf(rs.getString("levelOfStudy"));
+                compulsoryModules.add(new CompulsoryModule(uniqueId,degreeCode,moduleCode,levelOfStudy));
+            }
+            return compulsoryModules;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public void add(){
         String values = this.degreeCode + "','" + this.moduleCode + "','" + this.levelOfStudy.toString();
@@ -88,13 +111,8 @@ public class CompulsoryModule implements CourseStructure {
 
     @Override
     public void remove(){
-        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
-            Statement stmt = con.createStatement();
-            String query = "DELETE FROM DegreeCompulsory WHERE degreeCode = '" + this.degreeCode + "' AND moduleCode = '" + this.moduleCode + "' ;";
-            stmt.execute(query);
-        } catch (Exception ex){
-            ex.printStackTrace();
-        }
+        String query = "DELETE FROM DegreeCompulsory WHERE degreeCode = '" + this.degreeCode + "' AND moduleCode = '" + this.moduleCode + "' ;";
+        DBController.executeCommand(query);
     }
 
 }

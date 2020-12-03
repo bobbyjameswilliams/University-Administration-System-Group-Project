@@ -1,6 +1,8 @@
 package Models.UserAccounts;
 
+import Models.CourseStructure.CompulsoryModule;
 import Models.CourseStructure.LevelOfStudy;
+import Models.CourseStructure.UniModule;
 import Models.DatabaseBehaviours.DBController;
 import Models.Tables.Registrar.InspectRegTableRow;
 import Models.Tables.Registrar.RegistrarTableRow;
@@ -65,18 +67,24 @@ public class Student extends User {
 		return levelOfStudy;
 	}
 
-	public void setLevelOfStudy(String levelOfStudy) {
-	    this.levelOfStudy = LevelOfStudy.valueOf(levelOfStudy.toUpperCase());
+	public void setLevelOfStudy(LevelOfStudy levelOfStudy) {
+		this.levelOfStudy = levelOfStudy;
+	}
+
+	public LevelOfStudy getNextLevelOfStudy(){
+		return LevelOfStudy.getNext(this.levelOfStudy);
 	}
 
 	public void updateLevelOfStudy(){
-		try (Connection con = DriverManager.getConnection(this.url,this.user,this.password)){
-			Statement stmt = con.createStatement();
-			String query = "UPDATE Student SET yearOfStudy = " + this.getLevelOfStudy().toString() + " WHERE regNumber = " + this.getRegNumber();
-			stmt.execute(query);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		LevelOfStudy nextLevel = this.getNextLevelOfStudy();
+		if (nextLevel == this.getLevelOfStudy())	{
+			return;
 		}
+		this.setLevelOfStudy(nextLevel);
+		// getlevel will now return update level
+		String query = "UPDATE Student SET levelOfStudy = '" + this.getLevelOfStudy().toString() + "' WHERE regNumber = '" + this.getRegNumber() + "';";
+		DBController.executeCommand(query);
+		this.autoEnroll();
 	}
 
 	public int getCreditRequirements(){
@@ -150,6 +158,21 @@ public class Student extends User {
 		return false;
 	}
 
+	public void enroll(UniModule module){
+		String values = this.getRegNumber() + "','" + module.getCode() + "','" + this.getLevelOfStudy().toString();
+		String query = "INSERT INTO StudentModule (regNumber,moduleCode,levelOfStudyTaken) VALUES ('" + values + "');";
+		DBController.executeCommand(query);
+	}
+
+	public void autoEnroll(){
+		List<CompulsoryModule> compulsoryModules = new CompulsoryModule().getAll(this.degreeCode,this.levelOfStudy);
+		for (CompulsoryModule compulsoryModule : compulsoryModules){
+			String values = this.getRegNumber() + "','" + compulsoryModule.getModuleCode() + "','" + this.getLevelOfStudy().toString();
+			String query = "INSERT INTO StudentModule (regNumber,moduleCode,levelOfStudyTaken) VALUES ('" + values + "');";
+			DBController.executeCommand(query);
+		}
+	}
+
 	public List<StudentGrade> getModules() {
 		String query = "SELECT * FROM StudentModule WHERE regNumber = " + this.getRegNumber();
 		List<StudentGrade> studentModuleGrades = new ArrayList<>();
@@ -183,9 +206,6 @@ public class Student extends User {
 		String query = "SELECT forename, surname, emailAddress FROM PersonalTutor JOIN Employee ON PersonalTutor.employeeNumber = " +
 				"Employee.employeeNumber JOIN User ON User.username = Employee.username WHERE PersonalTutor.regNumber = " + this.regNumber;
 		Statement stmt = null;
-		String tutorForeName;
-		String tutorSurname;
-		String tutorEmail;
 		List<String> personalTutorInfo = new ArrayList<String>();
 		try {
 			stmt = DBController.getConnection().createStatement();

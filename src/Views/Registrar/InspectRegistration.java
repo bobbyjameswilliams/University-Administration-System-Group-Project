@@ -19,6 +19,7 @@ public class InspectRegistration extends WelcomeScreen {
     private JLabel addModuleLabel;
     private JLabel studentInfoLabel;
     private JTextField moduleCreditsTakenTxtField;
+    private JButton progressStudentToNextButton;
     private final Student student;
     private InspectRegistrationController controller;
 
@@ -43,6 +44,10 @@ public class InspectRegistration extends WelcomeScreen {
         //instantiates the table model
         InspectRegTableModel inspectRegModel = new InspectRegTableModel(student);
         studentModulesTable.setModel(inspectRegModel);
+
+        progressStudentToNextButton.addActionListener(e -> {
+            this.controller.progressStudent(student);
+        });
     }
 
     //for includes sample data for testing

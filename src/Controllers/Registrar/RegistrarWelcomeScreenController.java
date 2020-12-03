@@ -25,12 +25,10 @@ public class RegistrarWelcomeScreenController {
     }
 
     public void inspectStudentRegistration(RegistrarTableRow row){
-        if(row.getDegreeCode() == null || row.getLevelOfStudy() == null) {
-        }
-        else {
+        if(row.getDegreeCode() != null && row.getLevelOfStudy() != null) {
             InspectRegistrationController inspectFrame = new InspectRegistrationController(new Student(row.getUserName(), row.getForeName(), row.getSurName(), row.getEmail(), row.getRegNumber(), row.getDegreeCode(), row.getLevelOfStudy()));
         }
-    }
+   }
 
     public static void main(String args[]){
         RegistrarWelcomeScreenController controller = new RegistrarWelcomeScreenController();
