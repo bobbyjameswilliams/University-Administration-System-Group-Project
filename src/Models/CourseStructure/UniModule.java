@@ -4,10 +4,7 @@ import Models.DatabaseBehaviours.DBController;
 import Models.DatabaseBehaviours.UserManipulator;
 import Models.UserAccounts.User;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,9 +103,22 @@ public class UniModule implements CourseStructure{
 
     @Override
     public void add(){
-        String values = this.moduleCode + "','" + this.moduleName + "','" + this.credits;
-        DBController.executeCommand("INSERT INTO Module VALUES ('"+values+"');");
+        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+
+            PreparedStatement pstmt = con.prepareStatement("INSERT INTO Module (moduleCode,moduleName,credits)\n" +
+                    "VALUES (?,?,?);");
+            pstmt.setString(1,this.moduleCode);
+            pstmt.setString(2,this.moduleName);
+            pstmt.setInt(3,this.credits);
+
+            int count = pstmt.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
+
 
     @Override
     public void remove(){

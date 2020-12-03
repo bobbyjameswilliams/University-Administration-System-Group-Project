@@ -2,10 +2,7 @@ package Models.CourseStructure;
 
 import Models.DatabaseBehaviours.DBController;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +13,7 @@ public class DegreeDepartment implements CourseStructure{
 
     private String tableName = "DegreeDepartment";
     private String primaryColumnName = "uniqueID";
+
 
     public DegreeDepartment() {}
 
@@ -77,18 +75,34 @@ public class DegreeDepartment implements CourseStructure{
 
     @Override
     public void add(){
-        String values = this.departmentCode + "','" + this.degreeCode;
-        DBController.executeCommand("INSERT INTO DegreeDepartment VALUES ('"+values+"');");
+        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+
+            PreparedStatement pstmt = con.prepareStatement("INSERT INTO DegreeDepartment (departmentCode,degreeCode)\n" +
+                    "VALUES (?,?);");
+
+            pstmt.setString(1,this.departmentCode);
+            pstmt.setString(2,this.degreeCode);
+            int count = pstmt.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 
     @Override
     public void remove(){
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
-            Statement stmt = con.createStatement();
-            String query = "DELETE FROM DegreeDepartment WHERE degreeCode = '" + this.degreeCode + "' AND departmentCode = '" + this.departmentCode+ "' ;";
-            stmt.execute(query);
-        } catch (Exception ex){
+
+            PreparedStatement pstmt = con.prepareStatement("DELETE FROM DegreeDepartment \n " +
+                                                               "WHERE departmentCode =? AND degreeCode =? ;");
+            pstmt.setString(1,this.departmentCode);
+            pstmt.setString(2,this.degreeCode);
+            int count = pstmt.executeUpdate();
+
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
+
     }
 }
