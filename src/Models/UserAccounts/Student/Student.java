@@ -77,6 +77,12 @@ public class Student extends User {
 	}
 
 	public void updateLevelOfStudy() throws InsufficientCreditEnrollment,InsufficientGradeAttainment{
+		if (this.metCredits() == false)	{
+			throw new InsufficientCreditEnrollment();
+		}
+		if (this.metGrades() == false) {
+			throw new InsufficientGradeAttainment();
+		}
 		LevelOfStudy nextLevel = this.getNextLevelOfStudy();
 		if (nextLevel == this.getLevelOfStudy())	{
 			return;
@@ -86,6 +92,18 @@ public class Student extends User {
 		String query = "UPDATE Student SET levelOfStudy = '" + this.getLevelOfStudy().toString() + "' WHERE regNumber = '" + this.getRegNumber() + "';";
 		DBController.executeCommand(query);
 		this.autoEnroll();
+	}
+
+	public boolean metGrades(){
+		List<StudentGrade> modules = this.getModules();
+		for (StudentGrade module: modules){
+			if (module.getGrade() < 40) return false;
+		}
+		return true;
+	}
+
+	public boolean metCredits(){
+		return this.getCreditRequirements() == this.getCreditsTaken();
 	}
 
 	public int getCreditRequirements(){
