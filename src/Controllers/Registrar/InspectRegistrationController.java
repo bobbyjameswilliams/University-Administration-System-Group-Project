@@ -1,5 +1,7 @@
 package Controllers.Registrar;
 
+import Models.CourseStructure.CompulsoryModule;
+import Models.CourseStructure.CompusloryModuleConstraint;
 import Models.DatabaseBehaviours.DBController;
 import Models.Tables.Registrar.InspectRegTableRow;
 import Models.UserAccounts.Student.InsufficientCreditEnrollment;
@@ -60,7 +62,9 @@ public class InspectRegistrationController {
         DBController.executeCommand(query);
     }
 
-    public void removeOptionalModule(InspectRegTableRow row, Student student){
+    public void removeOptionalModule(InspectRegTableRow row, Student student) {
+        // If trying to remove compulsory module issue exception
+        if (CompulsoryModule.isCompulsoryModule(student.getDegreeCode(),row.getModuleCode())) new CompusloryModuleConstraint();
         String query = "DELETE FROM StudentModule WHERE regNumber = " + student.getRegNumber() + " AND moduleCode = \"" + row.getModuleCode() + "\";";
         DBController.executeCommand(query);
     }
