@@ -66,4 +66,16 @@ private String email;
             ex.printStackTrace();
         }
     }
+    public void unassignRegistration(){
+        this.degreeCode = null;
+        this.levelOfStudy = null;
+        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+            Statement stmt = con.createStatement();
+            String query = "UPDATE Student SET degreeCode = " + null + ", levelOfStudy = " + null + " WHERE regNumber = " + regNumber + ";" ;
+            System.out.println(query);
+            stmt.execute(query);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }
