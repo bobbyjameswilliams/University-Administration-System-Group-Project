@@ -72,6 +72,15 @@ public class RegistrarWelcomeScreen extends WelcomeScreen {
                 };
             }
         });
+        delStntButt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selRowIndex = viewStntTable.getSelectedRow();
+                if (selRowIndex > -1){
+                    controller.unassignStudent(viewStntTableModel.getRow(selRowIndex));
+                };
+            }
+        });
     }
 
     public static void main(String args[]){

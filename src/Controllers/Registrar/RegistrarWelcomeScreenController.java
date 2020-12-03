@@ -34,6 +34,9 @@ public class RegistrarWelcomeScreenController {
     public void assignStudent(RegistrarTableRow row, String degreeCode, String levelOfStudy){
         row.setRegistration(degreeCode, levelOfStudy);
     }
+    public void unassignStudent(RegistrarTableRow row){
+        row.unassignRegistration();
+    }
 
     public static void main(String args[]){
         RegistrarWelcomeScreenController controller = new RegistrarWelcomeScreenController();
