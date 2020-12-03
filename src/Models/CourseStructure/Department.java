@@ -3,10 +3,7 @@ package Models.CourseStructure;
 import Models.DatabaseBehaviours.DBController;
 import Models.DatabaseBehaviours.UserManipulator;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,8 +44,21 @@ public class Department implements CourseStructure{
     }
 
     public void add(){
-        DBController.executeCommand("INSERT INTO Department VALUES ('"+this.departmentCode + "','" + this.departmentName+"');");
+        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+
+            PreparedStatement pstmt = con.prepareStatement("INSERT INTO Department (departmentCode,departmentName)\n" +
+                                                                "VALUES (?,?);");
+            pstmt.setString(1,this.departmentCode);
+            pstmt.setString(2,this.departmentName);
+            int count = pstmt.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
+
+
 
     public void remove(){
         UserManipulator.remove(this.departmentCode,"Department","departmentCode");

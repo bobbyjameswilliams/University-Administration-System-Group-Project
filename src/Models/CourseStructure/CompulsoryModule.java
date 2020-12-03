@@ -2,10 +2,7 @@ package Models.CourseStructure;
 
 import Models.DatabaseBehaviours.DBController;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,16 +79,31 @@ public class CompulsoryModule implements CourseStructure {
 
     @Override
     public void add(){
-        String values = this.degreeCode + "','" + this.moduleCode + "','" + this.levelOfStudy.toString();
-        DBController.executeCommand("INSERT INTO DegreeCompulsory VALUES ('"+values+"');");
+        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+
+            PreparedStatement pstmt = con.prepareStatement("INSERT INTO DegreeCompulsory (degreeCode,moduleCode,levelOfStudy)\n" +
+                                                                "VALUES (?,?,?);");
+            pstmt.setString(1,this.degreeCode);
+            pstmt.setString(2,this.moduleCode);
+            pstmt.setString(3,this.levelOfStudy.toString());
+
+            int count = pstmt.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 
     @Override
     public void remove(){
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
-            Statement stmt = con.createStatement();
-            String query = "DELETE FROM DegreeCompulsory WHERE degreeCode = '" + this.degreeCode + "' AND moduleCode = '" + this.moduleCode + "' ;";
-            stmt.execute(query);
+
+            PreparedStatement pstmt = con.prepareStatement("DELETE FROM DegreeCompulsory\n " +
+                                                                "WHERE degreeCode =? AND moduleCode =? ;");
+            pstmt.setString(1,this.degreeCode);
+            pstmt.setString(2,this.moduleCode);
+            int count = pstmt.executeUpdate();
         } catch (Exception ex){
             ex.printStackTrace();
         }

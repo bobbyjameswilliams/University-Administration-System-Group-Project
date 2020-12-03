@@ -3,10 +3,7 @@ package Models.CourseStructure;
 import Models.DatabaseBehaviours.DBController;
 import Models.DatabaseBehaviours.UserManipulator;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,10 +77,24 @@ public class Degree implements CourseStructure{
     public Class[] getVariableClass(){ return new Class[] {String.class,String.class,Integer.class,Boolean.class,String.class};}
 
     public void add(){
-        String values = this.degreeCode + "','" + this.courseName + "','" + this.lengthOfStudy + "','" + this.boolToInt(this.yearInIndustry)
-                + "','" + this.qualification.toString() ;
-        DBController.executeCommand("INSERT INTO Degree VALUES ('"+values+"');");
+        try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+
+            PreparedStatement pstmt = con.prepareStatement("INSERT INTO Degree (degreeCode,courseName,lengthOfStudy,yearInIndustry,qualification)\n" +
+                    "VALUES (?,?,?,?,?);");
+            pstmt.setString(1,this.degreeCode);
+            pstmt.setString(2,this.courseName);
+            pstmt.setInt(3,this.lengthOfStudy);
+            pstmt.setInt(4,this.boolToInt(this.yearInIndustry));
+            pstmt.setString(5,this.qualification.toString());
+            int count = pstmt.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
+
+
 
     public void remove(){
         UserManipulator userManipulator = new UserManipulator();
