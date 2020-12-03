@@ -60,6 +60,7 @@ public class RegistrarWelcomeScreen extends WelcomeScreen {
             this.update();
         });
         this.update();
+
     }
 
     public void update(){
