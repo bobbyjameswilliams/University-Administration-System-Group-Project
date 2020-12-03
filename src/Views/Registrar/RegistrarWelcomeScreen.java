@@ -1,6 +1,7 @@
 package Views.Registrar;
 
 import Controllers.Registrar.RegistrarWelcomeScreenController;
+import Models.CourseStructure.LevelOfStudy;
 import Models.Tables.Registrar.RegistrarTableModel;
 import Models.UserAccounts.Registar;
 import Views.WelcomeScreen;
@@ -40,9 +41,12 @@ public class RegistrarWelcomeScreen extends WelcomeScreen {
         RegistrarTableModel viewStntTableModel = new RegistrarTableModel();
         viewStntTable.setModel(viewStntTableModel);
 
-        //Sets the model for the ComboBox
-        DefaultComboBoxModel courseCombo = new DefaultComboBoxModel(registrar.getAllCourses());
-        sntCourseCombo.setModel(courseCombo);
+        //Sets the model for the ComboBoxes
+        DefaultComboBoxModel courseComboModel = new DefaultComboBoxModel(registrar.getAllCourses());
+        sntCourseCombo.setModel(courseComboModel);
+
+        DefaultComboBoxModel levelComboModel = new DefaultComboBoxModel(LevelOfStudy.getAllLevelsOfStudies());
+        periodOfStudyCombo.setModel(levelComboModel);
 
 
         inspectRegistrationButt.addActionListener(new ActionListener() {
