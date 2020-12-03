@@ -40,37 +40,39 @@ public class RegistrarWelcomeScreen extends WelcomeScreen {
         RegistrarTableModel viewStntTableModel = new RegistrarTableModel();
         viewStntTable.setModel(viewStntTableModel);
 
+        inspectRegistrationButt.addActionListener(e -> {
+            int selRowIndex = viewStntTable.getSelectedRow();
+            //Ensures that there is a row selected
+            if (selRowIndex > -1) {
+                controller.inspectStudentRegistration(viewStntTableModel.getRow(selRowIndex));
+            }
+            this.update();
+        });
+
+        applyStudentButt.addActionListener(e -> {
+            //Ensures that there is a row selected
+            int selRowIndex = viewStntTable.getSelectedRow();
+            if (selRowIndex > -1){
+                controller.assignStudent(viewStntTableModel.getRow(selRowIndex),
+                        sntCourseCombo.getSelectedItem().toString(),
+                        periodOfStudyCombo.getSelectedItem().toString());
+            }
+            this.update();
+        });
+        this.update();
+    }
+
+    public void update(){
+        //Sets up the main table
+        RegistrarTableModel viewStntTableModel = new RegistrarTableModel();
+        viewStntTable.setModel(viewStntTableModel);
+
         //Sets the model for the ComboBoxes
         DefaultComboBoxModel courseComboModel = new DefaultComboBoxModel(registrar.getAllCourses());
         sntCourseCombo.setModel(courseComboModel);
 
         DefaultComboBoxModel levelComboModel = new DefaultComboBoxModel(LevelOfStudy.getAllLevelsOfStudies());
         periodOfStudyCombo.setModel(levelComboModel);
-
-
-        inspectRegistrationButt.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int selRowIndex = viewStntTable.getSelectedRow();
-                //Ensures that there is a row selected
-                if (selRowIndex > -1) {
-                    controller.inspectStudentRegistration(viewStntTableModel.getRow(selRowIndex));
-                }
-            }
-        });
-
-        applyStudentButt.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //Ensures that there is a row selected
-                int selRowIndex = viewStntTable.getSelectedRow();
-                if (selRowIndex > -1){
-                    controller.assignStudent(viewStntTableModel.getRow(selRowIndex),
-                            sntCourseCombo.getSelectedItem().toString(),
-                            periodOfStudyCombo.getSelectedItem().toString());
-                };
-            }
-        });
     }
 
     public static void main(String args[]){
