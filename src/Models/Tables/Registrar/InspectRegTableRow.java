@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
+// Todo rename class
 public class InspectRegTableRow {
 
     private String moduleCode;

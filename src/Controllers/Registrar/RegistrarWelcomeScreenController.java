@@ -21,11 +21,12 @@ public class RegistrarWelcomeScreenController {
         if(row.getDegreeCode() != null && row.getLevelOfStudy() != null) {
             InspectRegistrationController inspectFrame = new InspectRegistrationController(new Student(row.getUserName(), row.getForeName(), row.getSurName(), row.getEmail(), row.getRegNumber(), row.getDegreeCode(), row.getLevelOfStudy()));
         }
-
     }
+
     public void assignStudent(RegistrarTableRow row, String degreeCode, String levelOfStudy){
         row.setRegistration(degreeCode, levelOfStudy);
     }
+
     public void unassignStudent(RegistrarTableRow row){
         row.unassignRegistration();
     }

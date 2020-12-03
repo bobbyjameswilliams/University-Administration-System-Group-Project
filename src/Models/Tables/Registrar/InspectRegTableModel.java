@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.List;
 
+// Todo rename class
 public class InspectRegTableModel extends AbstractTableModel {
     private final List<InspectRegTableRow> rows;
 

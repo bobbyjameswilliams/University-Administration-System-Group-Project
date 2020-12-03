@@ -58,7 +58,6 @@ public class InspectRegistration extends WelcomeScreen {
         });
 
         removeSelectedButton.addActionListener(e ->{
-            //TODO: Do not allow core modules to be removed
             controller.removeOptionalModule(this.inspectRegModel.getRow(studentModulesTable.getSelectedRow()), this.student);
             this.update();
         });
@@ -78,7 +77,7 @@ public class InspectRegistration extends WelcomeScreen {
         int creditsNeeded = student.getCreditRequirements();
         progressBar1.setMaximum(creditsNeeded);
         moduleCreditsTakenTxtField.setText(Integer.toString(creditsTaken));
-        progressBar1.setValue(student.getCreditsTaken());
+        progressBar1.setValue(creditsTaken);
     }
 
     //for includes sample data for testing
