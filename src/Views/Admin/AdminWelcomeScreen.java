@@ -94,7 +94,7 @@ public class AdminWelcomeScreen extends WelcomeScreen {
             this.controller.addDepartment(deptCodeTxtField.getText(), deptNameTxtField.getText());
             deptCodeTxtField.setText("");
             deptNameTxtField.setText("");
-            this.updateDepartmentPane();
+            this.update();
         });
 
         addCourseButt.addActionListener(e -> {
@@ -103,14 +103,14 @@ public class AdminWelcomeScreen extends WelcomeScreen {
             this.degreeCodeTxtField.setText("");
             this.courseNameTxt.setText("");
             this.courseLengthTxtArea.setText("");
-            this.updateCoursePane();
+            this.update();
         });
 
         applyNewUserButt.addActionListener(e -> {
             this.controller.addUser((UserType)userPrivilegeCombo.getSelectedItem(),userForeNameTxtField.getText(),userSurNameTxtField.getText(),passwordTxtField.getText());
             userForeNameTxtField.setText("");
             userSurNameTxtField.setText("");
-            this.updateUserPane();
+            this.update();
         });
 
         moduleAddButton.addActionListener(e -> {
@@ -118,17 +118,17 @@ public class AdminWelcomeScreen extends WelcomeScreen {
             moduleNumberTxtField.setText("");
             moduleNameTxtField.setText("");
             moduleCreditsTxtField.setText("");
-            this.updateModulePane();
+            this.update();
         });
 
         makeCompulsoryButton.addActionListener(e -> {
             this.controller.addCompulsoryModule((String)compDegreeCodeCombo.getSelectedItem(),(String)compModuleCodeCombo.getSelectedItem(),(LevelOfStudy)compLevelCombo.getSelectedItem());
-            this.updateCompulsoryModulePane();
+            this.update();
         });
 
         degreeDepoAddButton.addActionListener(e -> {
             this.controller.addDegreeDepartment((String)degreeDepoDepoCodeCombo.getSelectedItem(),(String)degreeDepoDegreeCodeCombo.getSelectedItem());
-            this.updateDegreeDepartmentPane();
+            this.update();
         });
 
         removeSelectDeptButt.addActionListener(new RemoveCourseStructure(this,departmentsTable,new DepartmentsTableModel(new Department())));
