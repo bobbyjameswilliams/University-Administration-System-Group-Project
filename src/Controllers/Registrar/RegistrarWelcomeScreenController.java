@@ -31,6 +31,9 @@ public class RegistrarWelcomeScreenController {
             InspectRegistrationController inspectFrame = new InspectRegistrationController(new Student(row.getUserName(), row.getForeName(), row.getSurName(), row.getEmail(), row.getRegNumber(), row.getDegreeCode(), row.getLevelOfStudy()));
         }
     }
+    public void assignStudent(RegistrarTableRow row, String degreeCode, String levelOfStudy){
+        row.setRegistration(degreeCode, levelOfStudy);
+    }
 
     public static void main(String args[]){
         RegistrarWelcomeScreenController controller = new RegistrarWelcomeScreenController();

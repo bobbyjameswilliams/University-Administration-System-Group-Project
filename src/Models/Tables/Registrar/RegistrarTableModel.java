@@ -66,7 +66,6 @@ public class RegistrarTableModel extends AbstractTableModel {
 
     public RegistrarTableRow getRow(int rowIndex) {
             return rows.get(rowIndex);
-
     }
 
 }

@@ -53,9 +53,23 @@ public class RegistrarWelcomeScreen extends WelcomeScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selRowIndex = viewStntTable.getSelectedRow();
+                //Ensures that there is a row selected
                 if (selRowIndex > -1) {
                     controller.inspectStudentRegistration(viewStntTableModel.getRow(selRowIndex));
                 }
+            }
+        });
+
+        applyStudentButt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Ensures that there is a row selected
+                int selRowIndex = viewStntTable.getSelectedRow();
+                if (selRowIndex > -1){
+                    controller.assignStudent(viewStntTableModel.getRow(selRowIndex),
+                            sntCourseCombo.getSelectedItem().toString(),
+                            periodOfStudyCombo.getSelectedItem().toString());
+                };
             }
         });
     }
