@@ -3,10 +3,7 @@ package Models.UserAccounts;
 import Models.DatabaseBehaviours.DBController;
 import Models.Tables.StudentGrade;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.NoSuchElementException;
 import Models.UserAccounts.UserType;
 
@@ -20,9 +17,13 @@ public class UserAccountBuilder {
 
     public Student studentBuilder() {
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
-            Statement stmt = con.createStatement();
-            String query = "SELECT * FROM Student JOIN User on Student.username = User.username WHERE Student.username = '" + username + "';";
-            ResultSet rs =  stmt.executeQuery(query);
+
+            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM Student " +
+                                                                "JOIN User on Student.username = User.username\n " +
+                                                                "WHERE Student.username = ?;");
+            pstmt.setString(1,username);
+            ResultSet rs = pstmt.executeQuery();
+
             while(rs.next()){
                 int regNumber = rs.getInt("regNumber");
                 String forename = rs.getString("forename");
@@ -40,9 +41,10 @@ public class UserAccountBuilder {
 
     public UserType getEmployeeRole(){
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
-            Statement stmt = con.createStatement();
-            String query = "SELECT role FROM Employee WHERE username = '" + username + "';";
-            ResultSet rs =  stmt.executeQuery(query);
+
+            PreparedStatement pstmt = con.prepareStatement("SELECT role FROM Employee WHERE username = ?;");
+            pstmt.setString(1,username);
+            ResultSet rs = pstmt.executeQuery();
             rs.next();
             String role = rs.getString("role");
             return UserType.valueOf(role.toUpperCase());
@@ -54,9 +56,12 @@ public class UserAccountBuilder {
 
     public <T extends Employee> T employeeBuilder(T employee) {
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
-            Statement stmt = con.createStatement();
-            String query = "SELECT * FROM Employee JOIN User On User.username = Employee.username WHERE Employee.username = '" + username + "';";
-            ResultSet rs =  stmt.executeQuery(query);
+
+            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM Employee " +
+                    "JOIN User On User.username = Employee.username " +
+                    "WHERE Employee.username = ?;");
+            pstmt.setString(1,username);
+            ResultSet rs = pstmt.executeQuery();
             rs.next();
             employee.setUsername(rs.getString("username"));
             employee.setForename(rs.getString("forename"));
