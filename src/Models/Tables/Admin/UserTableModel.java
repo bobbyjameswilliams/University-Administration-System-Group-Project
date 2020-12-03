@@ -1,9 +1,14 @@
 package Models.Tables.Admin;
 
+import Models.CourseStructure.CourseStructure;
 import Models.Tables.StudentGrade;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserTableModel extends AbstractTableModel{
 
@@ -69,5 +74,21 @@ public class UserTableModel extends AbstractTableModel{
         }
     }
 
+    public void removeRow(int[] rowIndex) {
+        List<UserTableRow> userTableRowsToRemove = new ArrayList<>();
+        for (int i: rowIndex){
+            userTableRowsToRemove.add(this.users.get(i));
+        }
+        // we couldn't put this in the for loop above because the index would be wrong after first delete
+        List<Integer> rowIndexList  = Arrays.stream( rowIndex ).boxed().collect( Collectors.toList() );
+        Collections.reverse(rowIndexList);
+        for (Integer i : rowIndexList){
+            this.users.remove(i);
+        }
+        // Remove elements from Database
+        for (UserTableRow userTableRow: userTableRowsToRemove){
+            userTableRow.remove();
+        }
+    }
 
 }

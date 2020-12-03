@@ -3,6 +3,7 @@ package Views.Admin;
 
 import Controllers.Admin.AdminController;
 import Models.CourseStructure.*;
+import Models.Tables.Admin.RemoveSelectedUser;
 import Models.Tables.CourseStructure.*;
 
 import Models.Tables.Admin.UserTableModel;
@@ -26,7 +27,7 @@ public class AdminWelcomeScreen extends WelcomeScreen {
     private JLabel newUserLabel;
     private JLabel userNameLbl;
     private JButton applyNewUserButt;
-    private JButton removeSelectedButt;
+    private JButton removeSelectedUserButt;
     private JCheckBox yearInIndustryCheckBox;
     private JTextField deptCodeTxtField;
     private JScrollPane departmentScrollPane;
@@ -138,6 +139,7 @@ public class AdminWelcomeScreen extends WelcomeScreen {
         removeSelectedModuleButton.addActionListener(new RemoveCourseStructure(this,modulesTable,new ModulesTableModel(new UniModule())));
         removeCompulsoryButton.addActionListener(new RemoveCourseStructure(this,compulsoryModules,new CompulsoryModulesTableModel(new CompulsoryModule())));
         degreeDepoRemoveButton.addActionListener(new RemoveCourseStructure(this,degreeDepoTable,new DegreeDepartmentTableModel(new DegreeDepartment())));
+        removeSelectedUserButt.addActionListener(new RemoveSelectedUser(this,usersTable,new UserTableModel()));
 
         this.update();
     }
@@ -239,6 +241,8 @@ public class AdminWelcomeScreen extends WelcomeScreen {
     private void updateUserPane() {
         UserTableModel userTableModel = new UserTableModel();
         usersTable.setModel(userTableModel);
+        RemoveSelectedUser rcu = (RemoveSelectedUser)removeSelectedUserButt.getActionListeners()[0];
+        rcu.updateTableModel(userTableModel);
         this.setUserPrivilegeComboBox();
     }
 
