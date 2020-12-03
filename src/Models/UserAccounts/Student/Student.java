@@ -1,10 +1,13 @@
-package Models.UserAccounts;
+package Models.UserAccounts.Student;
 
+import Models.CourseStructure.CompulsoryModule;
 import Models.CourseStructure.LevelOfStudy;
+import Models.CourseStructure.UniModule;
 import Models.DatabaseBehaviours.DBController;
 import Models.Tables.Registrar.InspectRegTableRow;
 import Models.Tables.Registrar.RegistrarTableRow;
 import Models.Tables.StudentGrade;
+import Models.UserAccounts.User;
 
 import java.sql.*;
 import java.util.*;
@@ -65,18 +68,42 @@ public class Student extends User {
 		return levelOfStudy;
 	}
 
-	public void setLevelOfStudy(String levelOfStudy) {
-	    this.levelOfStudy = LevelOfStudy.valueOf(levelOfStudy.toUpperCase());
+	public void setLevelOfStudy(LevelOfStudy levelOfStudy) {
+		this.levelOfStudy = levelOfStudy;
 	}
 
-	public void updateLevelOfStudy(){
-		try (Connection con = DriverManager.getConnection(this.url,this.user,this.password)){
-			Statement stmt = con.createStatement();
-			String query = "UPDATE Student SET yearOfStudy = " + this.getLevelOfStudy().toString() + " WHERE regNumber = " + this.getRegNumber();
-			stmt.execute(query);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+	public LevelOfStudy getNextLevelOfStudy(){
+		return LevelOfStudy.getNext(this.levelOfStudy);
+	}
+
+	public void updateLevelOfStudy() throws InsufficientCreditEnrollment,InsufficientGradeAttainment{
+		if (this.metCredits() == false)	{
+			throw new InsufficientCreditEnrollment();
 		}
+		if (this.metGrades() == false) {
+			throw new InsufficientGradeAttainment();
+		}
+		LevelOfStudy nextLevel = this.getNextLevelOfStudy();
+		if (nextLevel == this.getLevelOfStudy())	{
+			return;
+		}
+		this.setLevelOfStudy(nextLevel);
+		// getlevel will now return update level
+		String query = "UPDATE Student SET levelOfStudy = '" + this.getLevelOfStudy().toString() + "' WHERE regNumber = '" + this.getRegNumber() + "';";
+		DBController.executeCommand(query);
+		this.autoEnroll();
+	}
+
+	public boolean metGrades(){
+		List<StudentGrade> modules = this.getModules();
+		for (StudentGrade module: modules){
+			if (module.getGrade() < 40) return false;
+		}
+		return true;
+	}
+
+	public boolean metCredits(){
+		return this.getCreditRequirements() == this.getCreditsTaken();
 	}
 
 	public int getCreditRequirements(){
@@ -98,7 +125,6 @@ public class Student extends User {
 			while(rs.next()){
 				creditsTaken += Integer.parseInt(rs.getString("credits"));
 			}
-			// Count should never be greater than one, I believe
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -106,10 +132,9 @@ public class Student extends User {
 	}
 
 	public List<InspectRegTableRow> getAllModulesTaken(){
-		String query = "SELECT Module.moduleCode, Module.moduleName, Module.credits, StudentModule.levelOfStudyTaken FROM Student\n" +
-				" INNER JOIN StudentModule ON Student.regNumber = StudentModule.regNumber\n" +
-				" INNER JOIN Module ON StudentModule.moduleCode = Module.moduleCode\n" +
-				" WHERE Student.regNumber = "+ this.getRegNumber() ;
+		String query  = "SELECT StudentModule.moduleCode,StudentModule.grade,Module.credits,StudentModule.levelOfStudyTaken," +
+				"Module.moduleName FROM StudentModule JOIN Module ON StudentModule.moduleCode = Module.moduleCode" +
+				" WHERE StudentModule.regNumber =" + this.getRegNumber() + ";";
 		System.out.println(query);
 		List<InspectRegTableRow> inspectRegTableRows = new ArrayList<>();
 		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
@@ -118,9 +143,10 @@ public class Student extends User {
 			while(rs.next()){
 				String moduleCode = rs.getString("moduleCode");
 				String moduleName = rs.getString("moduleName");
+				String grade = rs.getString("grade");
 				int credits = rs.getInt("credits");
 				LevelOfStudy levelOfStudyTaken = LevelOfStudy.valueOf(rs.getString("levelOfStudyTaken"));
-				inspectRegTableRows.add(new InspectRegTableRow(moduleCode,moduleName,credits,levelOfStudyTaken));
+				inspectRegTableRows.add(new InspectRegTableRow(moduleCode,moduleName,grade,credits,levelOfStudyTaken));
 			}
 			return inspectRegTableRows;
 		} catch (Exception ex) {
@@ -148,6 +174,21 @@ public class Student extends User {
 
 	public boolean canProgressToNextLevel() {
 		return false;
+	}
+
+	public void enroll(UniModule module){
+		String values = this.getRegNumber() + "','" + module.getCode() + "','" + this.getLevelOfStudy().toString();
+		String query = "INSERT INTO StudentModule (regNumber,moduleCode,levelOfStudyTaken) VALUES ('" + values + "');";
+		DBController.executeCommand(query);
+	}
+
+	public void autoEnroll(){
+		List<CompulsoryModule> compulsoryModules = new CompulsoryModule().getAll(this.degreeCode,this.levelOfStudy);
+		for (CompulsoryModule compulsoryModule : compulsoryModules){
+			String values = this.getRegNumber() + "','" + compulsoryModule.getModuleCode() + "','" + this.getLevelOfStudy().toString();
+			String query = "INSERT INTO StudentModule (regNumber,moduleCode,levelOfStudyTaken) VALUES ('" + values + "');";
+			DBController.executeCommand(query);
+		}
 	}
 
 	public List<StudentGrade> getModules() {
@@ -183,9 +224,6 @@ public class Student extends User {
 		String query = "SELECT forename, surname, emailAddress FROM PersonalTutor JOIN Employee ON PersonalTutor.employeeNumber = " +
 				"Employee.employeeNumber JOIN User ON User.username = Employee.username WHERE PersonalTutor.regNumber = " + this.regNumber;
 		Statement stmt = null;
-		String tutorForeName;
-		String tutorSurname;
-		String tutorEmail;
 		List<String> personalTutorInfo = new ArrayList<String>();
 		try {
 			stmt = DBController.getConnection().createStatement();

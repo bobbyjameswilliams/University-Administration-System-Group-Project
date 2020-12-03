@@ -1,14 +1,13 @@
 package Models.UserAccounts;
 
 import Models.DatabaseBehaviours.DBController;
-import Models.Tables.StudentGrade;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.NoSuchElementException;
-import Models.UserAccounts.UserType;
+
+import Models.UserAccounts.Student.Student;
 
 public class UserAccountBuilder {
 
