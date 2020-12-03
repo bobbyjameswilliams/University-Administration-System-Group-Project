@@ -63,8 +63,8 @@ public class Administrator extends Employee {
         }
     }
 
-    public void addDegree(String degreeCode,String courseName, int lengthOfStudy, boolean yearInIndustry){
-        Degree degree = new Degree(degreeCode,courseName,lengthOfStudy,yearInIndustry);
+    public void addDegree(String degreeCode,String courseName, int lengthOfStudy, boolean yearInIndustry,Qualification qualification){
+        Degree degree = new Degree(degreeCode,courseName,lengthOfStudy,yearInIndustry,qualification);
         degree.add();
     }
 

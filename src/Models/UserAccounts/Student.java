@@ -106,7 +106,7 @@ public class Student extends User {
 	}
 
 	public List<InspectRegTableRow> getAllModulesTaken(){
-		String query = "SELECT Module.moduleCode, Module.moduleName, Module.credits FROM Student\n" +
+		String query = "SELECT Module.moduleCode, Module.moduleName, Module.credits, StudentModule.levelOfStudyTaken FROM Student\n" +
 				" INNER JOIN StudentModule ON Student.regNumber = StudentModule.regNumber\n" +
 				" INNER JOIN Module ON StudentModule.moduleCode = Module.moduleCode\n" +
 				" WHERE Student.regNumber = "+ this.getRegNumber() ;
@@ -119,7 +119,8 @@ public class Student extends User {
 				String moduleCode = rs.getString("moduleCode");
 				String moduleName = rs.getString("moduleName");
 				int credits = rs.getInt("credits");
-				inspectRegTableRows.add(new InspectRegTableRow(moduleCode,moduleName,credits));
+				LevelOfStudy levelOfStudyTaken = LevelOfStudy.valueOf(rs.getString("levelOfStudyTaken"));
+				inspectRegTableRows.add(new InspectRegTableRow(moduleCode,moduleName,credits,levelOfStudyTaken));
 			}
 			return inspectRegTableRows;
 		} catch (Exception ex) {

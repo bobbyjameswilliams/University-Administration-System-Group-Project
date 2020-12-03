@@ -1,5 +1,6 @@
 package Models.UserAccounts;
 
+import Models.CourseStructure.Qualification;
 import Models.UserAccounts.Administrator;
 import Models.UserAccounts.UserType;
 
@@ -36,7 +37,7 @@ class AdministratorTest {
 
     @Test
     public void degreeTest(){
-        administrator.addDegree("COM060","Computer Science",3,false);
+        administrator.addDegree("COM060","Computer Science",3,false, Qualification.BEng);
         administrator.removeDegree("COM060");
     }
     @Test

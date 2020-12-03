@@ -18,6 +18,7 @@ public class InspectRegistration extends WelcomeScreen {
     private JLabel moduleCreditsLabel;
     private JLabel addModuleLabel;
     private JLabel studentInfoLabel;
+    private JTextField moduleCreditsTakenTxtField;
     private final Student student;
     private InspectRegistrationController controller;
 
@@ -35,6 +36,9 @@ public class InspectRegistration extends WelcomeScreen {
         //sets the combobox selections for modules
         DefaultComboBoxModel comboModel = new DefaultComboBoxModel(new Vector<String>(controller.dataForModuleCombo()));
         optionalModulesCombo.setModel(comboModel);
+
+        //module credits taken
+        moduleCreditsTakenTxtField.setText(Integer.toString(student.getCreditsTaken()));
 
         //instantiates the table model
         InspectRegTableModel inspectRegModel = new InspectRegTableModel(student);

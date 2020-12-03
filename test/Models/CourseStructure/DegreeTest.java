@@ -12,7 +12,7 @@ public class DegreeTest {
 
     @BeforeEach
     public void init(){
-        degree = new Degree("ENG304","Civil Engineering",3,false);
+        degree = new Degree("ENG304","Civil Engineering",3,false,Qualification.BEng);
     }
 
     @Test
