@@ -21,9 +21,6 @@ public class AdminWelcomeScreen extends WelcomeScreen {
     private JPanel usersTab;
     private JLabel welcomeLabel;
     private JPanel userTabButtPanel;
-    private JComboBox userAccEditPrivilegeCombo;
-    private JLabel editUserLbl;
-    private JButton assignEditPrivilegeButt;
     private JLabel newUserLabel;
     private JLabel userNameLbl;
     private JButton applyNewUserButt;
