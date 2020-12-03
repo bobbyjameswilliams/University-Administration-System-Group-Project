@@ -4,6 +4,7 @@ import Controllers.Registrar.RegistrarWelcomeScreenController;
 import Models.Tables.Registrar.RegistrarTableModel;
 import Models.UserAccounts.Registar;
 import Views.WelcomeScreen;
+import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -38,6 +39,10 @@ public class RegistrarWelcomeScreen extends WelcomeScreen {
         //Sets up the main table
         RegistrarTableModel viewStntTableModel = new RegistrarTableModel();
         viewStntTable.setModel(viewStntTableModel);
+
+        //Sets the model for the ComboBox
+        DefaultComboBoxModel courseCombo = new DefaultComboBoxModel(registrar.getAllCourses());
+        sntCourseCombo.setModel(courseCombo);
 
 
         inspectRegistrationButt.addActionListener(new ActionListener() {

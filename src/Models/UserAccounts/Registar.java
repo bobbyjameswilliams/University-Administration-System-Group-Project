@@ -7,6 +7,7 @@ import Models.DatabaseBehaviours.DBController;
 import Models.DatabaseBehaviours.UserManipulator;
 import Models.Tables.Admin.UserTableRow;
 import Models.Tables.Registrar.RegistrarTableRow;
+import Models.Tables.StudentGrade;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -62,6 +63,24 @@ public class Registar extends Employee {
                 registrarTableRows.add(new RegistrarTableRow(regNumber,userName,degreeCode,levelOfStudy,forename,surname,emailAddress));
             }
             return registrarTableRows;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public Object[] getAllCourses() {
+        String query = "SELECT degreeCode FROM Degree;";
+        System.out.println(query);
+        List<String> degreeCode = new ArrayList<>();
+        try (Connection con = DriverManager.getConnection(this.url,this.user,this.password)){
+            Statement stmt = con.createStatement();
+            ResultSet rs =  stmt.executeQuery(query);
+            while(rs.next()){
+                degreeCode.add(rs.getString("degreeCode"));
+            }
+            return degreeCode.toArray();
+            // Count should never be greater than one, I believe
         } catch (Exception ex) {
             ex.printStackTrace();
         }
