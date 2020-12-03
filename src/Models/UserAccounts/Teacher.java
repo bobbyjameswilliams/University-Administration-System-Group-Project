@@ -33,9 +33,15 @@ public class Teacher extends Employee {
 				"INNER JOIN User ON User.username = Student.username WHERE TeachesModule.employeeNumber = " + this.getEmployeeNumber() + ";";
 		System.out.println(query);
 		List<StudentGrade> studentGrades = new ArrayList<>();
-		try (Connection con = DriverManager.getConnection(this.url,this.user,this.password)){
-			Statement stmt = con.createStatement();
-			ResultSet rs =  stmt.executeQuery(query);
+		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+
+			PreparedStatement pstmt = con.prepareStatement("SELECT StudentModule.regNumber, StudentModule.moduleCode, forename, surname, grade, resit FROM StudentModule " +
+																"INNER JOIN TeachesModule ON StudentModule.moduleCode = TeachesModule.moduleCode " +
+																"INNER JOIN Student ON Student.regNumber = StudentModule.regNumber " +
+																"INNER JOIN User ON User.username = Student.username\n " +
+																"WHERE TeachesModule.employeeNumber =?;");
+			pstmt.setInt(1,this.getEmployeeNumber());
+			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
 				int regNumber = rs.getInt("regNumber");
 				String moduleCode = rs.getString("moduleCode");
