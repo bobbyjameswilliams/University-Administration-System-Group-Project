@@ -3,7 +3,7 @@ package Controllers.Registrar;
 import Models.DatabaseBehaviours.DBController;
 import Models.UserAccounts.Student.InsufficientCreditEnrollment;
 import Models.UserAccounts.Student.InsufficientGradeAttainment;
-import Models.UserAccounts.Student.Student;
+import Models.UserAccounts.Student.*;;
 import Views.Registrar.InspectRegistration;
 
 import java.awt.*;

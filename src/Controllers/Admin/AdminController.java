@@ -3,7 +3,7 @@ package Controllers.Admin;
 import Models.Authentication.SignUp;
 import Models.CourseStructure.*;
 import Models.UserAccounts.*;
-import Models.UserAccounts.Student.Student;
+import Models.UserAccounts.Student.*;;
 
 public class AdminController {
 

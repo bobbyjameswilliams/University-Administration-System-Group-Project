@@ -4,7 +4,7 @@ package Controllers.LogIn;
 import Controllers.Admin.AdminController;
 import Models.Authentication.Login;
 import Models.UserAccounts.*;
-import Models.UserAccounts.Student.Student;
+import Models.UserAccounts.Student.*;;
 import Views.Admin.AdminWelcomeScreen;
 import Views.LogIn;
 import Views.Student.StudentWelcomeScreen;

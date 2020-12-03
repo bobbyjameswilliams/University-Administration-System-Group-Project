@@ -1,4 +1,4 @@
-package Models.UserAccounts;
+package Models.UserAccounts.Student;
 
 import Models.CourseStructure.*;
 import Models.DatabaseBehaviours.DBController;
@@ -11,7 +11,7 @@ import java.sql.*;
 import java.util.*;
 
 public class Student extends User {
-	
+
 	private int regNumber; 
 	private String degreeCode;
 	private LevelOfStudy levelOfStudy;
@@ -97,26 +97,26 @@ public class Student extends User {
 		this.autoEnroll();
 	}
 
-	public void updateLevelOfStudy(){
-		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
-
-			PreparedStatement pstmt = con.prepareStatement("UPDATE Student SET yearOfStudy =? \n "+
-																" WHERE regNumber =?;");
-			pstmt.setString(1,this.getLevelOfStudy().toString());
-			pstmt.setInt(2,this.getRegNumber());
-			pstmt.executeQuery();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
-
-
 	public boolean metGrades(){
 		List<StudentGrade> modules = this.getModules();
 		for (StudentGrade module: modules){
 			if (module.getGrade() < getGradeNeeded()) return false;
 		}
 		return true;
+	}
+
+	public int getGradeNeeded(){
+		Qualification qualification = this.getQualificationType();
+		switch (qualification){
+			case MPsy:
+			case MSc:
+			case MA:
+			case MEng:
+				return 40;
+			// everything else returns 50
+			default:
+				return 50;
+		}
 	}
 
 	public boolean metCredits(){
@@ -155,16 +155,12 @@ public class Student extends User {
 	public List<InspectRegTableRow> getAllModulesTaken(){
 		String query  = "SELECT StudentModule.moduleCode,StudentModule.grade,Module.credits,StudentModule.levelOfStudyTaken," +
 				"Module.moduleName FROM StudentModule JOIN Module ON StudentModule.moduleCode = Module.moduleCode" +
-				" WHERE StudentModule.regNumber =" + this.getRegNumber() + ";";
+				" WHERE StudentModule.regNumber = ?;";
 		System.out.println(query);
 		List<InspectRegTableRow> inspectRegTableRows = new ArrayList<>();
 		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
-			PreparedStatement pstmt = con.prepareStatement("SELECT Module.moduleCode, Module.moduleName, Module.credits, StudentModule.levelOfStudyTaken FROM Student\n" +
-																" INNER JOIN StudentModule ON Student.regNumber = StudentModule.regNumber\n" +
-																" INNER JOIN Module ON StudentModule.moduleCode = Module.moduleCode\n" +
-																" WHERE Student.regNumber = ?;");
+			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1,this.getRegNumber());
-
 			ResultSet rs =  pstmt.executeQuery();
 			while(rs.next()){
 				String moduleCode = rs.getString("moduleCode");
@@ -184,7 +180,7 @@ public class Student extends User {
 	public static boolean exist(String username){
 		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
 
-			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM Student" +
+			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM Student " +
 																"WHERE username=? ;");
 			pstmt.setString(1,username);
 
@@ -227,7 +223,8 @@ public class Student extends User {
 				String levelOfStudyTaken = rs.getString("levelOfStudyTaken");
 				int grade = rs.getInt("grade");
 				String resit = rs.getString("resit");
-				studentModuleGrades.add(new StudentGrade(this.regNumber,moduleCode,this.getForename(),this.getSurname(),grade, Boolean.valueOf(resit)));
+				studentModuleGrades.add(new StudentGrade(this.regNumber,moduleCode,this.getForename(),this.getSurname(),grade, Boolean.valueOf(resit),
+						LevelOfStudy.valueOf(levelOfStudyTaken)));
 			}
 		}
 		catch (SQLException throwables) {

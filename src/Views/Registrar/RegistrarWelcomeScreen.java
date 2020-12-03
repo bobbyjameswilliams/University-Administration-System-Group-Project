@@ -40,14 +40,12 @@ public class RegistrarWelcomeScreen extends WelcomeScreen {
         RegistrarTableModel viewStntTableModel = new RegistrarTableModel();
         viewStntTable.setModel(viewStntTableModel);
       
-        delStntButt.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int selRowIndex = viewStntTable.getSelectedRow();
-                if (selRowIndex > -1){
-                    controller.unassignStudent(viewStntTableModel.getRow(selRowIndex));
-                };
-            }
+        delStntButt.addActionListener(e ->{
+            int selRowIndex = viewStntTable.getSelectedRow();
+            if (selRowIndex > -1){
+                controller.unassignStudent(viewStntTableModel.getRow(selRowIndex));
+            };
+            this.update();
         });
 
         inspectRegistrationButt.addActionListener(e -> {

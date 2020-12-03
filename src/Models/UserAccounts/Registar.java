@@ -2,7 +2,7 @@ package Models.UserAccounts;
 
 import Models.DatabaseBehaviours.DBController;
 import Models.Tables.Registrar.RegistrarTableRow;
-import Models.UserAccounts.Student.Student;
+import Models.UserAccounts.Student.*;;
 import Models.Tables.StudentGrade;
 
 

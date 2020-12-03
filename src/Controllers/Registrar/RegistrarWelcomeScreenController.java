@@ -2,7 +2,7 @@ package Controllers.Registrar;
 
 import Models.Tables.Registrar.RegistrarTableRow;
 import Models.UserAccounts.Registar;
-import Models.UserAccounts.Student.Student;
+import Models.UserAccounts.Student.*;;
 import Views.Registrar.RegistrarWelcomeScreen;
 
 public class RegistrarWelcomeScreenController {

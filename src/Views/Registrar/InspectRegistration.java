@@ -2,7 +2,7 @@ package Views.Registrar;
 
 import Controllers.Registrar.InspectRegistrationController;
 import Models.Tables.Registrar.InspectRegTableModel;
-import Models.UserAccounts.Student.Student;
+import Models.UserAccounts.Student.*;;
 import Views.WelcomeScreen;
 
 import javax.swing.*;

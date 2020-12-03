@@ -4,7 +4,7 @@ import Models.Tables.StudentGrade;
 
 import javax.swing.table.AbstractTableModel;
 
-import Models.UserAccounts.Student.Student;
+import Models.UserAccounts.Student.*;;
 
 import java.util.List;
 

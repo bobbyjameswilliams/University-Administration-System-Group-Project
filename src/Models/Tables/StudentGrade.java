@@ -1,5 +1,6 @@
 package Models.Tables;
 
+import Models.CourseStructure.LevelOfStudy;
 import Models.DatabaseBehaviours.DBController;
 
 import java.sql.Connection;
@@ -13,7 +14,7 @@ public class StudentGrade {
     private String moduleCode;
     private String forename;
     private String surname;
-    private String levelOfStudyTaken;
+    private LevelOfStudy levelOfStudyTaken;
     private int grade;
     private boolean resit;
 
@@ -21,13 +22,14 @@ public class StudentGrade {
     protected final String user = "team045" ;
     protected final String password = "5e15b333";
 
-    public StudentGrade(int regNumber, String moduleCode,String forename, String surname, int grade, boolean resit) {
+    public StudentGrade(int regNumber, String moduleCode, String forename, String surname, int grade, boolean resit, LevelOfStudy levelOfStudy) {
         this.regNumber = regNumber;
         this.moduleCode = moduleCode;
         this.forename = forename;
         this.surname = surname;
         this.grade = grade;
         this.resit = resit;
+        this.levelOfStudyTaken = levelOfStudy;
     }
 
     public int getRegNumber() { return  regNumber;}
@@ -42,7 +44,7 @@ public class StudentGrade {
         return surname;
     }
 
-    public String getLevelOfStudyTaken() {return levelOfStudyTaken;}
+    public String getLevelOfStudyTaken() {return levelOfStudyTaken.toString();}
 
     public int getGrade() {
         return grade;

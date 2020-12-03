@@ -1,11 +1,13 @@
 package Models.UserAccounts;
 
+import Models.CourseStructure.LevelOfStudy;
 import Models.DatabaseBehaviours.DBController;
 import Models.Tables.StudentGrade;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import Models.UserAccounts.Student.Student;
 
 public class Teacher extends Employee {
 
@@ -28,14 +30,10 @@ public class Teacher extends Employee {
 	}
 
 	public List<StudentGrade> getGradesOfStudents() {
-		String query = "SELECT StudentModule.regNumber, StudentModule.moduleCode, forename, surname, grade, resit FROM StudentModule INNER JOIN TeachesModule ON " +
-				"StudentModule.moduleCode = TeachesModule.moduleCode INNER JOIN Student ON Student.regNumber = StudentModule.regNumber " +
-				"INNER JOIN User ON User.username = Student.username WHERE TeachesModule.employeeNumber = " + this.getEmployeeNumber() + ";";
-		System.out.println(query);
 		List<StudentGrade> studentGrades = new ArrayList<>();
 		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
 
-			PreparedStatement pstmt = con.prepareStatement("SELECT StudentModule.regNumber, StudentModule.moduleCode, forename, surname, grade, resit FROM StudentModule " +
+			PreparedStatement pstmt = con.prepareStatement("SELECT StudentModule.regNumber, StudentModule.moduleCode, forename, surname, grade, resit, levelOfStudyTaken FROM StudentModule " +
 																"INNER JOIN TeachesModule ON StudentModule.moduleCode = TeachesModule.moduleCode " +
 																"INNER JOIN Student ON Student.regNumber = StudentModule.regNumber " +
 																"INNER JOIN User ON User.username = Student.username\n " +
@@ -49,7 +47,9 @@ public class Teacher extends Employee {
 				String surname = rs.getString("surname");
 				int grade = rs.getInt("grade");
 				String resit = rs.getString("resit");
-				studentGrades.add(new StudentGrade(regNumber,moduleCode,forename,surname,grade,Boolean.valueOf(resit)));
+				String levelOfStudy = rs.getString("levelOfStudyTaken");
+				studentGrades.add(new StudentGrade(regNumber,moduleCode,forename,surname,grade,Boolean.valueOf(resit),
+						LevelOfStudy.valueOf(levelOfStudy)));
 			}
 			// Count should never be greater than one, I believe
 		} catch (Exception ex) {

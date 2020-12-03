@@ -1,6 +1,6 @@
 package Models.CourseStructure;
 import Models.DatabaseBehaviours.UserManipulator;
-import Models.UserAccounts.Student.Student;
+import Models.UserAccounts.Student.*;;
 
 public class Progression {
 

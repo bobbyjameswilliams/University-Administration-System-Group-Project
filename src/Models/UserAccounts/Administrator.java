@@ -3,7 +3,7 @@ package Models.UserAccounts;
 import Models.DatabaseBehaviours.DBController;
 import Models.DatabaseBehaviours.UserManipulator;
 import Models.CourseStructure.*;
-import Models.UserAccounts.Student.Student;
+import Models.UserAccounts.Student.*;;
 
 import java.sql.*;
 

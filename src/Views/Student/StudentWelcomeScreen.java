@@ -1,7 +1,7 @@
 package Views.Student;
 
 import Models.Tables.Student.StudentModuleTable;
-import Models.UserAccounts.Student.Student;
+import Models.UserAccounts.Student.*;;
 import Views.WelcomeScreen;
 
 import javax.swing.*;

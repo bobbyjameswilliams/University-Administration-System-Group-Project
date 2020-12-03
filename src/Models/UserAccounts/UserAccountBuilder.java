@@ -5,6 +5,8 @@ import Models.Tables.StudentGrade;
 
 import java.sql.*;
 import java.util.NoSuchElementException;
+
+import Models.UserAccounts.Student.Student;
 import Models.UserAccounts.UserType;
 
 public class UserAccountBuilder {

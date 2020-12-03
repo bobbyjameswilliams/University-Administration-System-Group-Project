@@ -1,7 +1,7 @@
 package Models.UserAccounts;
 
 import Models.CourseStructure.Qualification;
-import Models.UserAccounts.Student.Student;
+import Models.UserAccounts.Student.*;;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
