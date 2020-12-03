@@ -21,6 +21,7 @@ public class InspectRegistration extends WelcomeScreen {
     private JTextField moduleCreditsTakenTxtField;
     private JButton progressStudentToNextButton;
     private JProgressBar progressBar1;
+    private JButton retakeLevelButton;
     private final Student student;
     private InspectRegistrationController controller;
 
@@ -39,9 +40,10 @@ public class InspectRegistration extends WelcomeScreen {
         DefaultComboBoxModel comboModel = new DefaultComboBoxModel(controller.dataForModuleCombo().toArray());
         optionalModulesCombo.setModel(comboModel);
 
-        //instantiates the table model
-        InspectRegTableModel inspectRegModel = new InspectRegTableModel(student);
-        studentModulesTable.setModel(inspectRegModel);
+        retakeLevelButton.addActionListener(e -> {
+            this.controller.retake(student);
+            this.update();
+        });
 
         progressStudentToNextButton.addActionListener(e -> {
             this.controller.progressStudent(student);
@@ -52,6 +54,8 @@ public class InspectRegistration extends WelcomeScreen {
     }
 
     public void update(){
+        InspectRegTableModel inspectRegModel = new InspectRegTableModel(student);
+        studentModulesTable.setModel(inspectRegModel);
         int creditsTaken = student.getCreditsTaken();
         int creditsNeeded = student.getCreditRequirements();
         progressBar1.setMaximum(creditsNeeded);

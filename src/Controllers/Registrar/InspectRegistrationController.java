@@ -32,6 +32,10 @@ public class InspectRegistrationController {
         }
     }
 
+    public void retake(Student student){
+        student.retake();
+    }
+
     public List<String> dataForModuleCombo(){
         String query = "SELECT * FROM Module;";
         System.out.println(query);

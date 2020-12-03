@@ -11,7 +11,7 @@ public class TeachesModuleTableModel extends AbstractTableModel {
     private final List<StudentGrade> studentGrades;
 
     private final String[] columnNames = new String[] {"Module Code","Forename","Surname","Grade","Resit"};
-    private final Class[] columnClass = new Class[] {String.class,String.class,String.class,Integer.class,Integer.class};
+    private final Class[] columnClass = new Class[] {String.class,String.class,String.class,Integer.class,Boolean.class};
 
     public TeachesModuleTableModel(Teacher teacher){
         this.studentGrades = teacher.getGradesOfStudents();
