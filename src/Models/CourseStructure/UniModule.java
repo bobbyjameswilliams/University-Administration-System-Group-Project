@@ -103,6 +103,8 @@ public class UniModule implements CourseStructure{
 
     @Override
     public void add(){
+
+        DBController.executeCommand("INSERT INTO TeachesModule (moduleCode) VALUES ('" + this.moduleCode+"');");
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
 
             PreparedStatement pstmt = con.prepareStatement("INSERT INTO Module (moduleCode,moduleName,credits)\n" +

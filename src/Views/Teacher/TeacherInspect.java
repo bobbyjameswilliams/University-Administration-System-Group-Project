@@ -8,6 +8,7 @@ import Views.WelcomeScreen;
 import javax.swing.*;
 
 public class TeacherInspect extends WelcomeScreen {
+
     private JPanel buttonPanel;
     private JProgressBar progressBar1;
     private JTable studentModulesTable;

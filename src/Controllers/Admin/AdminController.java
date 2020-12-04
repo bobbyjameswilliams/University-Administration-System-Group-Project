@@ -2,8 +2,10 @@ package Controllers.Admin;
 
 import Models.Authentication.SignUp;
 import Models.CourseStructure.*;
+import Models.DatabaseBehaviours.DBController;
 import Models.UserAccounts.*;
-import Models.UserAccounts.Student.*;;
+import Models.UserAccounts.Student.*;
+import com.mysql.cj.util.StringUtils;;
 
 public class AdminController {
 
@@ -59,6 +61,14 @@ public class AdminController {
                 SignUp.signUpUser(admin,password);
                 return;
         }
+    }
+
+    public void addTeachesModule(String teacherNameAndNum, TeachesModule teachesModule){
+        // Substring the before the first -, we get the employee Num essentially
+        int index = teacherNameAndNum.indexOf('-');
+        String refactoredString = teacherNameAndNum.substring(0,index);
+        int employeeNumber = Integer.parseInt(refactoredString);
+        DBController.executeCommand("UPDATE TeachesModule SET employeeNumber = "+ employeeNumber + " WHERE moduleCode = '" + teachesModule.getCode() +"' ;");
     }
 
     public String getAdminForename(){
