@@ -34,6 +34,9 @@ public class InspectTeacherController{
             inspectionFrame.errLabel.setText("Insufficient Module Credits");
         } catch (InsufficientGradeAttainment ex){
             inspectionFrame.errLabel.setText("Insufficient Grades Attained");
+        } catch (TooManyResits ex){
+            inspectionFrame.errLabel.setText("Student has failed resat Level, they can now never progress," +
+                    "modules have promptly deleted");
         }
     }
 

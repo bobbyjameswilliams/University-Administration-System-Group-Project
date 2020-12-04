@@ -75,11 +75,15 @@ public class Student extends User {
 		return degree.getQualification();
 	}
 
-	public void updateLevelOfStudy() throws InsufficientCreditEnrollment,InsufficientGradeAttainment{
+	public void updateLevelOfStudy() throws InsufficientCreditEnrollment,InsufficientGradeAttainment,TooManyResits{
 		if (this.metCredits() == false)	{
 			throw new InsufficientCreditEnrollment();
 		}
-		if (this.metGrades() == false) {
+		if (this.metGrades() == false && this.alreadyRetaken()) {
+			this.removeAllModules();
+			throw new TooManyResits();
+		}
+		if (this.metGrades() == false){
 			throw new InsufficientGradeAttainment();
 		}
 		LevelOfStudy nextLevel = this.getNextLevelOfStudy();
@@ -91,6 +95,19 @@ public class Student extends User {
 		String query = "UPDATE Student SET levelOfStudy = '" + this.getLevelOfStudy().toString() + "' WHERE regNumber = '" + this.getRegNumber() + "';";
 		DBController.executeCommand(query);
 		this.autoEnroll();
+	}
+
+	public boolean alreadyRetaken(){
+		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+			Statement stmt = con.createStatement();
+			String query = "SELECT * FROM StudentModule WHERE regNumber =" + this.getRegNumber() + " AND levelOfStudy = '" + this.getLevelOfStudy().toString() + "' " +
+					" AND resit = 1;";
+			ResultSet rs = stmt.executeQuery(query);
+			return rs.isBeforeFirst();
+		} catch (Exception ex){
+
+		}
+		return false;
 	}
 
 	public boolean metGrades(){
