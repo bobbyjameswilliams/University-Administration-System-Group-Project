@@ -149,6 +149,7 @@ public class AdminWelcomeScreen extends WelcomeScreen {
 
         addTeacherToStudentButton.addActionListener(e -> {
             this.controller.addPersonalTutor((String)personalTutorComboBox.getSelectedItem(),(PersonalTutor)this.personalTutorTableModel.getRow(personalTutorsTable.getSelectedRow()));
+            this.update();
         });
 
         removeSelectDeptButt.addActionListener(new RemoveCourseStructure(this,departmentsTable,new DepartmentsTableModel(new Department())));
