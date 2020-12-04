@@ -69,7 +69,7 @@ public class UserTableRow {
     public static List<UserTableRow> getAllUserTableRow() {
         String query = "SELECT User.*, Employee.employeeNumber, Employee.role,Student.regNumber FROM User LEFT JOIN Student ON Student.username = User.username" +
                 " LEFT JOIN Employee ON Employee.username = User.username;";
-        System.out.println(query);
+
         List<UserTableRow> userTableRows = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
             Statement stmt = con.createStatement();

@@ -35,8 +35,4 @@ public class Login {
         return false;
     }
 
-    public static void main (String[] args){
-        System.out.println(loginAuthenticated("Lembrei","test123"));
-    }
-
 }

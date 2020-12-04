@@ -48,7 +48,6 @@ public class StudentWelcomeScreen extends WelcomeScreen {
     private void displayTutorLabel() {
         try {
             List<String> tutorDetails = student.getPersonalTutor();
-            System.out.print(tutorDetails);
             personalTutorLabel.setText("PERSONAL TUTOR NAME: " + tutorDetails.get(0) +
                      " " +tutorDetails.get(1) + " EMAIL: " + tutorDetails.get(2));
         } catch (SQLException throwables) {
