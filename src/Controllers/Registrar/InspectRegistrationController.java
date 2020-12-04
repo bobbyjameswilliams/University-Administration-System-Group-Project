@@ -30,10 +30,6 @@ public class InspectRegistrationController {
                     "FROM Module WHERE moduleCode NOT IN (SELECT moduleCode FROM StudentModule WHERE regNumber = ?)");
 
             pstmt.setInt(1,student.getRegNumber());
-
-
-
-
             ResultSet rs =  pstmt.executeQuery();
             while(rs.next()){
                 moduleCodes.add(rs.getString("moduleCode"));
@@ -59,8 +55,7 @@ public class InspectRegistrationController {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        String query = "INSERT INTO StudentModule (regNumber, moduleCode, grade, resit, levelOfStudyTaken) VALUES(" + student.getRegNumber() + ", \"" + moduleCode + "\" ," + 0 + ", FALSE, \"" + "TWO\")"  ;
-        DBController.executeCommand(query);
+
     }
 
     public void removeOptionalModule(InspectRegTableRow row, Student student) {
