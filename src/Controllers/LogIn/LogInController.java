@@ -5,6 +5,8 @@ import Controllers.Admin.AdminController;
 import Controllers.Registrar.RegistrarWelcomeScreenController;
 import Controllers.Teacher.TeacherWelcomeScreenController;
 import Models.Authentication.Login;
+import Models.CourseStructure.TeachesModule;
+import Models.DatabaseBehaviours.DBController;
 import Models.UserAccounts.*;
 import Models.UserAccounts.Student.*;;
 import Views.Admin.AdminWelcomeScreen;
@@ -40,6 +42,7 @@ public class LogInController {
         loginFrame.incorrectPassword();
         }
     }
+
 
     public JFrame getUserFrame(String username) {
         UserAccountBuilder builder = new UserAccountBuilder(username);
