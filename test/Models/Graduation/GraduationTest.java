@@ -39,5 +39,4 @@ class GraduationTest {
             ex.printStackTrace();
         }
     }
-
 }
