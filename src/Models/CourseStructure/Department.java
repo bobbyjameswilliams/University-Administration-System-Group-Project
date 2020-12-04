@@ -81,7 +81,9 @@ public class Department implements CourseStructure{
         }
         return null;
     }
-
+    /**
+     * @return a String array with all Department codes inside the Degree table in the DB
+     */
     public static String[] getAllDepartmentCodes(){
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
             Statement stmt = con.createStatement();
@@ -99,6 +101,10 @@ public class Department implements CourseStructure{
         return null;
     }
 
+    /**
+     * @param departmentName
+     * @return the Department Code assign to the specified department name
+     */
     public static String getCodeFromName(String departmentName){
         List<Department> departments = new Department().getAll();
         for (Department department : departments) {

@@ -82,6 +82,13 @@ public class CompulsoryModule implements CourseStructure {
         return null;
     }
 
+    /**
+     * This method returns a list containing the rows of the table compulsoryModule ,cin the DB,
+     * which match the specified DegreeCode and LevelOfStudy as CompulsoryModule objects
+     * @param specificDegreeCode
+     * @param specificLevelOfStudy
+     * @return compulsoryModules List of the rows that contain the parameters spcified
+     */
     public List<CompulsoryModule> getAll(String specificDegreeCode,LevelOfStudy specificLevelOfStudy){
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
             Statement stmt = con.createStatement();
@@ -114,7 +121,12 @@ public class CompulsoryModule implements CourseStructure {
         String query = "DELETE FROM DegreeCompulsory WHERE degreeCode = '" + this.degreeCode + "' AND moduleCode = '" + this.moduleCode + "' ;";
         DBController.executeCommand(query);
     }
-
+    /**
+     * this method checks if there is a Link between the specified degreeCode and moduleCode
+     * @param degreeCode
+     * @param moduleCode
+     * @return the True if there is a row in the CompulsoryModule table in the DB and False if not
+     */
     public static boolean isCompulsoryModule(String degreeCode,String moduleCode){
         try(Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
             Statement statement = con.createStatement();

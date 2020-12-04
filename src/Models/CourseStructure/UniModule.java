@@ -83,7 +83,9 @@ public class UniModule implements CourseStructure{
         }
         return null;
     }
-
+    /**
+     * @return a String array with all module code inside the Degree table in the DB
+     */
     public static String[] getAllModuleCodes(){
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
             Statement stmt = con.createStatement();

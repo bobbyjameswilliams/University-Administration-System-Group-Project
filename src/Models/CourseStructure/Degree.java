@@ -36,10 +36,19 @@ public class Degree implements CourseStructure{
         this.qualification = qualification;
     }
 
+    /**
+     * Turn True to 1 and False to 0
+     * @param x
+     * @return 0,1
+     */
     public int boolToInt(boolean x){
         return x ? 1 : 0 ;
     }
-
+    /**
+     * Turn 1 to True and 0 to False
+     * @param x
+     * @return 0,1
+     */
     public boolean IntToBool(int x){
         return x == 1;
     }
@@ -126,6 +135,9 @@ public class Degree implements CourseStructure{
         return null;
     }
 
+    /**
+     * @return a String array with all Degree code inside the Degree table in the DB
+     */
     public static String[] getAllDegreeCodes(){
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
             Statement stmt = con.createStatement();
