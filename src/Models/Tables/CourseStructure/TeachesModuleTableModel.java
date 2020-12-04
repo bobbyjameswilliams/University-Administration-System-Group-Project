@@ -1,6 +1,6 @@
 package Models.Tables.CourseStructure;
 
-import Models.CourseStructure.TeachesModule;
+import Models.CourseStructure.Module.TeachesModule;
 
 public class TeachesModuleTableModel extends CourseStructureTableModel {
 

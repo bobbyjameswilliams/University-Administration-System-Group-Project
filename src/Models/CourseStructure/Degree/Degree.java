@@ -1,5 +1,7 @@
-package Models.CourseStructure;
+package Models.CourseStructure.Degree;
 
+import Models.CourseStructure.CourseStructure;
+import Models.CourseStructure.Qualification;
 import Models.DatabaseBehaviours.DBController;
 import Models.DatabaseBehaviours.UserManipulator;
 
@@ -7,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Degree implements CourseStructure{
+public class Degree implements CourseStructure {
 
     private final String tableName = "Degree";
     private final String primaryColumnName = "degreeCode";

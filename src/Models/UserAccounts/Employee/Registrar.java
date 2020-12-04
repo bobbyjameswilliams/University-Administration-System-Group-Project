@@ -1,9 +1,9 @@
-package Models.UserAccounts;
+package Models.UserAccounts.Employee;
 
 import Models.DatabaseBehaviours.DBController;
 import Models.Tables.Registrar.RegistrarTableRow;
 import Models.UserAccounts.Student.*;;
-import Models.Tables.StudentGrade;
+import Models.UserAccounts.User.UserType;
 
 
 import java.sql.Connection;

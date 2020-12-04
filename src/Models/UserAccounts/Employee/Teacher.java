@@ -1,14 +1,14 @@
-package Models.UserAccounts;
+package Models.UserAccounts.Employee;
 
 import Models.CourseStructure.LevelOfStudy;
 import Models.DatabaseBehaviours.DBController;
-import Models.Tables.CourseStructure.RemoveCourseStructure;
 import Models.Tables.StudentGrade;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import Models.UserAccounts.Student.Student;
+import Models.UserAccounts.User.UserType;
 
 public class Teacher extends Employee {
 

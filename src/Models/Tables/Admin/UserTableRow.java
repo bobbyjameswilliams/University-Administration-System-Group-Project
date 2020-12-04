@@ -2,10 +2,7 @@ package Models.Tables.Admin;
 
 import Models.DatabaseBehaviours.DBController;
 import Models.DatabaseBehaviours.UserManipulator;
-import Models.Tables.StudentGrade;
-import Models.UserAccounts.Administrator;
-import Models.UserAccounts.User;
-import Models.UserAccounts.UserType;
+import Models.UserAccounts.User.UserType;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

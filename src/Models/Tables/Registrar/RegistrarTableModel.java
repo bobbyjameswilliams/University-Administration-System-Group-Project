@@ -1,6 +1,6 @@
 package Models.Tables.Registrar;
 
-import Models.UserAccounts.Registrar;
+import Models.UserAccounts.Employee.Registrar;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;

@@ -1,15 +1,12 @@
 package Controllers.Registrar;
 
-import Models.CourseStructure.CompulsoryModule;
-import Models.CourseStructure.CompusloryModuleConstraint;
+import Models.CourseStructure.Module.CompulsoryModule;
+import Models.CourseStructure.Module.CompusloryModuleConstraint;
 import Models.DatabaseBehaviours.DBController;
 import Models.Tables.Registrar.InspectRegTableRow;
-import Models.UserAccounts.Student.InsufficientCreditEnrollment;
-import Models.UserAccounts.Student.InsufficientGradeAttainment;
 import Models.UserAccounts.Student.*;;
 import Views.Registrar.InspectRegistration;
 
-import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

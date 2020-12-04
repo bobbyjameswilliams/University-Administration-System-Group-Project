@@ -1,14 +1,14 @@
-package Models.CourseStructure;
+package Models.CourseStructure.Module;
 
+import Models.CourseStructure.CourseStructure;
 import Models.DatabaseBehaviours.DBController;
 import Models.DatabaseBehaviours.UserManipulator;
-import Models.UserAccounts.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UniModule implements CourseStructure{
+public class UniModule implements CourseStructure {
 
     private String tableName = "Module";
     private final String primaryColumnName = "moduleCode";

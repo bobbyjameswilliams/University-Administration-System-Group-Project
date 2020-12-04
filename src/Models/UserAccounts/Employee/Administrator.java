@@ -1,9 +1,13 @@
-package Models.UserAccounts;
+package Models.UserAccounts.Employee;
 
+import Models.CourseStructure.Degree.Degree;
+import Models.CourseStructure.Module.UniModule;
 import Models.DatabaseBehaviours.DBController;
 import Models.DatabaseBehaviours.UserManipulator;
 import Models.CourseStructure.*;
-import Models.UserAccounts.Student.*;;
+import Models.UserAccounts.Student.*;
+import Models.UserAccounts.User.UserAccountBuilder;
+import Models.UserAccounts.User.UserType;;
 
 import java.sql.*;
 

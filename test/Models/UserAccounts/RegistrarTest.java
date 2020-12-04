@@ -1,5 +1,6 @@
 package Models.UserAccounts;
 
+import Models.UserAccounts.Employee.Registrar;
 import org.junit.jupiter.api.BeforeEach;
 
 class RegistrarTest {

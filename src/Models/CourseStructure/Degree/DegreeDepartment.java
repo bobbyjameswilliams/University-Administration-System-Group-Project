@@ -1,12 +1,13 @@
-package Models.CourseStructure;
+package Models.CourseStructure.Degree;
 
+import Models.CourseStructure.CourseStructure;
 import Models.DatabaseBehaviours.DBController;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DegreeDepartment implements CourseStructure{
+public class DegreeDepartment implements CourseStructure {
     private int uniqueId;
     private String departmentCode;
     private String degreeCode;

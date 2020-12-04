@@ -1,5 +1,6 @@
-package Models.CourseStructure;
+package Models.CourseStructure.Degree;
 
+import Models.CourseStructure.Qualification;
 import Models.DatabaseBehaviours.DBController;
 
 import java.sql.Connection;

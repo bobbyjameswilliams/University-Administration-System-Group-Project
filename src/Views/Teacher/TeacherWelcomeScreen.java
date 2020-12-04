@@ -3,13 +3,10 @@ package Views.Teacher;
 import Controllers.Teacher.TeacherWelcomeScreenController;
 import Models.Tables.Teacher.GraduateTableModel;
 import Models.Tables.Teacher.TeachesModuleTableModel;
-import Models.UserAccounts.Teacher;
+import Models.UserAccounts.Employee.Teacher;
 import Views.WelcomeScreen;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class TeacherWelcomeScreen extends WelcomeScreen {
     private JPanel mainPanel;

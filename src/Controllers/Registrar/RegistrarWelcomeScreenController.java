@@ -1,9 +1,9 @@
 package Controllers.Registrar;
 
 import Models.Tables.Registrar.RegistrarTableRow;
-import Models.UserAccounts.Registrar;
+import Models.UserAccounts.Employee.Registrar;
 import Models.UserAccounts.Student.*;;
-import Models.UserAccounts.UserAccountBuilder;
+import Models.UserAccounts.User.UserAccountBuilder;
 import Views.Registrar.RegistrarWelcomeScreen;
 
 /**

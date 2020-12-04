@@ -2,9 +2,16 @@ package Controllers.Admin;
 
 import Models.Authentication.SignUp;
 import Models.CourseStructure.*;
+import Models.CourseStructure.Degree.Degree;
+import Models.CourseStructure.Module.TeachesModule;
+import Models.CourseStructure.Module.UniModule;
 import Models.DatabaseBehaviours.DBController;
-import Models.UserAccounts.*;
+import Models.UserAccounts.Employee.Administrator;
+import Models.UserAccounts.Employee.Registrar;
+import Models.UserAccounts.Employee.Teacher;
+import Models.UserAccounts.Employee.TeacherDetails;
 import Models.UserAccounts.Student.*;
+import Models.UserAccounts.User.UserType;
 ;
 
 /**
@@ -43,7 +50,7 @@ public class AdminController {
         administrator.addDegreeDepartment(departmentCode,degreeCode);
     }
 
-    public void addUser(UserType userType,String forename,String surname,String password){
+    public void addUser(UserType userType, String forename, String surname, String password){
         switch (userType){
             case STUDENT:
                 Student student = new Student(forename,surname);

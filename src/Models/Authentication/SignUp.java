@@ -1,11 +1,8 @@
 package Models.Authentication;
 
 import Models.DatabaseBehaviours.DBController;
-import Models.DatabaseBehaviours.UserManipulator;
-import Models.Tables.StudentGrade;
-import Models.UserAccounts.User;
+import Models.UserAccounts.User.User;
 
-import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.Base64;
 

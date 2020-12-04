@@ -3,7 +3,7 @@ package Views.Registrar;
 import Controllers.Registrar.RegistrarWelcomeScreenController;
 import Models.CourseStructure.LevelOfStudy;
 import Models.Tables.Registrar.RegistrarTableModel;
-import Models.UserAccounts.Registrar;
+import Models.UserAccounts.Employee.Registrar;
 import Views.WelcomeScreen;
 
 import javax.swing.*;

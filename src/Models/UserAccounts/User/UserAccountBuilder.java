@@ -1,13 +1,11 @@
-package Models.UserAccounts;
+package Models.UserAccounts.User;
 
 import Models.DatabaseBehaviours.DBController;
-import Models.Tables.StudentGrade;
 
 import java.sql.*;
-import java.util.NoSuchElementException;
 
+import Models.UserAccounts.Employee.Employee;
 import Models.UserAccounts.Student.Student;
-import Models.UserAccounts.UserType;
 
 public class UserAccountBuilder {
 

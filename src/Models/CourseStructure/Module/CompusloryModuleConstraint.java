@@ -1,4 +1,4 @@
-package Models.CourseStructure;
+package Models.CourseStructure.Module;
 
 public class CompusloryModuleConstraint extends Exception {
     //Execption for CompulsoryModule

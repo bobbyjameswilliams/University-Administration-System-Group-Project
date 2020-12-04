@@ -3,13 +3,17 @@ package Views.Admin;
 
 import Controllers.Admin.AdminController;
 import Models.CourseStructure.*;
+import Models.CourseStructure.Degree.Degree;
+import Models.CourseStructure.Degree.DegreeDepartment;
+import Models.CourseStructure.Module.CompulsoryModule;
+import Models.CourseStructure.Module.TeachesModule;
+import Models.CourseStructure.Module.UniModule;
 import Models.Tables.Admin.RemoveSelectedUser;
 import Models.Tables.CourseStructure.*;
 
 import Models.Tables.Admin.UserTableModel;
-import Models.UserAccounts.Teacher;
-import Models.UserAccounts.TeacherDetails;
-import Models.UserAccounts.UserType;
+import Models.UserAccounts.Employee.TeacherDetails;
+import Models.UserAccounts.User.UserType;
 import Views.WelcomeScreen;
 
 import javax.swing.*;

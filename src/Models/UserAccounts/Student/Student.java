@@ -1,14 +1,17 @@
 package Models.UserAccounts.Student;
 
 import Models.CourseStructure.*;
+import Models.CourseStructure.Degree.Degree;
+import Models.CourseStructure.Degree.DegreeBuilder;
+import Models.CourseStructure.Module.CompulsoryModule;
+import Models.CourseStructure.Module.UniModule;
 import Models.DatabaseBehaviours.DBController;
 import Models.Graduation.GradeAttainmentConstraint;
 import Models.Graduation.Graduation;
 import Models.Graduation.LevelOfStudyConstraint;
 import Models.Tables.Registrar.InspectRegTableRow;
-import Models.Tables.Registrar.RegistrarTableRow;
 import Models.Tables.StudentGrade;
-import Models.UserAccounts.User;
+import Models.UserAccounts.User.User;
 
 import java.sql.*;
 import java.util.*;

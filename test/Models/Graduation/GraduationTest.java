@@ -1,10 +1,9 @@
 package Models.Graduation;
 
-import Models.CourseStructure.LevelOfStudy;
 import Models.CourseStructure.Qualification;
 import Models.DatabaseBehaviours.DBController;
 import Models.UserAccounts.Student.Student;
-import Models.UserAccounts.UserAccountBuilder;
+import Models.UserAccounts.User.UserAccountBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;

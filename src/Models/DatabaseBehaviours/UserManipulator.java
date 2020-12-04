@@ -1,6 +1,6 @@
 package Models.DatabaseBehaviours;
 
-import Models.UserAccounts.*;
+import Models.UserAccounts.User.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

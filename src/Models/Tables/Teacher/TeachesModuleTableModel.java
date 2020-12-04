@@ -1,8 +1,7 @@
 package Models.Tables.Teacher;
 
 import Models.Tables.StudentGrade;
-import Models.UserAccounts.Student.Student;
-import Models.UserAccounts.Teacher;
+import Models.UserAccounts.Employee.Teacher;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;

@@ -1,5 +1,6 @@
-package Models.CourseStructure;
+package Models.CourseStructure.Module;
 
+import Models.CourseStructure.CourseStructure;
 import Models.DatabaseBehaviours.DBController;
 
 import java.sql.Connection;

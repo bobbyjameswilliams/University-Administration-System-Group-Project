@@ -1,12 +1,9 @@
 package Models.Tables.Teacher;
 
 import Models.DatabaseBehaviours.DBController;
-import Models.Tables.StudentGrade;
 import Models.Tables.Teacher.Row.GraduateTableRow;
-import Models.UserAccounts.Teacher;
 
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

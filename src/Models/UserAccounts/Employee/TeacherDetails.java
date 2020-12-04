@@ -1,4 +1,4 @@
-package Models.UserAccounts;
+package Models.UserAccounts.Employee;
 
 import Models.DatabaseBehaviours.DBController;
 
