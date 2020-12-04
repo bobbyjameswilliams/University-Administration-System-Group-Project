@@ -19,7 +19,6 @@ import java.util.List;
 public class AdminWelcomeScreen extends WelcomeScreen {
     private JPanel mainPanel;
     private JTabbedPane tabbedPanel;
-    private JButton logOutButt;
     private JPanel usersTab;
     private JLabel welcomeLabel;
     private JPanel userTabButtPanel;
