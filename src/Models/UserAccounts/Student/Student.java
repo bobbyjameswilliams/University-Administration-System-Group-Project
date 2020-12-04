@@ -80,7 +80,7 @@ public class Student extends User {
 			throw new InsufficientGradeAttainment();
 		}
 		LevelOfStudy nextLevel = this.getNextLevelOfStudy();
-		if (nextLevel == this.getLevelOfStudy())	{
+		if (nextLevel == this.getLevelOfStudy()){
 			return;
 		}
 		this.setLevelOfStudy(nextLevel);
