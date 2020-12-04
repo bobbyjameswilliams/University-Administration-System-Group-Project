@@ -236,6 +236,11 @@ public class Student extends User {
 		}
 	}
 
+	public void removeAllModules(){
+		String query = "DELETE FROM StudentModule WHERE regNumber =" + this.getRegNumber() + " ;";
+		DBController.executeCommand(query);
+	}
+
 	/**
 	 * Get the personal tutor(s) for a Student
 	 * @return a Result set of the tutor(s) assigned to the student

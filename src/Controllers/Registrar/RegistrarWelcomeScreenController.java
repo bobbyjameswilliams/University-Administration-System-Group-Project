@@ -29,6 +29,7 @@ public class RegistrarWelcomeScreenController {
         row.setRegistration(degreeCode, levelOfStudy);
         // Student Object with update degreeCode and LevelOfStudy
         Student student = new UserAccountBuilder(row.getUserName()).studentBuilder();
+        student.removeAllModules();
         student.autoEnroll();
     }
 
