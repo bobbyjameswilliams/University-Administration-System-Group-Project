@@ -1,6 +1,7 @@
 package Models.Graduation;
 
 import Models.CourseStructure.LevelOfStudy;
+import Models.CourseStructure.Qualification;
 import Models.DatabaseBehaviours.DBController;
 import Models.Tables.StudentGrade;
 import Models.UserAccounts.Student.Student;
@@ -11,10 +12,12 @@ public class Graduation {
 
     private Student student;
     private List<StudentGrade> grades;
+    private Qualification qualification;
 
     public Graduation(Student student) {
         this.student = student;
         this.grades = student.getModules();
+        this.qualification = student.getQualificationType();
     }
 
     private int calculateYearScore(LevelOfStudy year){
@@ -67,7 +70,7 @@ public class Graduation {
     }
 
     private void insertIntoDatabase(DegreeClassification classification){
-        String values = student.getRegNumber() + "','" + classification.toString() + "','" +student.getQualificationType().toString();
+        String values = student.getRegNumber() + "','" + classification.toString() + "','" + this.qualification.toString();
         String query = "INSERT INTO Graduates VALUES ('"+values+"') ;";
         DBController.executeCommand(query);
         student.removeAllModules();
@@ -104,6 +107,10 @@ public class Graduation {
     }
 
     private DegreeClassification classifyMasters() throws GradeAttainmentConstraint{
+        if (this.calculateYearScore(LevelOfStudy.P) < 50){
+            this.lowerQualificationType();
+            return classifyBachelors();
+        }
         int score = calculateFinalScore();
         if (score < 50){
             throw new GradeAttainmentConstraint(score);
@@ -113,6 +120,23 @@ public class Graduation {
             return DegreeClassification.UPPER_SECOND;
         } else {
             return DegreeClassification.FIRST_CLASS;
+        }
+    }
+
+    private void lowerQualificationType(){
+        switch (this.qualification){
+            case MSc:
+                this.qualification = Qualification.BSc;
+                return;
+            case MA:
+                this.qualification = Qualification.BA;
+                return;
+            case MPsy:
+                this.qualification = Qualification.BPsy;
+                return;
+            case MEng:
+                this.qualification = Qualification.BEng;
+                return;
         }
     }
 
