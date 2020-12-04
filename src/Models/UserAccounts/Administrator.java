@@ -100,7 +100,10 @@ public class Administrator extends Employee {
         UserManipulator.addUser(student);
         String values = student.getStudentDetailsForInserting();
         DBController.executeCommand("INSERT INTO Student VALUES ('"+values+"');");
-        DBController.executeCommand("INSERT INTO PersonalTutor (regNumber) VALUES ("+student.getRegNumber()+");");
+        Student student1 = new UserAccountBuilder(student.getUsername()).studentBuilder();
+        //TODO: Delete below
+        String delThis = "INSERT INTO PersonalTutor (regNumber) VALUES ("+student1.getRegNumber()+");";
+        DBController.executeCommand(delThis);
     }
 
     public void removeStudent(int regNumber){
