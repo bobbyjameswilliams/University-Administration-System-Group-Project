@@ -10,7 +10,11 @@ import java.sql.*;
 import java.util.Base64;
 
 public class SignUp {
-
+    /**
+     * This method Assigns a password to the desired user
+     * @param user , user object to signUp
+     * @param password , the password to be assigned to the user
+     */
     public static void signUpUser(User user, String password){
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
             Password password1 = new Password(password);
