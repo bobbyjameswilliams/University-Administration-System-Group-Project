@@ -14,12 +14,10 @@ public class StudentWelcomeScreen extends WelcomeScreen {
     private JPanel mainPanel;
     private JTabbedPane tabbedPane1;
     private JScrollPane modulesPane;
-    private JScrollPane gradesPane;
     private JTable gradesTable;
     private JTable modulesTable;
     private JLabel welcomeLabel;
     private JLabel personalTutorLabel;
-    private JButton logOutButt;
     private Student student;
 
     /**
@@ -36,9 +34,6 @@ public class StudentWelcomeScreen extends WelcomeScreen {
         //instantiating table on model tab
         StudentModuleTable moduleModel = new StudentModuleTable(this.student);
         modulesTable.setModel(moduleModel);
-        //instantiating table on grades tab
-        DefaultTableModel gradeModel = new DefaultTableModel(gradeColumns, 0);
-        gradesTable.setModel(gradeModel);
         //Instantiates student object using the login details
         //runs methods that update the welcome labels
         displayTutorLabel();

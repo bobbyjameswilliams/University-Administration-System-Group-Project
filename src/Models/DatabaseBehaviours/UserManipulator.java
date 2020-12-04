@@ -13,6 +13,10 @@ public class UserManipulator {
         DBController.executeCommand(query);
     }
 
+    /**
+     * This method adds a user object to the DB
+     * @param user
+     */
     public static void addUser(User user) {
 
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){

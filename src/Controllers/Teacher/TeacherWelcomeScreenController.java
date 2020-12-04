@@ -5,7 +5,6 @@ import Controllers.Teacher.InspectTeacherController;
 import Controllers.Registrar.RegistrarWelcomeScreenController;
 import Models.Tables.Registrar.RegistrarTableRow;
 import Models.Tables.StudentGrade;
-import Models.UserAccounts.Registar;
 import Models.UserAccounts.Student.Student;
 import Models.UserAccounts.Teacher;
 import Models.UserAccounts.UserAccountBuilder;

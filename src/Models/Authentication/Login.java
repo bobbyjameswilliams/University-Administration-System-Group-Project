@@ -9,6 +9,12 @@ import java.util.Base64;
 
 public class Login {
 
+    /**
+     * this method is used to authenticate the login That is being executed
+     * @param username , users username
+     * @param password , the password assigned to the inputed username( if it is right then True)
+     * @return True if Login details are Right and False if they are incorrect
+     */
     public static boolean loginAuthenticated(String username, String password){
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
             PreparedStatement pstmt = con.prepareStatement("SELECT * FROM Password WHERE username =? ;");

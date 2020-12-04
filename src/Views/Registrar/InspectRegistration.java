@@ -13,7 +13,6 @@ import java.util.Vector;
 public class InspectRegistration extends WelcomeScreen {
     private JPanel mainPanel;
     private JTable studentModulesTable;
-    private JButton backButt;
     private JComboBox optionalModulesCombo;
     private JButton submitButt;
     private JPanel buttonPanel;

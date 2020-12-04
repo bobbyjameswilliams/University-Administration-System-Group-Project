@@ -10,6 +10,7 @@ import Views.WelcomeScreen;
 import javax.swing.*;
 
 public class TeacherInspect extends WelcomeScreen {
+
     private JPanel buttonPanel;
     private JProgressBar progressBar1;
     private JTable studentModulesTable;
@@ -18,6 +19,7 @@ public class TeacherInspect extends WelcomeScreen {
     private JButton retakeLevelButton;
     private JPanel mainPanel;
     public JLabel errLabel;
+    private JButton graduateStudentButton;
     private InspectTeacherController controller;
     private final Student student;
     private InspectRegTableModel inspectRegModel;
@@ -45,6 +47,12 @@ public class TeacherInspect extends WelcomeScreen {
         });
 
         this.update();
+
+        graduateStudentButton.addActionListener(e -> {
+            controller.graduate(student);
+            this.update();
+        });
+
     }
 
     public void update(){

@@ -2,6 +2,9 @@ package Models.UserAccounts.Student;
 
 import Models.CourseStructure.*;
 import Models.DatabaseBehaviours.DBController;
+import Models.Graduation.GradeAttainmentConstraint;
+import Models.Graduation.Graduation;
+import Models.Graduation.LevelOfStudyConstraint;
 import Models.Tables.Registrar.InspectRegTableRow;
 import Models.Tables.Registrar.RegistrarTableRow;
 import Models.Tables.StudentGrade;
@@ -72,15 +75,19 @@ public class Student extends User {
 		return degree.getQualification();
 	}
 
-	public void updateLevelOfStudy() throws InsufficientCreditEnrollment,InsufficientGradeAttainment{
+	public void updateLevelOfStudy() throws InsufficientCreditEnrollment,InsufficientGradeAttainment,TooManyResits{
 		if (this.metCredits() == false)	{
 			throw new InsufficientCreditEnrollment();
 		}
-		if (this.metGrades() == false) {
+		if (this.metGrades() == false && this.alreadyRetaken()) {
+			this.removeAllModules();
+			throw new TooManyResits();
+		}
+		if (this.metGrades() == false){
 			throw new InsufficientGradeAttainment();
 		}
 		LevelOfStudy nextLevel = this.getNextLevelOfStudy();
-		if (nextLevel == this.getLevelOfStudy())	{
+		if (nextLevel == this.getLevelOfStudy()){
 			return;
 		}
 		this.setLevelOfStudy(nextLevel);
@@ -88,6 +95,19 @@ public class Student extends User {
 		String query = "UPDATE Student SET levelOfStudy = '" + this.getLevelOfStudy().toString() + "' WHERE regNumber = '" + this.getRegNumber() + "';";
 		DBController.executeCommand(query);
 		this.autoEnroll();
+	}
+
+	public boolean alreadyRetaken(){
+		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+			Statement stmt = con.createStatement();
+			String query = "SELECT * FROM StudentModule WHERE regNumber =" + this.getRegNumber() + " AND levelOfStudyTaken = '" + this.getLevelOfStudy().toString() + "' " +
+					" AND resit = 1;";
+			ResultSet rs = stmt.executeQuery(query);
+			return rs.isBeforeFirst();
+		} catch (Exception ex){
+
+		}
+		return false;
 	}
 
 	public boolean metGrades(){
@@ -128,11 +148,9 @@ public class Student extends User {
 	public int getCreditsTaken(){
 		int creditsTaken = 0;
 		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
-
 			PreparedStatement pstmt = con.prepareStatement("SELECT credits FROM StudentModule JOIN Module " +
 																"ON Module.moduleCode = StudentModule.moduleCode\n " +
 																"WHERE regNumber =? AND StudentModule.levelOfStudyTaken =?;");
-
 			pstmt.setInt(1,this.getRegNumber());
 			pstmt.setString(2,this.getLevelOfStudy().toString());
 			ResultSet rs =  pstmt.executeQuery();
@@ -176,8 +194,6 @@ public class Student extends User {
 			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM Student " +
 																"WHERE username=? ;");
 			pstmt.setString(1,username);
-
-
 			ResultSet rs = pstmt.executeQuery();
 			return rs.isBeforeFirst();
 		} catch (Exception ex) {
@@ -186,8 +202,8 @@ public class Student extends User {
 		return false;
 	}
 
-	public boolean canGraduate() {
-		return false;
+	public void graduate() throws GradeAttainmentConstraint, LevelOfStudyConstraint {
+		new Graduation(this).graduate();
 	}
 
 	public void enroll(UniModule module){
@@ -236,6 +252,11 @@ public class Student extends User {
 		}
 	}
 
+	public void removeAllModules(){
+		String query = "DELETE FROM StudentModule WHERE regNumber =" + this.getRegNumber() + " ;";
+		DBController.executeCommand(query);
+	}
+
 	/**
 	 * Get the personal tutor(s) for a Student
 	 * @return a Result set of the tutor(s) assigned to the student
@@ -248,10 +269,6 @@ public class Student extends User {
 	public List<String> getPersonalTutor() throws SQLException {
 		String query = "SELECT forename, surname, emailAddress FROM PersonalTutor JOIN Employee ON PersonalTutor.employeeNumber = " +
 				"Employee.employeeNumber JOIN User ON User.username = Employee.username WHERE PersonalTutor.regNumber = " + this.regNumber;
-
-		String tutorForeName;
-		String tutorSurname;
-		String tutorEmail;
 		List<String> personalTutorInfo = new ArrayList<String>();
 		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
 			PreparedStatement pstmt = con.prepareStatement("SELECT forename, surname, emailAddress FROM PersonalTutor " +
@@ -259,19 +276,16 @@ public class Student extends User {
 																"JOIN User ON User.username = Employee.username\n " +
 																"WHERE PersonalTutor.regNumber =?;");
 			pstmt.setInt(1,this.getRegNumber());
-
 			ResultSet rs =  pstmt.executeQuery();
 			while(rs.next()){
 				personalTutorInfo.add(rs.getString("forename"));
 				personalTutorInfo.add(rs.getString("surname"));
 				personalTutorInfo.add(rs.getString("emailAddress"));
 			}
-
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return personalTutorInfo;
 	}
 

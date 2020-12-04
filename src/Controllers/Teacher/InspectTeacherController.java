@@ -3,6 +3,8 @@ package Controllers.Teacher;
 import Models.CourseStructure.CompulsoryModule;
 import Models.CourseStructure.CompusloryModuleConstraint;
 import Models.DatabaseBehaviours.DBController;
+import Models.Graduation.GradeAttainmentConstraint;
+import Models.Graduation.LevelOfStudyConstraint;
 import Models.Tables.Registrar.InspectRegTableRow;
 import Models.UserAccounts.Student.InsufficientCreditEnrollment;
 import Models.UserAccounts.Student.InsufficientGradeAttainment;
@@ -34,6 +36,9 @@ public class InspectTeacherController{
             inspectionFrame.errLabel.setText("Insufficient Module Credits");
         } catch (InsufficientGradeAttainment ex){
             inspectionFrame.errLabel.setText("Insufficient Grades Attained");
+        } catch (TooManyResits ex){
+            inspectionFrame.errLabel.setText("Student has failed resat Level, they can now never progress," +
+                    "modules have promptly deleted");
         }
     }
 
@@ -41,4 +46,11 @@ public class InspectTeacherController{
         student.retake();
     }
 
+    public void graduate(Student student){
+        try {
+            student.graduate();
+        } catch (LevelOfStudyConstraint | GradeAttainmentConstraint ex ){
+            inspectionFrame.errLabel.setText("Conditions not met");
+        }
+    }
 }

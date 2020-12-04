@@ -83,7 +83,9 @@ public class UniModule implements CourseStructure{
         }
         return null;
     }
-
+    /**
+     * @return a String array with all module code inside the Degree table in the DB
+     */
     public static String[] getAllModuleCodes(){
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
             Statement stmt = con.createStatement();
@@ -113,6 +115,7 @@ public class UniModule implements CourseStructure{
 
             int count = pstmt.executeUpdate();
 
+            DBController.executeCommand("INSERT INTO TeachesModule (moduleCode) VALUES ('" + this.moduleCode+"');");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

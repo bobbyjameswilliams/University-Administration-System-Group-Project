@@ -1,33 +1,39 @@
 package Views.Teacher;
 
 import Controllers.Teacher.TeacherWelcomeScreenController;
+import Models.Tables.Teacher.GraduateTableModel;
 import Models.Tables.Teacher.TeachesModuleTableModel;
 import Models.UserAccounts.Teacher;
 import Views.WelcomeScreen;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class TeacherWelcomeScreen extends WelcomeScreen {
     private JPanel mainPanel;
     private JTabbedPane tabbedPane1;
-    private JTable assModulesTable;
+    private JTable graduatesTable;
     private JTable assStudentsTable;
-    private JButton logOutButton;
     private JLabel welcomeLabel;
     private JPanel assStudentsPane;
     private JScrollPane assStudentsTableScroll;
     private JPanel assStudentsActButtPane;
-    private JButton stdtApplyButt;
-    private JPanel assModulesPane;
+    private JPanel graduatePane;
     private JScrollPane assModulesTableScroll;
-    private JPanel assignedModulesActButtPane;
-    private JButton viewCohortButt;
     private JButton studentBreakdownButt;
+    private JButton refreshButt;
     private Teacher teacher;
     private TeacherWelcomeScreenController controller;
     private TeachesModuleTableModel studentModel;
+    private GraduateTableModel gradModel;
 
+    /**
+     *
+     * @param teacher - Teacher object passed in by
+     * @param controller
+     */
     public TeacherWelcomeScreen(Teacher teacher,TeacherWelcomeScreenController controller){
         super();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,6 +54,8 @@ public class TeacherWelcomeScreen extends WelcomeScreen {
         this.update();
         //runs method that updates the labels.
         displayWelcomeLabel();
+        refreshButt.addActionListener(e ->{this.update();
+        });
     }
 
     private void displayWelcomeLabel() {
@@ -57,5 +65,7 @@ public class TeacherWelcomeScreen extends WelcomeScreen {
     private void update(){
         this.studentModel = new TeachesModuleTableModel(this.teacher);
         assStudentsTable.setModel(studentModel);
+        this.gradModel = new GraduateTableModel();
+        graduatesTable.setModel(gradModel);
     }
 }

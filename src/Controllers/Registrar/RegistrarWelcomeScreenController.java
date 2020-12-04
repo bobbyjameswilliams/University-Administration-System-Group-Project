@@ -1,10 +1,15 @@
 package Controllers.Registrar;
 
+import Models.CourseStructure.LevelOfStudy;
 import Models.Tables.Registrar.RegistrarTableRow;
 import Models.UserAccounts.Registar;
 import Models.UserAccounts.Student.*;;
+import Models.UserAccounts.UserAccountBuilder;
 import Views.Registrar.RegistrarWelcomeScreen;
 
+/**
+ * Controller for the registrar welcome screen
+ */
 public class RegistrarWelcomeScreenController {
     private RegistrarWelcomeScreen registrarFrame;
     private Registar registrar;
@@ -25,6 +30,10 @@ public class RegistrarWelcomeScreenController {
 
     public void assignStudent(RegistrarTableRow row, String degreeCode, String levelOfStudy){
         row.setRegistration(degreeCode, levelOfStudy);
+        // Student Object with update degreeCode and LevelOfStudy
+        Student student = new UserAccountBuilder(row.getUserName()).studentBuilder();
+        student.removeAllModules();
+        student.autoEnroll();
     }
 
     public void unassignStudent(RegistrarTableRow row){
