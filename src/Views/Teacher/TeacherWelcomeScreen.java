@@ -8,6 +8,8 @@ import Views.WelcomeScreen;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class TeacherWelcomeScreen extends WelcomeScreen {
     private JPanel mainPanel;
@@ -23,6 +25,7 @@ public class TeacherWelcomeScreen extends WelcomeScreen {
     private JPanel graduatePane;
     private JScrollPane assModulesTableScroll;
     private JButton studentBreakdownButt;
+    private JButton refreshButt;
     private Teacher teacher;
     private TeacherWelcomeScreenController controller;
     private TeachesModuleTableModel studentModel;
@@ -48,6 +51,8 @@ public class TeacherWelcomeScreen extends WelcomeScreen {
         this.update();
         //runs method that updates the labels.
         displayWelcomeLabel();
+        refreshButt.addActionListener(e ->{this.update();
+        });
     }
 
     private void displayWelcomeLabel() {
