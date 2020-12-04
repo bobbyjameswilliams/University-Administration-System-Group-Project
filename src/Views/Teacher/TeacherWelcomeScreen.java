@@ -16,12 +16,10 @@ public class TeacherWelcomeScreen extends WelcomeScreen {
     private JTabbedPane tabbedPane1;
     private JTable graduatesTable;
     private JTable assStudentsTable;
-    private JButton logOutButton;
     private JLabel welcomeLabel;
     private JPanel assStudentsPane;
     private JScrollPane assStudentsTableScroll;
     private JPanel assStudentsActButtPane;
-    private JButton stdtApplyButt;
     private JPanel graduatePane;
     private JScrollPane assModulesTableScroll;
     private JButton studentBreakdownButt;
