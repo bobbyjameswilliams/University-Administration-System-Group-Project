@@ -1,7 +1,6 @@
 package Views.Teacher;
 
-import Controllers.Registrar.InspectRegistrationController;
-import Controllers.Registrar.InspectTeacherController;
+import Controllers.Teacher.InspectTeacherController;
 import Models.Tables.Registrar.InspectRegTableModel;
 import Models.UserAccounts.Student.Student;
 import Views.WelcomeScreen;
@@ -17,6 +16,7 @@ public class TeacherInspect extends WelcomeScreen {
     private JButton retakeLevelButton;
     private JPanel mainPanel;
     public JLabel errLabel;
+    private JButton graduateStudentButton;
     private InspectTeacherController controller;
     private final Student student;
     private InspectRegTableModel inspectRegModel;
@@ -44,6 +44,11 @@ public class TeacherInspect extends WelcomeScreen {
         });
 
         this.update();
+
+        graduateStudentButton.addActionListener(e -> {
+            controller.graduate(student);
+        });
+
     }
 
     public void update(){

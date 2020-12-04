@@ -1,4 +1,4 @@
-package Controllers.Registrar;
+package Controllers.Teacher;
 
 import Models.CourseStructure.CompulsoryModule;
 import Models.CourseStructure.CompusloryModuleConstraint;
@@ -41,4 +41,7 @@ public class InspectTeacherController{
         student.retake();
     }
 
+    public void graduate(Student student){
+        student.graduate();
+    }
 }

@@ -1,6 +1,6 @@
 package Models.Tables.Teacher.Row;
 
-public class GraduateRableRow {
+public class GraduateTableRow {
 
     private int regNumber;
     private String Achievement;
@@ -8,7 +8,7 @@ public class GraduateRableRow {
 
 
 
-    public GraduateRableRow(int regNumber, String achievement, String qualification) {
+    public GraduateTableRow(int regNumber, String achievement, String qualification) {
         this.regNumber = regNumber;
         Achievement = achievement;
         Qualification = qualification;
