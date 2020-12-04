@@ -36,6 +36,7 @@ public class RegistrarWelcomeScreen extends WelcomeScreen {
         this.registrar = registrar;
         this.pack();
 
+        welcomeLabel.setText("Welcome " + registrar.getForename() +" "+ registrar.getSurname()+", Logged in as registrar.");
         //Sets up the main table
         RegistrarTableModel viewStntTableModel = new RegistrarTableModel();
         viewStntTable.setModel(viewStntTableModel);
