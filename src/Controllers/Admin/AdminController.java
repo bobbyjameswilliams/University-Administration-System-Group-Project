@@ -2,8 +2,10 @@ package Controllers.Admin;
 
 import Models.Authentication.SignUp;
 import Models.CourseStructure.*;
+import Models.DatabaseBehaviours.DBController;
 import Models.UserAccounts.*;
-import Models.UserAccounts.Student.*;;
+import Models.UserAccounts.Student.*;
+import com.mysql.cj.util.StringUtils;;
 
 /**
  * Controller class for the administrator view
@@ -64,6 +66,18 @@ public class AdminController {
                 SignUp.signUpUser(admin,password);
                 return;
         }
+    }
+
+    public void addTeachesModule(String teacherNameAndNum, TeachesModule teachesModule){
+        // Substring the before the first -, we get the employee Num essentially
+        int employeeNumber = TeacherDetails.deCypherEmployeeNumber(teacherNameAndNum);
+        DBController.executeCommand("UPDATE TeachesModule SET employeeNumber = "+ employeeNumber + " WHERE moduleCode = '" + teachesModule.getCode() +"' ;");
+    }
+
+    public void addPersonalTutor(String teacherNameAndNum, PersonalTutor personalTutor){
+        // Substring the before the first -, we get the employee Num essentially
+        int employeeNumber = TeacherDetails.deCypherEmployeeNumber(teacherNameAndNum);
+        DBController.executeCommand("UPDATE PersonalTutor SET employeeNumber = "+ employeeNumber + " WHERE regNumber = " + Integer.parseInt(personalTutor.getCode()) +" ;");
     }
 
     public String getAdminForename(){

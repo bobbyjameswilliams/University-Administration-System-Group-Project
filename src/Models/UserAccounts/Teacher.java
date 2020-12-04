@@ -2,6 +2,7 @@ package Models.UserAccounts;
 
 import Models.CourseStructure.LevelOfStudy;
 import Models.DatabaseBehaviours.DBController;
+import Models.Tables.CourseStructure.RemoveCourseStructure;
 import Models.Tables.StudentGrade;
 
 import java.sql.*;
