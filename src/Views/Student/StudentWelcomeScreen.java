@@ -14,12 +14,10 @@ public class StudentWelcomeScreen extends WelcomeScreen {
     private JPanel mainPanel;
     private JTabbedPane tabbedPane1;
     private JScrollPane modulesPane;
-    private JScrollPane gradesPane;
     private JTable gradesTable;
     private JTable modulesTable;
     private JLabel welcomeLabel;
     private JLabel personalTutorLabel;
-    private JButton logOutButt;
     private Student student;
 
     /**
