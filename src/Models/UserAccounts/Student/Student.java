@@ -100,7 +100,7 @@ public class Student extends User {
 	public boolean alreadyRetaken(){
 		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
 			Statement stmt = con.createStatement();
-			String query = "SELECT * FROM StudentModule WHERE regNumber =" + this.getRegNumber() + " AND levelOfStudy = '" + this.getLevelOfStudy().toString() + "' " +
+			String query = "SELECT * FROM StudentModule WHERE regNumber =" + this.getRegNumber() + " AND levelOfStudyTaken = '" + this.getLevelOfStudy().toString() + "' " +
 					" AND resit = 1;";
 			ResultSet rs = stmt.executeQuery(query);
 			return rs.isBeforeFirst();

@@ -108,6 +108,7 @@ public class Graduation {
 
     private DegreeClassification classifyMasters() throws GradeAttainmentConstraint{
         if (this.calculateYearScore(LevelOfStudy.P) < 50){
+            student.setLevelOfStudy(LevelOfStudy.THREE);
             this.lowerQualificationType();
             return classifyBachelors();
         }
