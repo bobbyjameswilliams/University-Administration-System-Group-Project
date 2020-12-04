@@ -2,7 +2,9 @@ package Models.UserAccounts.Student;
 
 import Models.CourseStructure.*;
 import Models.DatabaseBehaviours.DBController;
+import Models.Graduation.GradeAttainmentConstraint;
 import Models.Graduation.Graduation;
+import Models.Graduation.LevelOfStudyConstraint;
 import Models.Tables.Registrar.InspectRegTableRow;
 import Models.Tables.Registrar.RegistrarTableRow;
 import Models.Tables.StudentGrade;
@@ -129,11 +131,9 @@ public class Student extends User {
 	public int getCreditsTaken(){
 		int creditsTaken = 0;
 		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
-
 			PreparedStatement pstmt = con.prepareStatement("SELECT credits FROM StudentModule JOIN Module " +
 																"ON Module.moduleCode = StudentModule.moduleCode\n " +
 																"WHERE regNumber =? AND StudentModule.levelOfStudyTaken =?;");
-
 			pstmt.setInt(1,this.getRegNumber());
 			pstmt.setString(2,this.getLevelOfStudy().toString());
 			ResultSet rs =  pstmt.executeQuery();
@@ -177,8 +177,6 @@ public class Student extends User {
 			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM Student " +
 																"WHERE username=? ;");
 			pstmt.setString(1,username);
-
-
 			ResultSet rs = pstmt.executeQuery();
 			return rs.isBeforeFirst();
 		} catch (Exception ex) {
@@ -187,7 +185,7 @@ public class Student extends User {
 		return false;
 	}
 
-	public void graduate() {
+	public void graduate() throws GradeAttainmentConstraint, LevelOfStudyConstraint {
 		new Graduation(this).graduate();
 	}
 
@@ -254,10 +252,6 @@ public class Student extends User {
 	public List<String> getPersonalTutor() throws SQLException {
 		String query = "SELECT forename, surname, emailAddress FROM PersonalTutor JOIN Employee ON PersonalTutor.employeeNumber = " +
 				"Employee.employeeNumber JOIN User ON User.username = Employee.username WHERE PersonalTutor.regNumber = " + this.regNumber;
-
-		String tutorForeName;
-		String tutorSurname;
-		String tutorEmail;
 		List<String> personalTutorInfo = new ArrayList<String>();
 		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
 			PreparedStatement pstmt = con.prepareStatement("SELECT forename, surname, emailAddress FROM PersonalTutor " +
@@ -265,19 +259,16 @@ public class Student extends User {
 																"JOIN User ON User.username = Employee.username\n " +
 																"WHERE PersonalTutor.regNumber =?;");
 			pstmt.setInt(1,this.getRegNumber());
-
 			ResultSet rs =  pstmt.executeQuery();
 			while(rs.next()){
 				personalTutorInfo.add(rs.getString("forename"));
 				personalTutorInfo.add(rs.getString("surname"));
 				personalTutorInfo.add(rs.getString("emailAddress"));
 			}
-
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return personalTutorInfo;
 	}
 

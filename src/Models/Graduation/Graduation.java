@@ -44,7 +44,7 @@ public class Graduation {
        }
     }
 
-    private DegreeClassification classifyDegree() {
+    private DegreeClassification classifyDegree() throws GradeAttainmentConstraint{
        switch (student.getQualificationType()){
            case BPsy:
            case BSc:
@@ -60,7 +60,8 @@ public class Graduation {
        return null;
     }
 
-    public void graduate(){
+    public void graduate() throws GradeAttainmentConstraint,LevelOfStudyConstraint{
+        if (student.getLevelOfStudy() == LevelOfStudy.TWO || student.getLevelOfStudy() == LevelOfStudy.ONE) throw new LevelOfStudyConstraint();
         DegreeClassification classification = classifyDegree();
         insertIntoDatabase(classification);
     }
@@ -72,10 +73,10 @@ public class Graduation {
         student.removeAllModules();
     }
 
-    private DegreeClassification classifyBachelors(){
+    private DegreeClassification classifyBachelors() throws  GradeAttainmentConstraint{
         int score = calculateFinalScore();
         if (score < 40) {
-            return null;
+            throw new GradeAttainmentConstraint(score);
         } else if (score < 45){
             return DegreeClassification.PASS_NON_HONOURS;
         } else if (score < 50){
@@ -89,10 +90,10 @@ public class Graduation {
         }
     }
 
-    private DegreeClassification classifyOneYearMasters(){
+    private DegreeClassification classifyOneYearMasters() throws GradeAttainmentConstraint{
         int score = calculateFinalScore();
         if (score < 50){
-            return null;
+            throw new GradeAttainmentConstraint(score);
         } else if (score < 60){
             return DegreeClassification.PASS;
         } else if (score < 70){
@@ -102,10 +103,10 @@ public class Graduation {
         }
     }
 
-    private DegreeClassification classifyMasters(){
+    private DegreeClassification classifyMasters() throws GradeAttainmentConstraint{
         int score = calculateFinalScore();
         if (score < 50){
-            return null;
+            throw new GradeAttainmentConstraint(score);
         } else if (score < 60){
             return DegreeClassification.LOWER_SECOND;
         } else if (score < 70){
