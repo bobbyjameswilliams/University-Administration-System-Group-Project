@@ -1,8 +1,7 @@
 package Controllers.Registrar;
 
-import Models.CourseStructure.LevelOfStudy;
 import Models.Tables.Registrar.RegistrarTableRow;
-import Models.UserAccounts.Registar;
+import Models.UserAccounts.Registrar;
 import Models.UserAccounts.Student.*;;
 import Models.UserAccounts.UserAccountBuilder;
 import Views.Registrar.RegistrarWelcomeScreen;
@@ -12,13 +11,13 @@ import Views.Registrar.RegistrarWelcomeScreen;
  */
 public class RegistrarWelcomeScreenController {
     private RegistrarWelcomeScreen registrarFrame;
-    private Registar registrar;
+    private Registrar registrar;
 
     public RegistrarWelcomeScreenController(){
-        this.registrar = new Registar();
+        this.registrar = new Registrar();
     }
 
-    public RegistrarWelcomeScreenController(Registar registrar){
+    public RegistrarWelcomeScreenController(Registrar registrar){
         this.registrar = registrar;
     }
 

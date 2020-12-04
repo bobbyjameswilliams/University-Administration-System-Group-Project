@@ -5,8 +5,6 @@ import Controllers.Admin.AdminController;
 import Controllers.Registrar.RegistrarWelcomeScreenController;
 import Controllers.Teacher.TeacherWelcomeScreenController;
 import Models.Authentication.Login;
-import Models.CourseStructure.TeachesModule;
-import Models.DatabaseBehaviours.DBController;
 import Models.UserAccounts.*;
 import Models.UserAccounts.Student.*;;
 import Views.Admin.AdminWelcomeScreen;
@@ -60,7 +58,7 @@ public class LogInController {
                 Teacher teacher = builder.employeeBuilder(new Teacher());
                 return new TeacherWelcomeScreen(teacher, new TeacherWelcomeScreenController(teacher));
             case REGISTRAR:
-                Registar registrar = builder.employeeBuilder(new Registar());
+                Registrar registrar = builder.employeeBuilder(new Registrar());
                 return new RegistrarWelcomeScreen(registrar, new RegistrarWelcomeScreenController(registrar));
             default:
                 return null;

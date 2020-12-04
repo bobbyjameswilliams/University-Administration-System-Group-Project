@@ -3,12 +3,10 @@ package Views.Registrar;
 import Controllers.Registrar.RegistrarWelcomeScreenController;
 import Models.CourseStructure.LevelOfStudy;
 import Models.Tables.Registrar.RegistrarTableModel;
-import Models.UserAccounts.Registar;
+import Models.UserAccounts.Registrar;
 import Views.WelcomeScreen;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class RegistrarWelcomeScreen extends WelcomeScreen {
     private JPanel mainPanel;
@@ -25,10 +23,10 @@ public class RegistrarWelcomeScreen extends WelcomeScreen {
     private JButton applyStudentButt;
     private JButton inspectRegistrationButt;
     private JLabel welcomeLabel;
-    private Registar registrar;
+    private Registrar registrar;
     private RegistrarWelcomeScreenController controller;
 
-    public RegistrarWelcomeScreen(Registar registrar, RegistrarWelcomeScreenController controller){
+    public RegistrarWelcomeScreen(Registrar registrar, RegistrarWelcomeScreenController controller){
         super();
         this.controller = controller;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,7 +84,7 @@ public class RegistrarWelcomeScreen extends WelcomeScreen {
     }
 
     public static void main(String args[]){
-        //Registar registrar = new Registar();
+        //Registrar registrar = new Registrar();
         //JFrame frame = new RegistrarWelcomeScreen(registrar);
         //frame.setVisible(true);
     }

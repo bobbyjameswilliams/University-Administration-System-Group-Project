@@ -5,7 +5,7 @@ import Models.CourseStructure.*;
 import Models.DatabaseBehaviours.DBController;
 import Models.UserAccounts.*;
 import Models.UserAccounts.Student.*;
-import com.mysql.cj.util.StringUtils;;
+;
 
 /**
  * Controller class for the administrator view
@@ -56,7 +56,7 @@ public class AdminController {
                 SignUp.signUpUser(teacher,password);
                 return;
             case REGISTRAR:
-                Registar  registrar = new Registar(forename,surname);
+                Registrar registrar = new Registrar(forename,surname);
                 administrator.addEmployee(registrar);
                 SignUp.signUpUser(registrar,password);
                 return;

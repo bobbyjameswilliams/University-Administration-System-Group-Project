@@ -13,20 +13,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Registar extends Employee {
+public class Registrar extends Employee {
 
 
     //for adding a new registrar to the DB
-    public Registar (String forename,String surname){
+    public Registrar(String forename, String surname){
         super(forename, surname);
     }
 
     // Dummy Class
-    public Registar(){
+    public Registrar(){
         super();
     }
 
-    public Registar (String username,String forename,String surname,String emailAddress,int employeeNumber){
+    public Registrar(String username, String forename, String surname, String emailAddress, int employeeNumber){
         super(username,forename, surname,emailAddress , employeeNumber);
     }
 
