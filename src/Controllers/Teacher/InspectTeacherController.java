@@ -42,6 +42,10 @@ public class InspectTeacherController{
     }
 
     public void graduate(Student student){
-        student.graduate();
+        try {
+            student.graduate();
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 }
