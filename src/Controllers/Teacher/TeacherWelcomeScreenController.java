@@ -1,11 +1,6 @@
 package Controllers.Teacher;
 
-import Controllers.Registrar.InspectRegistrationController;
-import Controllers.Registrar.InspectTeacherController;
-import Controllers.Registrar.RegistrarWelcomeScreenController;
-import Models.Tables.Registrar.RegistrarTableRow;
 import Models.Tables.StudentGrade;
-import Models.UserAccounts.Registar;
 import Models.UserAccounts.Student.Student;
 import Models.UserAccounts.Teacher;
 import Models.UserAccounts.UserAccountBuilder;

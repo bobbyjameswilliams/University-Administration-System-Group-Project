@@ -1,6 +1,7 @@
 package Views.Teacher;
 
 import Controllers.Teacher.TeacherWelcomeScreenController;
+import Models.Tables.Teacher.GraduateTableModel;
 import Models.Tables.Teacher.TeachesModuleTableModel;
 import Models.UserAccounts.Teacher;
 import Views.WelcomeScreen;
@@ -11,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 public class TeacherWelcomeScreen extends WelcomeScreen {
     private JPanel mainPanel;
     private JTabbedPane tabbedPane1;
-    private JTable assModulesTable;
+    private JTable graduatesTable;
     private JTable assStudentsTable;
     private JButton logOutButton;
     private JLabel welcomeLabel;
@@ -19,14 +20,13 @@ public class TeacherWelcomeScreen extends WelcomeScreen {
     private JScrollPane assStudentsTableScroll;
     private JPanel assStudentsActButtPane;
     private JButton stdtApplyButt;
-    private JPanel assModulesPane;
+    private JPanel graduatePane;
     private JScrollPane assModulesTableScroll;
-    private JPanel assignedModulesActButtPane;
-    private JButton viewCohortButt;
     private JButton studentBreakdownButt;
     private Teacher teacher;
     private TeacherWelcomeScreenController controller;
     private TeachesModuleTableModel studentModel;
+    private GraduateTableModel gradModel;
 
     public TeacherWelcomeScreen(Teacher teacher,TeacherWelcomeScreenController controller){
         super();
@@ -57,5 +57,7 @@ public class TeacherWelcomeScreen extends WelcomeScreen {
     private void update(){
         this.studentModel = new TeachesModuleTableModel(this.teacher);
         assStudentsTable.setModel(studentModel);
+        this.gradModel = new GraduateTableModel();
+        graduatesTable.setModel(gradModel);
     }
 }
