@@ -65,10 +65,14 @@ public class AdminController {
 
     public void addTeachesModule(String teacherNameAndNum, TeachesModule teachesModule){
         // Substring the before the first -, we get the employee Num essentially
-        int index = teacherNameAndNum.indexOf('-');
-        String refactoredString = teacherNameAndNum.substring(0,index);
-        int employeeNumber = Integer.parseInt(refactoredString);
+        int employeeNumber = TeacherDetails.deCypherEmployeeNumber(teacherNameAndNum);
         DBController.executeCommand("UPDATE TeachesModule SET employeeNumber = "+ employeeNumber + " WHERE moduleCode = '" + teachesModule.getCode() +"' ;");
+    }
+
+    public void addPersonalTutor(String teacherNameAndNum, PersonalTutor personalTutor){
+        // Substring the before the first -, we get the employee Num essentially
+        int employeeNumber = TeacherDetails.deCypherEmployeeNumber(teacherNameAndNum);
+        DBController.executeCommand("UPDATE PersonalTutor SET employeeNumber = "+ employeeNumber + " WHERE regNumber = " + Integer.parseInt(personalTutor.getCode()) +" ;");
     }
 
     public String getAdminForename(){
