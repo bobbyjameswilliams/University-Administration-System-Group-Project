@@ -10,10 +10,7 @@ import Models.UserAccounts.Student.*;;
 import Views.Registrar.InspectRegistration;
 
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,23 +23,42 @@ public class InspectRegistrationController {
     }
 
     public List<String> dataForModuleCombo(Student student){
-        String query = "SELECT moduleCode FROM Module WHERE moduleCode NOT IN (SELECT moduleCode FROM StudentModule WHERE regNumber = "+student.getRegNumber()+");";
-        System.out.println(query);
         List<String> moduleCodes = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
-            Statement stmt = con.createStatement();
-            ResultSet rs =  stmt.executeQuery(query);
+
+            PreparedStatement pstmt = con.prepareStatement("SELECT moduleCode " +
+                    "FROM Module WHERE moduleCode NOT IN (SELECT moduleCode FROM StudentModule WHERE regNumber = ?)");
+
+            pstmt.setInt(1,student.getRegNumber());
+
+
+
+
+            ResultSet rs =  pstmt.executeQuery();
             while(rs.next()){
                 moduleCodes.add(rs.getString("moduleCode"));
-            }
+                }
             return moduleCodes;
         } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+                ex.printStackTrace();
+                 }
         return null;
     }
 
     public void assignOptionalModule(String moduleCode, Student student){
+
+            try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
+
+                PreparedStatement pstmt = con.prepareStatement("INSERT INTO StudentModule (regNumber, moduleCode, grade, resit, levelOfStudyTaken) " +
+                        "VALUES(?,?,?, FALSE, \"" + "TWO\") ;");
+
+                pstmt.setInt(1,student.getRegNumber());
+                pstmt.setString( 2,moduleCode);
+                pstmt.setInt(3,0 );
+                int count = pstmt.executeUpdate();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         String query = "INSERT INTO StudentModule (regNumber, moduleCode, grade, resit, levelOfStudyTaken) VALUES(" + student.getRegNumber() + ", \"" + moduleCode + "\" ," + 0 + ", FALSE, \"" + "TWO\")"  ;
         DBController.executeCommand(query);
     }
