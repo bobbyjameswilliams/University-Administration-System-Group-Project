@@ -31,6 +31,11 @@ public class TeacherWelcomeScreen extends WelcomeScreen {
     private TeachesModuleTableModel studentModel;
     private GraduateTableModel gradModel;
 
+    /**
+     *
+     * @param teacher - Teacher object passed in by
+     * @param controller
+     */
     public TeacherWelcomeScreen(Teacher teacher,TeacherWelcomeScreenController controller){
         super();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
