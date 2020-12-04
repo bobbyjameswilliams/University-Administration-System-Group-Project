@@ -47,6 +47,7 @@ public class TeacherInspect extends WelcomeScreen {
 
         graduateStudentButton.addActionListener(e -> {
             controller.graduate(student);
+            this.update();
         });
 
     }
