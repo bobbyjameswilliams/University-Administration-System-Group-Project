@@ -7,6 +7,9 @@ import Models.UserAccounts.Student.*;;
 import Models.UserAccounts.UserAccountBuilder;
 import Views.Registrar.RegistrarWelcomeScreen;
 
+/**
+ * Controller for the registrar welcome screen
+ */
 public class RegistrarWelcomeScreenController {
     private RegistrarWelcomeScreen registrarFrame;
     private Registar registrar;

@@ -3,6 +3,8 @@ package Controllers.Teacher;
 import Models.CourseStructure.CompulsoryModule;
 import Models.CourseStructure.CompusloryModuleConstraint;
 import Models.DatabaseBehaviours.DBController;
+import Models.Graduation.GradeAttainmentConstraint;
+import Models.Graduation.LevelOfStudyConstraint;
 import Models.Tables.Registrar.InspectRegTableRow;
 import Models.UserAccounts.Student.InsufficientCreditEnrollment;
 import Models.UserAccounts.Student.InsufficientGradeAttainment;
@@ -44,8 +46,8 @@ public class InspectTeacherController{
     public void graduate(Student student){
         try {
             student.graduate();
-        } catch (Exception ex){
-            ex.printStackTrace();
+        } catch (LevelOfStudyConstraint | GradeAttainmentConstraint ex ){
+            inspectionFrame.errLabel.setText("Conditions not met");
         }
     }
 }

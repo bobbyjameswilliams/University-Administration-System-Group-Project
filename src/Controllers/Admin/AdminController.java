@@ -5,11 +5,16 @@ import Models.CourseStructure.*;
 import Models.UserAccounts.*;
 import Models.UserAccounts.Student.*;;
 
+/**
+ * Controller class for the administrator view
+ */
+
 public class AdminController {
 
     private Administrator administrator;
 
     public AdminController(Administrator administrator) {this.administrator = administrator;}
+
 
     public void addModule(String moduleNumber,String moduleName,int credits,String departmentName){
         String departmentCode = Department.getCodeFromName(departmentName);
