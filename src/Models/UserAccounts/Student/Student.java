@@ -2,6 +2,7 @@ package Models.UserAccounts.Student;
 
 import Models.CourseStructure.*;
 import Models.DatabaseBehaviours.DBController;
+import Models.Graduation.Graduation;
 import Models.Tables.Registrar.InspectRegTableRow;
 import Models.Tables.Registrar.RegistrarTableRow;
 import Models.Tables.StudentGrade;
@@ -186,8 +187,8 @@ public class Student extends User {
 		return false;
 	}
 
-	public boolean canGraduate() {
-		return false;
+	public void graduate() {
+		new Graduation(this).graduate();
 	}
 
 	public void enroll(UniModule module){
