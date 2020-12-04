@@ -149,7 +149,7 @@ public class Student extends User {
 		String query  = "SELECT StudentModule.moduleCode,StudentModule.grade,Module.credits,StudentModule.levelOfStudyTaken," +
 				"Module.moduleName FROM StudentModule JOIN Module ON StudentModule.moduleCode = Module.moduleCode" +
 				" WHERE StudentModule.regNumber = ?;";
-		System.out.println(query);
+
 		List<InspectRegTableRow> inspectRegTableRows = new ArrayList<>();
 		try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
 			PreparedStatement pstmt = con.prepareStatement(query);

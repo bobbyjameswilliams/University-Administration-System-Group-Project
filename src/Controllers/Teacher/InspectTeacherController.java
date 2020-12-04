@@ -1,4 +1,4 @@
-package Controllers.Registrar;
+package Controllers.Teacher;
 
 import Models.CourseStructure.CompulsoryModule;
 import Models.CourseStructure.CompusloryModuleConstraint;

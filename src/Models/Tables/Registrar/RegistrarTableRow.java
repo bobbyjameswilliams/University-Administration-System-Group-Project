@@ -60,7 +60,7 @@ private String email;
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
             Statement stmt = con.createStatement();
             String query = "UPDATE Student SET degreeCode = \"" + degreeCode + "\", levelOfStudy = \"" + levelOfStudy + "\" WHERE regNumber = " + regNumber + ";" ;
-            System.out.println(query);
+
             stmt.execute(query);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -72,7 +72,7 @@ private String email;
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
             Statement stmt = con.createStatement();
             String query = "UPDATE Student SET degreeCode = " + null + ", levelOfStudy = " + null + " WHERE regNumber = " + regNumber + ";" ;
-            System.out.println(query);
+
             stmt.execute(query);
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -48,7 +48,7 @@ public class Registar extends Employee {
 
     public List<RegistrarTableRow> getAllStudents(){
         String query = "SELECT Student.regNumber, Student.userName, Student.degreeCode, Student.levelOfStudy, User.forename, User.surname, User.emailAddress from Student JOIN User ON Student.username = User.username;";
-        System.out.println(query);
+
         List<RegistrarTableRow> registrarTableRows = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(DBController.url,DBController.user,DBController.password)){
             Statement stmt = con.createStatement();
@@ -72,7 +72,7 @@ public class Registar extends Employee {
 
     public Object[] getAllCourses() {
         String query = "SELECT degreeCode FROM Degree;";
-        System.out.println(query);
+
         List<String> degreeCode = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(this.url,this.user,this.password)){
             Statement stmt = con.createStatement();

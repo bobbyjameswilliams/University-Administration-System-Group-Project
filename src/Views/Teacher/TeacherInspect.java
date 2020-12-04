@@ -1,7 +1,8 @@
 package Views.Teacher;
 
 import Controllers.Registrar.InspectRegistrationController;
-import Controllers.Registrar.InspectTeacherController;
+import Controllers.Teacher.InspectTeacherController;
+import Controllers.Teacher.InspectTeacherController;
 import Models.Tables.Registrar.InspectRegTableModel;
 import Models.UserAccounts.Student.Student;
 import Views.WelcomeScreen;

@@ -1,7 +1,7 @@
 package Controllers.Teacher;
 
 import Controllers.Registrar.InspectRegistrationController;
-import Controllers.Registrar.InspectTeacherController;
+import Controllers.Teacher.InspectTeacherController;
 import Controllers.Registrar.RegistrarWelcomeScreenController;
 import Models.Tables.Registrar.RegistrarTableRow;
 import Models.Tables.StudentGrade;
